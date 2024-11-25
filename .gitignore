@@ -1,0 +1,13 @@
+# Dependencias de Composer y Node.js
+Backend/vendor/
+Backend/node_modules/
+
+# Archivos de configuración sensibles
+Backend/.env
+Backend/.env.*
+
+# Archivos generados por herramientas de frontend
+Backend/public/hot
+Backend/public/storage
+Backend/public/mix-manifest.json
+
