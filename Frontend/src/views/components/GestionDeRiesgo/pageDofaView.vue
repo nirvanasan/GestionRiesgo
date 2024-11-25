@@ -32,10 +32,10 @@
               <div class="form-group">
                 <label for="cuadrante">Seleccione un cuadrante</label>
                 <select v-model="selectedCuadrante" id="cuadrante">
-                  <option value="Fortaleza">Fortaleza</option>
-                  <option value="Debilidad">Debilidad</option>
-                  <option value="Oportunidad">Oportunidad</option>
-                  <option value="Amenaza">Amenaza</option>
+                  <option value="Fortaleza" >Fortaleza</option>
+                  <option value="Debilidad" >Debilidad</option>
+                  <option value="Oportunidad" >Oportunidad</option>
+                  <option value="Amenaza" >Amenaza</option>
                 </select>
               </div>
 
@@ -52,7 +52,12 @@
               <!-- Campo de Descripción -->
               <div class="form-group">
                 <label for="descripcion">Descripción</label>
-                <textarea v-model="descripcion" id="descripcion" rows="5"></textarea>
+                <textarea
+                v-model="descripcion"
+                @keyup.enter="handleSubmit"
+                id="descripcion"
+                placeholder="Ingrese la descripción"
+                ></textarea>
               </div>
 
               <!-- Botones -->
@@ -66,22 +71,17 @@
 
             <div class="left-column">
               <label for="descripcion">Debilidad</label>
-              <textarea v-model="input1" readonly></textarea>
+              <textarea v-model="input1" readonly placeholder="Aquí va la Debilidad"></textarea>
               <label for="descripcion">Oportunidad</label>
-              <textarea v-model="input2" readonly></textarea>
+              <textarea v-model="input2" readonly placeholder="Aquí va la Oportunidad"></textarea>
             </div>
             <div class="right-column">
               <label for="descripcion">Fortaleza</label>
-              <textarea v-model="input3" readonly></textarea>
+              <textarea v-model="input3" readonly placeholder="Aquí va la Fortaleza"></textarea>
               <label for="descripcion">Amenaza</label>
-              <textarea v-model="input4" readonly></textarea>
+              <textarea v-model="input4" readonly placeholder="Aquí va la Amenaza"></textarea>
               <div class="button-container">
-                <button 
-                  :disabled="isEnviarDisabled" 
-                  @click="enviarDatos" 
-                  class="btn enviar-btn"
-                  :class="{ 'disabled-btn': isEnviarDisabled }"
-                >
+                <button class="button ">
                   Enviar datos
                 </button>
               </div>
@@ -390,13 +390,13 @@ textarea {
   height: 40px;
   text-align: center;
   margin-left: auto; /* Esto mueve el botón hacia la derecha */
-  background-color: #28a745; /* Puedes cambiar el color aquí si lo deseas */
-  color: white;
+  background-color: #a2e7b2; /* Puedes cambiar el color aquí si lo deseas */
+  color: rgb(213, 123, 123);
   border-radius: 4px;
   margin-left: auto;
 }  
 .enviar-btn:hover {
-  background-color: #218838; /* Verde más oscuro */
+  background-color: #fbeb0f; /* Verde más oscuro */
   color: white;
 }
 .button-group  {
@@ -406,8 +406,8 @@ textarea {
 }
 
 .disabled-btn {
-  background-color: #cccccc;
-  color: #666666;
+  background-color: #C51922;;
+  color: #ffffff;
 }
 
 
@@ -422,12 +422,12 @@ textarea {
 
 .limpiar-btn {
   background-color: #d4af37; /* Color dorado */
-  color: black;
+  color: rgb(255, 255, 255);
 }
 
 .ingresar-btn {
   background-color: #e63946; /* Color rojo */
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 
