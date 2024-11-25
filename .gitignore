@@ -11,3 +11,28 @@ Backend/public/hot
 Backend/public/storage
 Backend/public/mix-manifest.json
 
+#------------------------------------------------
+
+Frontend/.DS_Store
+Frontend/node_modules
+Frontend/dist
+
+
+# local env files
+Frontend/.env.local
+Frontend/.env.*.local
+
+# Log files
+Frontend/npm-debug.log*
+Frontend/yarn-debug.log*
+Frontend/yarn-error.log*
+Frontend/pnpm-debug.log*
+
+# Editor directories and files
+Frontend/.idea
+Frontend/.vscode
+Frontend/*.suo
+Frontend/.ntvs
+Frontend/*.njsproj
+Frontend/*.sln
+Frontend/*.sw?
