@@ -31,7 +31,7 @@ export default {
 
 <style scoped>
 .container {
-  grid-column: 5 / 17;
+  grid-column: 4 / 19;
   grid-row: 1 / 2;
   display: flex;
   justify-content: space-between;
