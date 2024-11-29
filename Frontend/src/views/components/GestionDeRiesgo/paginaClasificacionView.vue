@@ -4,97 +4,29 @@
       <EncabezadoView />
 
       <!-- Barra de navegación -->
-      <nav class="navigation">
-        <ul class="main-nav">
-          <div class="main-nav__item">
-            <router-link to="/dofa" class="nav-link">DOFA</router-link>
-          </div>
-          <div class="main-nav__item">
-            <router-link to="/clasificacion" class="nav-link">Clasificación</router-link>
-          </div>
-          <div class="main-nav__item">
-            <router-link to="/controles" class="nav-link">Controles</router-link>
-          </div>
-          <div class="main-nav__item">
-            <router-link to="/accion" class="nav-link">Acción</router-link>
-          </div>
-          <div class="main-nav__item">
-            <router-link to="/seguimiento" class="nav-link">Seguimiento</router-link>
-          </div>
-        </ul>
-      </nav>
+       <NavegacionView/>
 
       <!-- Contenido principal -->
-      <main class="main-content">
-        <div class="container">
-          <!-- Sección izquierda -->
-          <div class="panel">
-            <div class="panel-section">
-              <h3>Oportunidad</h3>
-              <div class="list-container">
-                <ul>
-                  <li>Oportunidad 1</li>
-                  <li>Oportunidad 2</li>
-                  <li>Oportunidad 3</li>
-                  <li>Oportunidad 4</li>
-                </ul>
-              </div>
-            </div>
-            <div class="panel-section">
-              <h3>Riesgo</h3>
-              <div class="list-container">
-                <ul>
-                  <li>Riesgo 1</li>
-                  <li>Riesgo 2</li>
-                  <li>Riesgo 3</li>
-                  <li>Riesgo 4</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <!-- Sección derecha -->
-          <div class="inputs">
-            <div class="input-group">
-              <label for="causas">Causas Potenciales</label>
-              <textarea id="causas"></textarea>
-            </div>
-            <div class="input-group">
-              <label for="efecto">Efecto Potencial</label>
-              <textarea id="efecto"></textarea>
-            </div>
-            <div class="input-group">
-              <div class="inline-input">
-                <label for="probabilidad1">Probabilidad</label>
-                <input id="probabilidad1" type="number" value="5" />
-              </div>
-              <div class="inline-input">
-                <label for="probabilidad2">Probabilidad</label>
-                <input id="probabilidad2" type="number" value="5" />
-              </div>
-            </div>
-            <div class="input-group">
-              <label for="valoracion">Valoración</label>
-              <input id="valoracion" type="text" />
-            </div>
-            <div class="buttons">
-              <button class="btn limpiar">Limpiar</button>
-              <button class="btn ingresar">Ingresar</button>
-            </div>
-          </div>
-        </div>
-      </main>
+      
+      <ContenedorView />
+      
     </div>
 </template>
 
 <script>
+import ContenedorView from "../contenedorView.vue";
 import EncabezadoView from "../EncabezadoView.vue";
+import NavegacionView from "../navegacionView.vue";
+
 
 export default {
   name: "MainPage",
   components: {
     EncabezadoView,
+    ContenedorView,
+    NavegacionView
   },
+  
 };
 </script>
 
@@ -116,14 +48,7 @@ export default {
   margin-top: 50px;
 }
 
-.main-content {
-  grid-column: 5 / 17;
-  grid-row: 3;
-  background-color: #ffffff;
-  padding: 20px;
-  padding-top: 0;
-  box-shadow: 0px 4px 8px rgba(87, 85, 85, 0.8);
-}
+
 
 .container {
   display: flex;

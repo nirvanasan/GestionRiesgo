@@ -60,7 +60,7 @@
           <!-- Botones -->
           <div class="button-group">
             <button @click="limpiar" class="btn limpiar-btn">Limpiar</button>
-            <button @click="handleSubmit" class="btn ingresar-btn">Inserter</button>
+            <button @click="handleSubmit" class="btn ingresar-btn">Insertar</button>
           </div>
         </div>
 
@@ -152,7 +152,7 @@ export default {
   methods: {
   handleSubmit() {
     if (!this.descripcion.trim()) {
-      alert("Por favor, digite una descripción antes de enviar.");
+      alert("Datos enviados!!.");
       return;
     }
 
