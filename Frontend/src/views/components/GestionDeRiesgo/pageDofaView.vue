@@ -3,25 +3,8 @@
     <!-- Encabezado de la página -->
     <EncabezadoView />
     <!-- Barra de navegación -->
-    <nav class="navigation">
-      <ul class="main-nav">
-        <div class="main-nav__item">
-          <router-link to="/dofa" class="create-account"><a router class="nav-link">Dofa</a></router-link>
-        </div>
-        <div class="main-nav__item">
-          <router-link to="/clasificacion" class="create-account"><a class="nav-link">Clasificación</a></router-link>
-        </div>
-        <div class="main-nav__item">
-          <router-link to="/controles" class="create-account"><a class="nav-link">Controles</a></router-link>
-        </div>
-        <div class="main-nav__item">
-          <router-link to="/accion" class="create-account"><a class="nav-link">Acción</a></router-link>
-        </div>
-        <div class="main-nav__item">
-          <router-link to="/seguimiento" class="create-account"><a class="nav-link">Seguimiento</a></router-link>
-        </div>
-      </ul>
-    </nav>
+    <NavegacionView/>
+
     <main class="main-content">
       <section class="input-container">
         <div class="right-section">
@@ -91,7 +74,7 @@
           <div class="right-column">
             <label>Fortaleza</label>
             <div class="readonly-box">
-              <span v-if="fortalezas.length === 0">Aquí va la Fortaleza</span>
+              <span v-if="fortalezas.length === 0" placeholder="ingrese aqui ">Aquí va la Fortaleza</span>
               <p v-for="(item, index) in fortalezas" :key="index">
                 <span :class="getTypeClass(item.type)">
                   {{ item.type }}:
@@ -124,11 +107,13 @@
 
 <script>
 import EncabezadoView from '../EncabezadoView.vue';
+import NavegacionView from "../navegacionView.vue";
 
 export default {
   name: 'MainPage',
   components: {
-    EncabezadoView
+    EncabezadoView,
+    NavegacionView,
   },
   data() {
     return {
@@ -274,18 +259,6 @@ export default {
   border-radius: 8px;
 }
 
-.nav-link {
-  padding: 10px 40px;
-  color: white;
-  border-radius: 10px;
-  text-decoration: none;
-  background-color: #c91717;
-}
-
-.nav-link:hover {
-  background-color: white;
-  color: red;
-}
 
 .input-container {
   display: flex;
@@ -380,6 +353,7 @@ textarea {
   word-wrap: break-word; /* Permite que las palabras largas se ajusten dentro del contenedor */
   font-family: inherit;
   font-size: 14px;
+  
   
 }
 
