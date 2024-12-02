@@ -26,3 +26,6 @@ Route::get('main', function () {
     return view('main');
 });
 
+Route::get('dofa', function () {
+    return view('dofa');
+});

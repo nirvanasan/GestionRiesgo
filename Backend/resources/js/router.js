@@ -5,6 +5,7 @@ import Registro from '@/components/registroView.vue';
 import Home from '@/components/loginViewq.vue';
 import Main from './components/HomeView.vue';
 import Recuperar from './components/recuperarView.vue';
+import Dofa from './components/GestionDeRiesgo/pageDofaView.vue';
 
 const routes = [
     {
@@ -34,6 +35,15 @@ const routes = [
             title: "Home"
             }
     },
+    {
+      path: '/dofa',
+      name: 'dofa',
+      component: Dofa,
+      meta: {
+          requiresAuth: true,
+          title: "DOFA"
+          }
+  },
 ];
 
 const router = createRouter({

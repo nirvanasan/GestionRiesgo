@@ -91,8 +91,9 @@ export default {
       
     },
     selectOption(option) {
-      alert('Opción seleccionada: ${option})');
+      
       this.activeMenu = null; // Cierra el menú después de seleccionar
+      this.$router.push('/dofa')
     },
     updateTime() {
       const now = new Date();
