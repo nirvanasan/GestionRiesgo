@@ -8,6 +8,7 @@ import Login from './components/loginViewq.vue';
 import Registro from './components/registroView.vue';
 import Recuperar from './components/recuperarView.vue';
 import Main from './components/HomeView.vue';
+import Dofa from './components/GestionDeRiesgo/pageDofaView.vue';
 
 
 const app = createApp(App);
@@ -19,6 +20,7 @@ app.mount('#registro');
 app.mount('#home')
 app.mount('#recuperar')
 app.mount('#main')
+app.mount('#dofa')
 
 
 app.config.globalProperties.$axios = axios;
