@@ -9,6 +9,8 @@ import PaginaControlesView from '@/views/components/GestionDeRiesgo/paginaContro
 import PaginaAccionView from '@/views/components/GestionDeRiesgo/paginaAccionView.vue'
 import PaginaSeguimientoView from '@/views/components/GestionDeRiesgo/paginaSeguimientoView.vue'
 import PaginaClasificacionView from '@/views/components/GestionDeRiesgo/paginaClasificacionView.vue'
+import EleccionView from '@/views/components/eleccionView.vue'
+import ProcesoView from '@/views/components/procesoView.vue'
 
 const routes = [
   {
@@ -79,7 +81,17 @@ const routes = [
     component: PaginaClasificacionView
   },
   
-   
+  {
+    path: '/eleccion',
+    name: 'eleccion',
+    component: EleccionView
+  },
+  
+  {
+    path: '/proceso',
+    name: 'proceso',
+    component: ProcesoView
+  },
   
 
 

@@ -13,7 +13,7 @@
       <div class="right-side">
         <div class="login-card">
           <div class="card-section">
-            <h3>Login</h3>
+            <h3>Gestion de riesgos</h3>
           </div>
           <form @submit.prevent="login">
             <div class="input-group">
@@ -135,7 +135,8 @@ html, body {
   align-items: center;
   grid-column: 6/10;
   grid-row: 3/10;
-   border-radius: 10px;
+  border-radius: 10px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
  
    
 }

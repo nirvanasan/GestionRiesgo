@@ -3,19 +3,19 @@
   <nav class="navigation">
     <ul class="main-nav">
       <div class="main-nav__item">
-        <router-link to="/dofa" class="create-account"><a router class="nav-link">Dofa</a></router-link>
+        <router-link to="/dofa" class="create-account nav-link">Dofa</router-link>
       </div>
       <div class="main-nav__item">
-        <router-link to="/clasificacion" class="create-account"><a class="nav-link">Clasificación</a></router-link>
+        <router-link to="/clasificacion" class="create-account nav-link">Clasificación</router-link>
       </div>
       <div class="main-nav__item">
-        <router-link to="/controles" class="create-account"><a class="nav-link">Controles</a></router-link>
+        <router-link to="/controles" class="create-account nav-link">Controles</router-link>
       </div>
       <div class="main-nav__item">
-        <router-link to="/accion" class="create-account"><a class="nav-link">Acción</a></router-link>
+        <router-link to="/accion" class="create-account nav-link">Acción</router-link>
       </div>
       <div class="main-nav__item">
-        <router-link to="/seguimiento" class="create-account"><a class="nav-link">Seguimiento</a></router-link>
+        <router-link to="/seguimiento" class="create-account nav-link">Seguimiento</router-link>
       </div>
     </ul>
   </nav>
