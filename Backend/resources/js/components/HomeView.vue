@@ -89,7 +89,7 @@ export default {
     selectOption(option) {
       
       this.activeMenu = null; // Cierra el menú después de seleccionar
-      this.$router.push('/dofa')
+      this.$router.push('/main')
     },
     updateTime() {
       const now = new Date();
@@ -169,6 +169,14 @@ export default {
   width: 200px;
   border-radius: 8px;
   text-decoration: none;
+}
+
+/* Estilo para cuando el botón está en estado hover */
+.menu-titulo:hover {
+  background-color: #ff0000; /* Cambio de color de fondo */
+  color: #faf9f9; /* Cambio de color del texto */
+  transform: scale(1.05); /* Efecto de aumento */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para un efecto de profundidad */
 }
 
 

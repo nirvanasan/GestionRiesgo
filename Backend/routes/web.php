@@ -29,3 +29,7 @@ Route::get('main', function () {
 Route::get('dofa', function () {
     return view('dofa');
 });
+
+Route::get('eleccion', function () {
+    return view('eleccion');
+});
