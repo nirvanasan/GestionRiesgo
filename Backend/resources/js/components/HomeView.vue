@@ -4,9 +4,11 @@
     <div class="container">
       <div class="box1"></div>
       <div class="box">
-        <p>USUARIO: {{ user.name }}</p>
-        <p>FECHA: {{ date }}</p>
-        <p>HORA: {{ time }}</p>
+        
+        <p> <strong>USUARIO:</strong>  {{ user.name }} </p>
+        <p> <strong>FECHA:</strong>  {{ date }}</p>
+        <p> <strong>HORA:</strong>  {{ time }}</p>
+
       </div>
       <div class="box">
         <button class="button" @click="logout">Cerrar Sesión</button>
@@ -22,12 +24,13 @@
         <b><p>GESTIÓN DE RIESGOS</p></b>
         <div class="menu-titulo" @click="toggleMenu('menu1')">Matriz de Riesgos</div>
         <ul v-if="activeMenu === 'menu1'" class="menu-opciones">
-          <router-link to="/dofa" class="create-account"><li @click="selectOption('DOFA')">DOFA</li></router-link>
+          <li @click="selectOption('DOFA')">DOFA</li>
           <li @click="selectOption('Clasificación')">Clasificación</li>
           <li @click="selectOption('Controles')">Controles</li>
           <li @click="selectOption('Acciones')">Acciones</li>
           <li @click="selectOption('Seguimiento')">Seguimiento</li>
         </ul>
+
 
         <b><p>GESTIÓN DOCUMENTAL</p></b>
         <div class="menu-titulo" @click="toggleMenu('menu2')">Documentos</div>
@@ -37,7 +40,7 @@
         </ul>
       </div>
 
-      <!-- Notifications Panel -->
+    
       <div class="sub-container right">
         <b><p>TAREAS</p></b>
         <div class="container3">
@@ -112,13 +115,14 @@ export default {
   grid-template-rows: 100px auto;
   height: 100vh;
   margin: 0;
-  background-image: url('img/Foto 2.png');
+  background-image: url('img/Fondo2.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .container {
+  font-family:'Courier New', Courier, monospace;
   grid-column: 5 / 17;
   grid-row: 1 / 2;
   display: flex;
