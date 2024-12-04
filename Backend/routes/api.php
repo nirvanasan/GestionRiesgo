@@ -15,4 +15,4 @@ Route::get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/users', [UserController::class, 'store']);
 Route::post('/registro', [RegisterController::class, 'register']);
-Route::post('/guardar-dofa', [DofaController::class, 'guardar']);
+Route::post('/guardar-dofa', [DofaController::class, 'store']);
