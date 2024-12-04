@@ -36,6 +36,16 @@
               <input v-model="confirmPassword" type="password" id="confirmPassword" required placeholder="Repite tu contraseña" />
             </div>
 
+            <div class="opcion">
+            <label for="area">Area</label>
+            <select id="area" v-model="area">
+              <option value="operativo">Sistemas</option>
+              <option value="estrategico">Gestion Humana</option>
+              <option value="tactico">Produccion</option>
+              <option value="tactico">Gerencia</option>
+            </select>
+          </div>
+
             <button type="submit" class="submit-btn">Registrarse</button>
           </form>
 
@@ -202,6 +212,24 @@ h3 {
     height: 100px;
   }
 
+  .opcion {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 7px;
+  }
+  
+  select,
+  input {
+    width: 108%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
 /* Estilo responsivo para pantallas pequeñas */
 @media (max-width: 768px) {
   .grid-container {
@@ -213,8 +241,6 @@ h3 {
     max-width: 200px;
   }
 
-  .reset-card {
-    /* Puedes ajustar el estilo aquí si es necesario */
-  }
+  
 }
 </style>
