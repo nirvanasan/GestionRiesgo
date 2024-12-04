@@ -1,118 +1,110 @@
 <template>
-  <div class="form-page">
-    <!-- Botón de Ir Atrás -->
-    <div class="back-button-container">
-      <button @click="goBack" class="back-btn">← Ir Atrás</button>
-    </div>
-    <div class="form-container">
-      <div class="form-card">
-        <div class="card-header">
-          <h3>Formulario de Inscripción de Proceso</h3>
-        </div>
-        <form @submit.prevent="registerProcess">
-          <div class="input-group">
-            <label for="process-name">Nombre del Proceso</label>
-            <input 
-              v-model="processName" 
-              type="text" 
-              id="process-name" 
-              required 
-              placeholder="Ingresa el nombre del proceso" 
-            />
-          </div>
-          <div class="input-group">
-            <label for="description">Descripción</label>
-            <textarea 
-              v-model="description" 
-              id="description" 
-              rows="5" 
-              required 
-              placeholder="Ingresa una descripción del proceso"
-            ></textarea>
-          </div>
-          <button type="submit" class="submit-btn">Registrar Proceso</button>
-        </form>
-        <div v-if="message" :class="{'success-message': isSuccess, 'error-message': !isSuccess}">
-          {{ message }}
-        </div>
-      </div>
-    </div>
+  <div class="pagina">
+    <!-- Encabezado de la página -->
+    <EncabezadoView />
+    <!-- Barra de navegación -->
+
+        <main class="main-content">
+
+          <section class="input-container">
+
+            <!-- Botón de Ir Atrás 
+            <div class="back-button-container">
+              <button @click="goBack" class="back-btn">← Ir Atrás</button>
+            </div>-->
+            <div class="form-container">
+              <div class="form-card">
+                <div class="card-header">
+                  <h3>Formulario de Inscripción de Proceso</h3>
+                </div>
+                <form @submit.prevent="registerProcess">
+                  <div class="input-group">
+                    <label for="process-name">Nombre del Proceso</label>
+                    <input 
+                      v-model="processName" 
+                      type="text" 
+                      id="process-name" 
+                      required 
+                      placeholder="Ingresa el nombre del proceso" 
+                    />
+                  </div>
+                  <div class="input-group">
+                    <label for="description">Descripción</label>
+                    <textarea 
+                      v-model="description" 
+                      id="description" 
+                      rows="5" 
+                      required 
+                      placeholder="Ingresa una descripción del proceso"
+                    ></textarea>
+                  </div>
+                  <button type="submit" class="submit-btn">Registrar Proceso</button>
+                </form>
+                <div v-if="message" :class="{'success-message': isSuccess, 'error-message': !isSuccess}">
+                  {{ message }}
+                </div>
+              </div>
+            </div>
+      
+          </section>
+        </main>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import EncabezadoView from '../components/EncabezadoView.vue';
 
 export default {
-  data() {
-    return {
-      processName: "",
-      description: "",
-      message: null, // Mensaje para éxito o error
-      isSuccess: false, // Determina si el mensaje es de éxito o error
-    };
-  },
-  methods: {
-    async registerProcess() {
-      try {
-        // Validaciones básicas
-        if (!this.processName || !this.description) {
-          this.message = "Por favor completa todos los campos.";
-          this.isSuccess = false;
-          return;
-        }
-
-        // Datos a enviar al backend
-        const data = {
-          name: this.processName,
-          description: this.description,
-        };
-
-        // Realiza la solicitud POST al backend de Laravel
-        const response = await axios.post("http://localhost:8000/api/processes", data);
-
-        // Si la solicitud es exitosa
-        if (response.status === 201) {
-          this.message = "El proceso fue registrado exitosamente.";
-          this.isSuccess = true;
-          // Limpiar los campos del formulario
-          this.processName = "";
-          this.description = "";
-        }
-      } catch (error) {
-        console.error("Error al registrar el proceso:", error);
-        this.message = error.response?.data?.message || "Ocurrió un error al registrar el proceso.";
-        this.isSuccess = false;
-      }
-    },
-    goBack() {
-      this.$router.go(-1); // Navega a la página anterior
-    },
-  },
-};
+  name: 'MainPage',
+  components: {
+    EncabezadoView,
+  }
+}
 </script>
 
+
 <style scoped>
-/* Fondo y diseño general */
-.form-page {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url('/src/assets/img/Fondo2.png');
+.pagina {
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: 100px 100px auto;
+  background-image: url("/src/assets/img/Fondo2.png");
+  background-position: center center;
   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  font-family: Arial, sans-serif;
+  height: 100vh;
 }
+
+.input-container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente el contenido */
+    align-items: center; /* Centra verticalmente el contenido */
+    height: 400px; /* Opcional: asegura que el contenedor ocupe toda la altura de la ventana */
+    padding: 20px;
+    border-radius: 15px;
+}
+
+
+.main-content {
+  grid-column: 4 / 18;
+  grid-row: 3;
+  padding: 10px;
+  height: 450px;
+  width: 105%;
+  border-radius: 8px;
+}
+
+/* diseño de agregar proceso */
+
 
 /* Contenedor del formulario */
 .form-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 100%;
   max-width: 600px;
-  padding: 20px;
+  padding: 40px;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -120,7 +112,7 @@ export default {
 
 /* Tarjeta del formulario */
 .form-card {
-  width: 100%;
+  width: 90%;
   position: relative; /* Posiciona elementos relativos dentro de la tarjeta */
 }
 
@@ -209,4 +201,7 @@ export default {
     width: 90%;
   }
 }
+
+
+
 </style>
