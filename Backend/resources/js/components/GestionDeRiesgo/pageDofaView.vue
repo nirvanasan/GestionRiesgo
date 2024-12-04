@@ -3,25 +3,10 @@
     <!-- Encabezado de la página -->
     <EncabezadoView />
     <!-- Barra de navegación -->
-    <nav class="navigation">
-      <ul class="main-nav">
-        <div class="main-nav__item">
-          <router-link to="/dofa" class="create-account"><a router class="nav-link">Dofa</a></router-link>
-        </div>
-        <div class="main-nav__item">
-          <router-link to="/clasificacion" class="create-account"><a class="nav-link">Clasificación</a></router-link>
-        </div>
-        <div class="main-nav__item">
-          <router-link to="/controles" class="create-account"><a class="nav-link">Controles</a></router-link>
-        </div>
-        <div class="main-nav__item">
-          <router-link to="/accion" class="create-account"><a class="nav-link">Acción</a></router-link>
-        </div>
-        <div class="main-nav__item">
-          <router-link to="/seguimiento" class="create-account"><a class="nav-link">Seguimiento</a></router-link>
-        </div>
-      </ul>
-    </nav>
+    
+    
+    <NavegacionView/>
+    
     <main class="main-content">
       <section class="input-container">
         <div class="right-section">
@@ -67,7 +52,7 @@
         <div class="left-column">
             <label>Debilidad</label>
             <div class="readonly-box">
-              <span v-if="debilidades.length === 0">Ingrese aquí</span>
+              <span v-if="debilidades.length === 0 "style="color: gray; font-style: italic">Ingrese aquí</span>
               <p v-for="(item, index) in debilidades" :key="index">
                 <span :class="getTypeClass(item.type)">
                   {{ item.type }}:
@@ -78,7 +63,7 @@
 
             <label>Oportunidad</label>
             <div class="readonly-box">
-              <span v-if="oportunidades.length === 0">Ingrese aquí</span>
+              <span v-if="oportunidades.length === 0" style="color: gray; font-style: italic">Ingrese aquí</span>
               <p v-for="(item, index) in oportunidades" :key="index">
                 <span :class="getTypeClass(item.type)">
                   {{ item.type }}:
@@ -91,7 +76,7 @@
           <div class="right-column">
             <label>Fortaleza</label>
             <div class="readonly-box">
-              <span v-if="fortalezas.length === 0">Ingrese aquí</span>
+              <span v-if="fortalezas.length === 0" style="color: gray; font-style: italic">Ingrese aquí</span>
               <p v-for="(item, index) in fortalezas" :key="index">
                 <span :class="getTypeClass(item.type)">
                   {{ item.type }}:
@@ -102,7 +87,7 @@
 
             <label>Amenaza</label>
             <div class="readonly-box">
-              <span v-if="amenazas.length === 0">Ingrese aquí</span>
+              <span v-if="amenazas.length === 0" style="color: gray; font-style: italic">Ingrese aquí</span>
               <p v-for="(item, index) in amenazas" :key="index">
                 <span :class="getTypeClass(item.type)">
                   {{ item.type }}:
@@ -124,11 +109,13 @@
 
 <script>
 import EncabezadoView from '../EncabezadoView.vue';
+import NavegacionView from '../navegacionView.vue';
 
 export default {
   name: 'MainPage',
   components: {
-    EncabezadoView
+    EncabezadoView,
+    NavegacionView
   },
   data() {
     return {
@@ -152,7 +139,7 @@ export default {
   methods: {
   handleSubmit() {
     if (!this.descripcion.trim()) {
-      alert("Datos enviados!!.");
+      alert("Debe ingresar una descripción!");
       return;
     }
 
@@ -176,6 +163,7 @@ export default {
     }
 
     this.descripcion = ""; // Limpia el campo de descripción
+    alert("Entrada añadida correctamente al cuadrante " + this.selectedCuadrante + "de tipo " + this.selectedTipo);
   },
 
   limpiar() {
@@ -202,36 +190,38 @@ export default {
 
   enviarDatos() {
     // Validación: todos los campos de la DOFA deben estar llenos antes de enviar
-    if (this.isEnviarDisabled) {
-      alert('Por favor, complete todos los campos de la DOFA antes de enviar.');
-      return;
-    }
 
     // Datos a enviar
     const data = {
-      debilidad: this.input1,
-      oportunidad: this.input2,
-      fortaleza: this.input3,
-      amenaza: this.input4
+      Debilidad: this.debilidades.map(item => ({ tipo: item.type, descripcion: item.text })),
+      Amenaza: this.amenazas.map(item => ({ tipo: item.type, descripcion: item.text })),
+      Oportunidad: this.oportunidades.map(item => ({ tipo: item.type, descripcion: item.text })),
+      Fortaleza: this.fortalezas.map(item => ({ tipo: item.type, descripcion: item.text }))
     };
 
-    // Envía los datos mediante una petición POST
-    fetch('https://tudominio.com/api/enviar', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+    // Muestra el JSON en la consola
+    
+    let datos_json = JSON.stringify(data, null, 2)
+
+    console.log(datos_json)
+   
+/*
+    fetch('http://127.0.0.1:8000/api/guardar-dofa', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data, null,2),
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Datos enviados con éxito:', data);
-        alert('Datos enviados correctamente.');
-      })
-      .catch(error => {
+    .then(response => response.json())
+    .then(response => {
+        alert(response.message);
+        this.limpiar();
+    })
+    .catch(error => {
         console.error('Error al enviar los datos:', error);
         alert('Error al enviar los datos.');
-      });
+    });*/
   },
 
  
@@ -245,14 +235,14 @@ export default {
   display: grid;
   grid-template-columns: repeat(20, 1fr);
   grid-template-rows: 100px 100px auto;
-  background-image: url("/Frontend/src/assets/img/Fondo2.png");
+  background-image: url("../img/Fondo2.png");
   background-position: center center;
   background-size: cover;
   font-family: Arial, sans-serif;
   height: 100vh;
 }
 
-.navigation {
+.navigation { 
   grid-column: 5 / 17;
   grid-row: 2 / 3;
   margin-top: 50px;
@@ -291,15 +281,14 @@ export default {
   display: flex;
   justify-content: space-between;
   gap: 40px;
-  margin-left: 400px;
+ 
 }
 
-.left-column,
-.right-column {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 38%;
+.left-column, .right-column {
+  display: inline-block;
+  vertical-align: top;
+  width: 45%; /* Ajusta según tu diseño */
+  margin: 10px;
 }
 
 textarea {

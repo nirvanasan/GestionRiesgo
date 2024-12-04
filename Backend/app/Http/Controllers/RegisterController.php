@@ -22,7 +22,9 @@ class RegisterController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
+            'area' => 'required|string|max:255',
             'password' => 'required|string|min:8|confirmed',  // Validación para contraseñas
+            
         ]);
 
         if ($validator->fails()) {
@@ -35,6 +37,7 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'area' => $request->area,
             'password' => Hash::make($request->password),  // Usamos Hash::make para encriptar la contraseña
          
         ]);

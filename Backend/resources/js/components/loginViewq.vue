@@ -141,7 +141,7 @@ export default {
   display: flex;
   align-items: center; /* Centra verticalmente */
   justify-content: center; /* Centra horizontalmente */
-  background-image: url('img/Foto1.png'); /* Ruta de la imagen de fondo */
+  background-image: url('img/Fondo1.png'); /* Ruta de la imagen de fondo */
   background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
   background-position: center; /* Centra la imagen de fondo */
   background-repeat: no-repeat; /* Evita que la imagen se repita */

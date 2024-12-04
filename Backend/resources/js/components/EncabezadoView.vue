@@ -3,10 +3,10 @@
   <div class="container">
     <div class="box1"></div>
     <div class="box">
-        <p>USUARIO: {{ user.name }}</p>
-        <p>FECHA: {{ date }}</p>
-        <p>HORA: {{ time }}</p>
-      </div>
+      <p> <strong>USUARIO:</strong>  {{ user.name }} </p>
+      <p> <strong>FECHA:</strong>  {{ date }}</p>
+      <p> <strong>HORA:</strong>  {{ time }}</p>
+    </div>
     <div class="box">
       <button class="button" @click="logout">Cerrar Sesión</button>
     </div>
@@ -19,9 +19,19 @@ export default {
     return {
       date: new Date().toLocaleDateString(),
       time: new Date().toLocaleTimeString(),
-      user: {},
+      user:{}
     };
-    
+  },
+  mounted() {
+    // Verificar si el usuario está autenticado
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      this.user = JSON.parse(userData); // Asignar el objeto usuario desde localStorage
+    } else {
+      this.$router.push('/login'); // Redirigir si no está autenticado
+    }
+    this.updateTime();
+    setInterval(this.updateTime, 1000);
   },
   methods: {
     logout() {
@@ -34,14 +44,28 @@ export default {
       const now = new Date();
       this.date = now.toLocaleDateString();
       this.time = now.toLocaleTimeString();
-  },
+    },
   }
 };
 </script>
 
 <style scoped>
+/* Main styling */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: 100px auto;
+  height: 100vh;
+  margin: 0;
+  background-image: url('img/Fondo2.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .container {
-  grid-column: 4 / 19;
+  font-family:'Courier New', Courier, monospace;
+  grid-column: 5 / 17;
   grid-row: 1 / 2;
   display: flex;
   justify-content: space-between;
@@ -49,6 +73,88 @@ export default {
   border: 2px solid white;
   border-radius: 5px;
   background-color: rgba(255, 255, 255, 0.9);
+ 
+}
+
+.container2 {
+  grid-column: 6 / 20;
+  grid-row: 5 / 5;
+  display: flex;
+  width: 70%;
+  height: 550px;
+  border-radius: 7px;
+  padding-top: 8%;
+}
+
+.sub-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  flex-direction: column;
+  opacity: 0.95;
+}
+
+.sub-container.left {
+  background-color: #d3c384;
+  color: black;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.sub-container.right {
+  background-color: #e22424;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.menu-titulo {
+  text-align: center;
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  padding: 10px;
+  width: 200px;
+}
+
+.menu-opciones {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ccc;
+  width: 200px;
+  background-color: white;
+}
+
+.menu-opciones li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.menu-opciones li:hover {
+  background-color: #fbeb0fa0;
+}
+
+.container3 {
+  display: flex;
+  height: 400px;
+  width: 80%;
+  border: 2px solid white;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255);
+  flex-direction: column;
+  color: black;
+  overflow-y: scroll;
+}
+
+.container3 li {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
 }
 
 .box {
@@ -57,18 +163,23 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  
 }
-
 .box1 {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column; 
-  background-image: url('/Frontend/src/assets/img/Logo-Tomy.png');
+  flex-direction: column;
+  background-image: url('img/Logo-Tomy.png');
   background-size: 200px; /* Ajusta el tamaño de la imagen */
   background-repeat: no-repeat; /* Evita que la imagen se repita */
   background-position: center; /* Mueve el logo hacia abajo */
+}
+
+.box p {
+  color: black;
+  margin: 5px 0;
 }
 
 .button {
