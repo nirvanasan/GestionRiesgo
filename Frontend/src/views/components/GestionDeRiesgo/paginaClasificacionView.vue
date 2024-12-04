@@ -114,11 +114,6 @@ export default {
   height: 100vh;
 }
 
-.navigation {
-  grid-column: 5 / 17;
-  grid-row: 2 / 3;
-  margin-top: 50px;
-}
 
 .main-content {
   grid-column: 4 / 18;
@@ -141,12 +136,14 @@ export default {
   border: 1px solid #000;
   padding: 50px;
   width: 270px;
-  margin: 30px 25px;
+  margin: 30px 65px;
 }
 
 .section {
   margin-bottom: 16px;
+  
 }
+
 
 h3 {
   font-size: 18px;
@@ -161,23 +158,35 @@ select {
 
 /* Panel derecho */
 .right-panel {
-  flex: 1;
-  padding-left: 100px;
-  
+  flex: 0 1 50%;          /* Opcional: ajusta el ancho relativo */
+  max-width: 500px;       /* Ancho máximo */
+  padding: 10px;
+  background-color: white; /* Opcional: para destacar el panel */
+  border: 1px solid #ddd; /* Opcional: para visualización */
+  border-radius: 8px;     /* Opcional: esquinas redondeadas */
+  text-align: center;
+
 }
 
 textarea {
-  width: 50%;
+  width: 60%;
   height: 80px;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
   resize: none;
+  background-color: rgba(245, 245, 245, 0.645);
 }
 
-.probabilidad-container,
-.valoracion-container {
+.probabilidad-container {
   display: flex;
   gap: 20px;
+  margin-bottom: 16px;  
+}
+.valoracion-container {
+  display: flex;
+  gap: 10px;
   margin-bottom: 16px;
+  text-align: center;
+
 }
 
 input[type="number"],

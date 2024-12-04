@@ -50,7 +50,7 @@
         <div class="left-column">
             <label>Debilidad</label>
             <div class="readonly-box">
-              <span v-if="debilidades.length === 0">Aquí va la Debilidad</span>
+              <span v-if="debilidades.length === 0" style="color: gray; font-style: italic">Aquí va la Debilidad</span>
               <p v-for="(item, index) in debilidades" :key="index">
                 <span :class="getTypeClass(item.type)">
                   {{ item.type }}:
@@ -61,7 +61,7 @@
 
             <label>Oportunidad</label>
             <div class="readonly-box">
-              <span v-if="oportunidades.length === 0">Aquí va la Oportunidad</span>
+              <span v-if="oportunidades.length === 0" style="color: gray; font-style: italic">Aquí va la Oportunidad</span>
               <p v-for="(item, index) in oportunidades" :key="index">
                 <span :class="getTypeClass(item.type)">
                   {{ item.type }}:
@@ -74,7 +74,7 @@
           <div class="right-column">
             <label>Fortaleza</label>
             <div class="readonly-box">
-              <span v-if="fortalezas.length === 0" placeholder="ingrese aqui ">Aquí va la Fortaleza</span>
+              <span v-if="fortalezas.length === 0" style="color: gray; font-style: italic">Aquí va la Fortaleza</span>
               <p v-for="(item, index) in fortalezas" :key="index">
                 <span :class="getTypeClass(item.type)">
                   {{ item.type }}:
@@ -85,7 +85,7 @@
 
             <label>Amenaza</label>
             <div class="readonly-box">
-              <span v-if="amenazas.length === 0">Aquí va la Amenaza</span>
+              <span v-if="amenazas.length === 0" style="color: gray; font-style: italic">Aquí va la Amenaza</span>
               <p v-for="(item, index) in amenazas" :key="index">
                 <span :class="getTypeClass(item.type)">
                   {{ item.type }}:
@@ -264,7 +264,6 @@ export default {
   display: flex;
   justify-content: space-between;
   gap: 40px;
-  margin-left: 400px;
 }
 
 .left-column,

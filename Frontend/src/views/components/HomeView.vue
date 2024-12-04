@@ -20,14 +20,7 @@
       <!-- Sidebar Menu -->
       <div class="sub-container left">
         <b><p>GESTIÓN DE RIESGOS</p></b>
-        <div class="menu-titulo" @click="toggleMenu('menu1')">Matriz de Riesgos</div>
-        <ul v-if="activeMenu === 'menu1'" class="menu-opciones">
-          <router-link to="dofa" class="create-account"><li >DOFA</li></router-link>
-          <li @click="selectOption('Clasificación')">Clasificación</li>
-          <li @click="selectOption('Controles')">Controles</li>
-          <li @click="selectOption('Acciones')">Acciones</li>
-          <li @click="selectOption('Seguimiento')">Seguimiento</li>
-        </ul>
+        <router-link to="/eleccion" class="menu-titulo"><div>DOFA</div></router-link>
 
         <b><p>GESTIÓN DOCUMENTAL</p></b>
         <div class="menu-titulo" @click="toggleMenu('menu2')">Documentos</div>
@@ -67,11 +60,7 @@ export default {
     logout() {
       alert("Sesión cerrada.");
     },
-    toggleMenu(menu) {
-      // Alterna entre abrir/cerrar el menú seleccionado
-      this.activeMenu = this.activeMenu === menu ? null : menu;
-      
-    },
+
     selectOption(option) {
       alert(`Opción seleccionada: ${option}`);
       this.activeMenu = null; // Cierra el menú después de seleccionar
@@ -145,6 +134,8 @@ export default {
   color: black;
   padding: 10px;
   width: 200px;
+  border-radius: 8px;
+  text-decoration: none;
 }
 
 .menu-opciones {
