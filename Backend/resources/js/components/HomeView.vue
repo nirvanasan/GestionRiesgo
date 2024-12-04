@@ -22,14 +22,7 @@
       <!-- Sidebar Menu -->
       <div class="sub-container left">
         <b><p>GESTIÓN DE RIESGOS</p></b>
-        <div class="menu-titulo" @click="toggleMenu('menu1')">Matriz de Riesgos</div>
-        <ul v-if="activeMenu === 'menu1'" class="menu-opciones">
-          <li @click="selectOption('DOFA')">DOFA</li>
-          <li @click="selectOption('Clasificación')">Clasificación</li>
-          <li @click="selectOption('Controles')">Controles</li>
-          <li @click="selectOption('Acciones')">Acciones</li>
-          <li @click="selectOption('Seguimiento')">Seguimiento</li>
-        </ul>
+        <router-link to="/eleccion" class="menu-titulo">DOFA</router-link>
 
 
         <b><p>GESTIÓN DOCUMENTAL</p></b>
@@ -174,7 +167,10 @@ export default {
   color: black;
   padding: 10px;
   width: 200px;
+  border-radius: 8px;
+  text-decoration: none;
 }
+
 
 .menu-opciones {
   list-style-type: none;
