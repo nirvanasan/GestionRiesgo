@@ -3,7 +3,7 @@
   <nav class="navigation">
     <ul class="main-nav">
       <div class="main-nav__item">
-        <router-link to="/dofa" class="create-account nav-link">Dofa</router-link>
+        <router-link to="/eleccion" class="create-account nav-link">Dofa</router-link>
       </div>
       <div class="main-nav__item">
         <router-link to="/clasificacion" class="create-account nav-link">Clasificación</router-link>

@@ -3,6 +3,7 @@
     <!-- Encabezado de la página -->
     <EncabezadoView />
     <!-- Barra de navegación -->
+    <NavegacionView/>
 
         <main class="main-content">
 
@@ -53,11 +54,12 @@
 
 <script>
 import EncabezadoView from '../components/EncabezadoView.vue';
-
+import NavegacionView from "../components/navegacionView.vue";
 export default {
   name: 'MainPage',
   components: {
     EncabezadoView,
+    NavegacionView,
   }
 }
 </script>

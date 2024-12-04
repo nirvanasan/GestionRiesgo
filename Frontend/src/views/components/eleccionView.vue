@@ -3,19 +3,21 @@
     <!-- Encabezado de la página -->
     <EncabezadoView />
     <!-- Barra de navegación -->
+    <NavegacionView/>
 
         <main class="main-content">
 
           <section class="input-container">
               <div class="main-nav">
                   <div class="main-nav__item">
-                      <router-link to="/dofa" class="create-account nav-link">Crear dofa</router-link>
+                    <router-link to="/proceso" class="create-account nav-link">Crear proceso</router-link>
                   </div>
                   <div class="main-nav__item">
-                      <router-link to="/VerDofa" class="create-account nav-link">Ver dofa</router-link>
+                    <router-link to="/dofa" class="create-account nav-link">Crear dofa</router-link>    
                   </div>
                   <div class="main-nav__item">
-                      <router-link to="/proceso" class="create-account nav-link">Crear proceso</router-link>
+                    <router-link to="/VerDofa" class="create-account nav-link">Ver dofa</router-link>
+                     
                   </div>
               </div>
           </section>
@@ -25,11 +27,12 @@
 
 <script>
 import EncabezadoView from '../components/EncabezadoView.vue';
-
+import NavegacionView from "../components/navegacionView.vue";
 export default {
   name: 'MainPage',
   components: {
     EncabezadoView,
+    NavegacionView,
   }
 }
 </script>
