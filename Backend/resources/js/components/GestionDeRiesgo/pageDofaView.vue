@@ -126,7 +126,14 @@ export default {
       descripcion: "",
       selectedCuadrante: "Debilidad",
       selectedTipo: "Estratégico",
+      user:{},
     };
+  },
+  mounted(){
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      this.user = JSON.parse(userData); // Asignar el objeto usuario desde localStorage
+    } 
   },
   computed: {
     // Computado para deshabilitar el botón "Enviar" si hay campos vacíos
@@ -163,7 +170,7 @@ export default {
     }
 
     this.descripcion = ""; // Limpia el campo de descripción
-    alert("Entrada añadida correctamente al cuadrante " + this.selectedCuadrante + "de tipo " + this.selectedTipo);
+    alert(this.selectedCuadrante + " añadida de tipo " + this.selectedTipo);
   },
 
   limpiar() {
@@ -196,7 +203,8 @@ export default {
       Debilidad: this.debilidades.map(item => ({ tipo: item.type, descripcion: item.text })),
       Amenaza: this.amenazas.map(item => ({ tipo: item.type, descripcion: item.text })),
       Oportunidad: this.oportunidades.map(item => ({ tipo: item.type, descripcion: item.text })),
-      Fortaleza: this.fortalezas.map(item => ({ tipo: item.type, descripcion: item.text }))
+      Fortaleza: this.fortalezas.map(item => ({ tipo: item.type, descripcion: item.text })),
+      id_usuario: this.user.id,
     };
 
     // Muestra el JSON en la consola
@@ -205,13 +213,13 @@ export default {
 
     console.log(datos_json)
    
-/*
+    ///*
     fetch('http://127.0.0.1:8000/api/guardar-dofa', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data, null,2),
+        body: JSON.stringify(data),
     })
     .then(response => response.json())
     .then(response => {
@@ -221,7 +229,7 @@ export default {
     .catch(error => {
         console.error('Error al enviar los datos:', error);
         alert('Error al enviar los datos.');
-    });*/
+    });//*/
   },
 
  

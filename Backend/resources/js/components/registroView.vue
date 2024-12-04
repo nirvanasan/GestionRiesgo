@@ -1,58 +1,62 @@
 <template>
-    <div class="register-page">
-      <div class="grid-container">
-          <div class="logo">
-            <img src="" class="logo-img" />
+  <div class="register-page">
+    <div class="grid-container">
+      <div class="logo">
+        <img src="" class="logo-img" />
+      </div>
+      <!-- Columna izquierda con la imagen -->
+      <div class="left-side">
+        <img src="" class="login-img" />
+      </div>
+
+      <!-- Columna derecha con el formulario -->
+      <div class="right-side">
+        <div class="reset-card">
+          <div class="card-section">
+            <h3>Registro de usuario</h3>
           </div>
-        <!-- Columna izquierda con la imagen -->
-        <div class="left-side">
-          <img src="" class="login-img" />
-        </div>
-  
-        <!-- Columna derecha con el formulario -->
-        <div class="right-side">
-          <div class="reset-card">
-            <div class="card-section">
-              <h2>Registro de usuario</h2>
+          <form @submit.prevent="register">
+            <div class="input-group">
+              <label for="name">Nombre</label>
+              <input v-model="name" type="text" id="name" required placeholder="Ingresa tu nombre" />
             </div>
-            <form @submit.prevent="register">
-              <div class="input-group">
-                <label for="name">Nombre</label>
-                <input v-model="name" type="text" id="name" required placeholder="Ingresa tu nombre" />
-              </div>
-  
-              <div class="input-group">
-                <label for="email">Correo</label>
-                <input v-model="email" type="email" id="email" required placeholder="Ingresa tu correo" />
-              </div>
-  
-              <div class="input-group">
-                <label for="password">Contraseña</label>
-                <input v-model="password" type="password" id="password" required placeholder="Ingresa tu contraseña" />
-              </div>
-  
-              <div class="input-group">
-                <label for="password_confirmation">Repetir Contraseña</label>
-                <input v-model="password_confirmation" type="password" id="password_confirmation" required placeholder="Repite tu contraseña" />
-              </div>
-  
-              <button type="submit" class="submit-btn" :disabled="loading">
-                <span v-if="loading">Cargando...</span>
-                <span v-else>Registrarse</span>
-              </button>
 
-              
-
-            </form>
-  
-            <div class="links">
-              <router-link to="/login" class="back-login">Volver al login</router-link>
+            <div class="input-group">
+              <label for="email">Correo</label>
+              <input v-model="email" type="email" id="email" required placeholder="Ingresa tu correo" />
             </div>
+
+            <div class="input-group">
+              <label for="password">Contraseña</label>
+              <input v-model="password" type="password" id="password" required placeholder="Ingresa tu contraseña" />
+            </div>
+
+            <div class="input-group">
+              <label for="password_confirmation">Repetir Contraseña</label>
+              <input v-model="password_confirmation" type="password" id="password_confirmation" required placeholder="Repite tu contraseña" />
+            </div>
+
+            <div class="opcion">
+            <label for="area">Area</label>
+            <select id="area" v-model="area" required placeholder="Elige un area" >
+              <option value="operativo">Sistemas</option>
+              <option value="estrategico">Gestion Humana</option>
+              <option value="tactico">Produccion</option>
+              <option value="tactico">Gerencia</option>
+            </select>
+          </div>
+
+            <button type="submit" class="submit-btn">Registrarse</button>
+          </form>
+
+          <div class="links">
+            <router-link to="/login" class="back-login">Volver al login</router-link>
           </div>
         </div>
       </div>
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
   import axios from 'axios';
@@ -62,6 +66,7 @@
       return {
         name: '',
         email: '',
+        area:'',
         password: '',
         password_confirmation: '',
         loading: false,
@@ -78,9 +83,13 @@
         const userData = {
           name: this.name,
           email: this.email,
+          area: this.area,
           password: this.password,
           password_confirmation: this.password_confirmation, 
+          
         };
+
+        console.log(userData)
   
         try {
           const response = await axios.post('http://127.0.0.1:8000/api/registro', userData);
@@ -88,8 +97,10 @@
           alert('Registro exitoso');
           this.name = '';
           this.email = '';
+          this.area = '';
           this.password = '';
           this.password_confirmation = '';
+          
   
   
           this.$router.push('/login'); // Redirige al login después de registrarsex
@@ -114,6 +125,7 @@
   </script>
   
   <style scoped>
+  
   .register-page {
     height: 100vh;
     display: flex;
@@ -238,6 +250,24 @@
       width: 200px;
       height: 100px;
     }
+
+    .opcion {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 7px;
+  }
+  
+  select,
+  input {
+    width: 108%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
   
   /* Estilo responsivo para pantallas pequeñas */
   @media (max-width: 768px) {
@@ -249,6 +279,10 @@
     .reset-img {
       max-width: 200px;
     }
+      .opcion {
+    margin-bottom: 20px;
+  }
+  
   
     
   }

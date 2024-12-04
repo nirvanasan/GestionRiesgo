@@ -5,82 +5,85 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Dofa;
 use App\Models\Amenaza;
+use App\Models\Oportunidad;
 use App\Models\Fortaleza;
 use App\Models\Debilidad;
-use App\Models\Oportunidad;
 use Illuminate\Support\Facades\Auth;
 
 class DofaController extends Controller
 {
-    public function guardar(Request $request)
-    {
-        // Obtener el ID del usuario autenticado
-        //$idUsuario = Auth::id();
-        $idUsuario = 6;
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'Debilidad' => 'array',
+        'Amenaza' => 'array',
+        'Oportunidad' => 'array',
+        'Fortaleza' => 'array',
+        'id_usuario' => 'required|integer',
+    ]);
 
-        // Validar la estructura del JSON recibido
-        $data = $request->validate([
-            'Debilidad' => 'array',
-            'Amenaza' => 'array',
-            'Oportunidad' => 'array',
-            'Fortaleza' => 'array',
-            'Debilidad.*.tipo' => 'required|string',
-            'Debilidad.*.descripcion' => 'required|string',
-            'Amenaza.*.tipo' => 'required|string',
-            'Amenaza.*.descripcion' => 'required|string',
-            'Oportunidad.*.tipo' => 'required|string',
-            'Oportunidad.*.descripcion' => 'required|string',
-            'Fortaleza.*.tipo' => 'required|string',
-            'Fortaleza.*.descripcion' => 'required|string',
+    $idUsuario = $validated['id_usuario'];
+   
+
+    // Procesar Debilidades
+    foreach ($validated['Debilidad'] as $debilidad) {
+        $registro = Debilidad::create([
+            'descripcion' => $debilidad['descripcion'],
+            'tipo' => $debilidad['tipo'],
         ]);
+        // Recuperar el código generado
+        $codigo = Debilidad::find($registro->id)->codigo_debilidad;
 
-        // Procesar cada elemento y guardar en la tabla correspondiente
-        $codigos = []; // Para almacenar los códigos generados
-
-        // Insertar Debilidades
-        foreach ($data['Debilidad'] as $debilidad) {
-            $debilidadModel = Debilidad::create([
-                'descripcion' => $debilidad['descripcion'],
-                'tipo' => $debilidad['tipo']
-            ]);
-            $codigos[] = $debilidadModel->codigo;
-        }
-
-        // Insertar Amenazas
-        foreach ($data['Amenaza'] as $amenaza) {
-            $amenazaModel = Amenaza::create([
-                'descripcion' => $amenaza['descripcion'],
-                'tipo' => $amenaza['tipo']
-            ]);
-            $codigos[] = $amenazaModel->codigo;
-        }
-
-        // Insertar Oportunidades
-        foreach ($data['Oportunidad'] as $oportunidad) {
-            $oportunidadModel = Oportunidad::create([
-                'descripcion' => $oportunidad['descripcion'],
-                'tipo' => $oportunidad['tipo']
-            ]);
-            $codigos[] = $oportunidadModel->codigo;
-        }
-
-        // Insertar Fortalezas
-        foreach ($data['Fortaleza'] as $fortaleza) {
-            $fortalezaModel = Fortaleza::create([
-                'descripcion' => $fortaleza['descripcion'],
-                'tipo' => $fortaleza['tipo']
-            ]);
-            $codigos[] = $fortalezaModel->codigo;
-        }
-
-        // Insertar en la tabla DOFA
-        foreach ($codigos as $codigo) {
-            Dofa::create([
-                'codigo' => $codigo,
-                'id_usuario' => $idUsuario
-            ]);
-        }
-
-        return response()->json(['message' => 'Datos guardados exitosamente']);
+        Dofa::create([
+            'codigo' => $codigo,
+            'id_usuario' => $idUsuario,
+        ]);
     }
-}
+
+    // Procesar Amenazas
+    foreach ($validated['Amenaza'] as $amenaza) {
+        $registro = Amenaza::create([
+            'descripcion' => $amenaza['descripcion'],
+            'tipo' => $amenaza['tipo'],
+        ]);
+        // Recuperar el código generado
+        $codigo = Amenaza::find($registro->id)->codigo_amenaza;
+
+        Dofa::create([
+            'codigo' => $codigo,
+            'id_usuario' => $idUsuario,
+        ]);
+    }
+
+    // Procesar Oportunidades
+    foreach ($validated['Oportunidad'] as $oportunidad) {
+        $registro = Oportunidad::create([
+            'descripcion' => $oportunidad['descripcion'] ?? '',
+            'tipo' => $oportunidad['tipo'] ?? '',
+        ]);
+        // Recuperar el código generado
+        $codigo = Oportunidad::find($registro->id)->codigo_oportunidad;
+
+        Dofa::create([
+            'codigo' => $codigo,
+            'id_usuario' => $idUsuario,
+        ]);
+    }
+
+    // Procesar Fortalezas
+    foreach ($validated['Fortaleza'] as $fortaleza) {
+        $registro = Fortaleza::create([
+            'descripcion' => $fortaleza['descripcion'],
+            'tipo' => $fortaleza['tipo'],
+        ]);
+        // Recuperar el código generado
+        $codigo = Fortaleza::find($registro->id)->codigo_fortaleza;
+
+        Dofa::create([
+            'codigo' => $codigo,
+            'id_usuario' => $idUsuario,
+        ]);
+    }
+
+    return response()->json(['message' => 'Datos insertados con éxito'], 201);
+}}
