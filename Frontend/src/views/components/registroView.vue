@@ -38,7 +38,7 @@
 
             <div class="opcion">
             <label for="area">Area</label>
-            <select id="area" v-model="area">
+            <select id="area" v-model="area" required placeholder="ELige un area" >
               <option value="operativo">Sistemas</option>
               <option value="estrategico">Gestion Humana</option>
               <option value="tactico">Produccion</option>
