@@ -5,7 +5,7 @@
                 <router-link to="/dofa" class="create-account nav-link">Crear dofa </router-link>
             </div>
             <div class="main-nav__item">
-                <router-link to="" class="create-account nav-link">Ver dofa</router-link>
+                <router-link to="/VerDofa" class="create-account nav-link">Ver dofa</router-link>
             </div>
             <div class="main-nav__item">
                 <router-link to="/proceso" class="create-account nav-link">Crear proceso</router-link>

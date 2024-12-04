@@ -11,6 +11,7 @@ import PaginaSeguimientoView from '@/views/components/GestionDeRiesgo/paginaSegu
 import PaginaClasificacionView from '@/views/components/GestionDeRiesgo/paginaClasificacionView.vue'
 import EleccionView from '@/views/components/eleccionView.vue'
 import ProcesoView from '@/views/components/procesoView.vue'
+import VerDofaView from '@/views/components/verDofaView.vue'
 
 const routes = [
   {
@@ -91,6 +92,11 @@ const routes = [
     path: '/proceso',
     name: 'proceso',
     component: ProcesoView
+  },
+  {
+    path: '/VerDofa',
+    name: 'VerDofa',
+    component: VerDofaView
   },
   
 
