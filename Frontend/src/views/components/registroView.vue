@@ -67,6 +67,7 @@ export default {
       email: '',
       password: '',
       confirmPassword: '',
+      area:'',
     };
   },
   methods: {
@@ -81,6 +82,7 @@ export default {
       console.log('Usuario:', this.username);
       console.log('Correo:', this.email);
       console.log('Contraseña:', this.password);
+      console.log('area:', this.area);
     },
   },
 };
