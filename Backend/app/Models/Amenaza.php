@@ -11,9 +11,10 @@ class Amenaza extends Model
 
     protected $table = 'amenazas';
 
-    protected $fillable = [
-       
-        'descripcion',
-        'tipo',
-    ];
+    protected $fillable = ['codigo_debilidad', 'descripcion', 'tipo', 'created_at', 'updated_at']; 
+    
+    public function dofa()
+    {
+        return $this->belongsTo(Dofa::class, 'codigo_amenaza', 'Codigo');
+    }
 }

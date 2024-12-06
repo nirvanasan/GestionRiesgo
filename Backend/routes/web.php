@@ -33,3 +33,11 @@ Route::get('dofa', function () {
 Route::get('eleccion', function () {
     return view('eleccion');
 });
+
+Route::get('proceso', function () {
+    return view('proceso');
+});
+
+Route::get('VerDofa', function () {
+    return view('VerDofa');
+});

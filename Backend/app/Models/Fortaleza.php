@@ -10,9 +10,10 @@ class Fortaleza extends Model
 
     protected $table = 'fortalezas';
 
-    protected $fillable = [
-      
-        'descripcion',
-        'tipo',
-    ];
+    protected $fillable = ['codigo_debilidad', 'descripcion', 'tipo', 'created_at', 'updated_at']; 
+    
+    public function dofa()
+    {
+        return $this->belongsTo(Dofa::class, 'codigo_fortaleza', 'Codigo');
+    }
 }

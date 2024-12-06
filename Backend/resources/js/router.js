@@ -6,6 +6,9 @@ import Home from '@/components/loginViewq.vue';
 import Main from './components/HomeView.vue';
 import Recuperar from './components/recuperarView.vue';
 import Dofa from './components/GestionDeRiesgo/pageDofaView.vue';
+import Eleccion from './components/GestionDeRiesgo/eleccionView.vue';
+import Proceso from './components/GestionDeRiesgo/procesoView.vue';
+import VerDofa from './components/GestionDeRiesgo/verDofaView.vue';
 
 
 const routes = [
@@ -44,16 +47,34 @@ const routes = [
           requiresAuth: true,
           title: "DOFA"
           }
-  },
-  {
-    path: '/dofa',
-    name: 'dofa',
-    component: Dofa,
+    },
+    {
+    path: '/eleccion',
+    name: 'eleccion',
+    component: Eleccion,
     meta: {
         requiresAuth: true,
         title: "DOFA"
         }
-},
+    },
+    {
+      path: '/proceso',
+      name: 'proceso',
+      component: Proceso,
+      meta: {
+          requiresAuth: true,
+          title: "DOFA"
+          }
+    },
+    {
+      path: '/VerDofa',
+      name: 'VerDofa',
+      component: VerDofa,
+      meta: {
+          requiresAuth: true,
+          title: "DOFA"
+          }
+    },
 ];
 
 const router = createRouter({

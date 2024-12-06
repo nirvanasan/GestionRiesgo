@@ -211,7 +211,7 @@ export default {
     
     let datos_json = JSON.stringify(data, null, 2)
 
-    //console.log(datos_json)
+    console.log(datos_json)
    
     ///*
     fetch('http://127.0.0.1:8000/api/guardar-dofa', {
