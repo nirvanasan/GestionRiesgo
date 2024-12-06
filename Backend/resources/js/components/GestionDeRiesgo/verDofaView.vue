@@ -7,22 +7,42 @@
         <div class="tabla-dofa">
           <div class="celda">
             <h3>Debilidad</h3>
-            <p v-if="dofaResultados.debilidad">{{ dofaResultados.debilidad }}</p>
+            <!-- Mostrar todas las debilidades -->
+            <ul v-if="dofaResultados.Debilidades && dofaResultados.Debilidades.length">
+              <li v-for="(debilidad, index) in dofaResultados.Debilidades" :key="index">
+                {{ debilidad.descripcion }}
+              </li>
+            </ul>
             <p v-else>No hay información disponible.</p>
           </div>
           <div class="celda">
             <h3>Oportunidad</h3>
-            <p v-if="dofaResultados.oportunidad">{{ dofaResultados.oportunidad }}</p>
+            <!-- Mostrar todas las oportunidades -->
+            <ul v-if="dofaResultados.Oportunidades && dofaResultados.Oportunidades.length">
+              <li v-for="(oportunidad, index) in dofaResultados.Oportunidades" :key="index">
+                {{ oportunidad.descripcion }}
+              </li>
+            </ul>
             <p v-else>No hay información disponible.</p>
           </div>
           <div class="celda">
             <h3>Fortaleza</h3>
-            <p v-if="dofaResultados.fortaleza">{{ dofaResultados.fortaleza }}</p>
+            <!-- Mostrar todas las fortalezas -->
+            <ul v-if="dofaResultados.Fortalezas && dofaResultados.Fortalezas.length">
+              <li v-for="(fortaleza, index) in dofaResultados.Fortalezas" :key="index">
+                {{ fortaleza.descripcion }}
+              </li>
+            </ul>
             <p v-else>No hay información disponible.</p>
           </div>
           <div class="celda">
             <h3>Amenaza</h3>
-            <p v-if="dofaResultados.amenaza">{{ dofaResultados.amenaza }}</p>
+            <!-- Mostrar todas las amenazas -->
+            <ul v-if="dofaResultados.Amenazas && dofaResultados.Amenazas.length">
+              <li v-for="(amenaza, index) in dofaResultados.Amenazas" :key="index">
+                {{ amenaza.descripcion }}
+              </li>
+            </ul>
             <p v-else>No hay información disponible.</p>
           </div>
         </div>
@@ -40,7 +60,6 @@
             <option value="Oportunidad">Oportunidad</option>
             <option value="Fortaleza">Fortaleza</option>
             <option value="Amenaza">Amenaza</option>
-           
           </select>
         </div>
 
@@ -79,7 +98,6 @@
   </div>
 </template>
 
-
 <script>
 import axios from "axios";
 
@@ -89,20 +107,19 @@ export default {
     return {
       dofa: "", // Almacena la opción seleccionada en el menú DOFA
       tipo: "", // Almacena la opción seleccionada en el menú Tipo
-      //proceso: "", // Almacena el valor ingresado en el campo Proceso
       area: "", // Almacena la opción seleccionada en el menú Área
       error: "", // Mensaje de error si falla la validación
       dofaResultados: {
-        debilidad: "",
-        oportunidad: "",
-        fortaleza: "",
-        amenaza: "",
+        Debilidades: [],
+        Oportunidades: [],
+        Fortalezas: [],
+        Amenazas: [],
       },
-      user:{}, // Resultados de la consulta a la base de datos divididos por secciones
+      user: {}, // Resultados de la consulta a la base de datos divididos por secciones
     };
   },
-  mounted(){
-    const userData = localStorage.getItem('user');
+  mounted() {
+    const userData = localStorage.getItem("user");
     if (userData) {
       this.user = JSON.parse(userData);
     }
@@ -112,17 +129,7 @@ export default {
       // Limpiar errores previos
       this.error = "";
 
-      /*
-      // Validaciones básicas
-      if (!this.tipo) {
-        this.error = "Por favor selecciona una opción en el menú Tipo.";
-        return;
-      }
-        */
-      // if (!this.proceso) {
-      //   this.error = "Por favor ingresa un valor en el campo Proceso.";
-      //   return;
-      // }
+      // Validaciones: No es necesario validar 'tipo' ya que se debe permitir vacíos para obtener todos los resultados.
       if (!this.area) {
         this.error = "Por favor selecciona una opción en el menú Área.";
         return;
@@ -130,14 +137,6 @@ export default {
 
       // Si todas las validaciones pasan, enviar solicitud al backend
       this.buscarInformacion();
-
-      const payload = {
-          dofa: this.dofa,
-          tipo: this.tipo,
-          //proceso: this.proceso,
-          //area: this.area,
-        };
-      //console.log(payload.dofa,payload.tipo)
     },
     async buscarInformacion() {
       try {
@@ -145,23 +144,17 @@ export default {
         const payload = {
           id_usuario: this.user.id,
           dofa: this.dofa,
-          tipo: this.tipo,
+          tipo: this.tipo,  // Puede estar vacío si se quiere traer todos los tipos
+          //area: this.area,  // Si es necesario en el backend
         };
-        console.log(payload.dofa)
 
         // Realizar la solicitud al backend
         const response = await axios.post("http://127.0.0.1:8000/api/buscar-dofa", payload);
 
         // Actualizar los resultados de las diferentes categorías
         this.dofaResultados = response.data;
-       
-        let respuestaParseada = JSON.stringify(this.dofaResultados, null, 2)
-        // Opcional: Log de debug
-        console.log(respuestaParseada);
-       
-        //this.dofaResultados = respuestaParseada;
 
-
+        console.log(JSON.stringify(this.dofaResultados, null, 2)); // Log para ver la respuesta completa
       } catch (error) {
         // Manejo de errores con más detalle
         this.error = "Ocurrió un error al buscar la información. Intenta nuevamente.";
@@ -172,15 +165,14 @@ export default {
 };
 </script>
 
-
 <style scoped>
-
 /* Estilo del mensaje de error */
 .error {
   color: red;
   font-size: 14px;
   margin-top: 10px;
 }
+
 /* Configuración de la página con diseño de fondo */
 .pagina {
   display: flex;
@@ -196,7 +188,7 @@ export default {
 /* Contenedor para dividir en dos secciones */
 .grid {
   display: grid;
-  grid-template-columns: 3fr 1fr; /* La parte derecha es más angosta */
+  grid-template-columns: 3fr 1fr;
   width: 80%;
   height: 80%;
   gap: 20px;
@@ -243,50 +235,21 @@ label {
 select,
 input {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
+  padding: 8px;
   border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-/* Estilo del botón Buscar Información */
-.btn-buscar {
-  background-color:  #c91717;
+button {
+  padding: 10px 20px;
+  background-color: #4caf50;
   color: white;
   border: none;
-  padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  width: 100%;
 }
 
-.btn-buscar:hover {
-  background-color: rgb(236, 236, 139);
-  color: red;
+button:hover {
+  background-color: #45a049;
 }
-
-/* diseño de la parte izquierda. */
-.tabla-dofa {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: px;
-}
-
-.celda {
-  border: 1px solid #ccc;
-  padding: 18%;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  text-align: center;
-}
-
-.celda h3 {
-  margin-bottom: 10px;
-}
-
-.error {
-  color: red;
-  margin-top: 10px;
-}
-
 </style>

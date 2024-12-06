@@ -39,10 +39,10 @@
             <div class="opcion">
             <label for="area">Area</label>
             <select id="area" v-model="area" required placeholder="Elige un area" >
-              <option value="operativo">Sistemas</option>
-              <option value="estrategico">Gestion Humana</option>
-              <option value="tactico">Produccion</option>
-              <option value="tactico">Gerencia</option>
+              <option value="Sistemas">Sistemas</option>
+              <option value="Gestion Humana">Gestion Humana</option>
+              <option value="Produccion">Produccion</option>
+              <option value="Gerencia">Gerencia</option>
             </select>
           </div>
 
