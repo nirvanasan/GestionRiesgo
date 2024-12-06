@@ -1,5 +1,9 @@
 <template>
   <div class="pagina">
+    <!-- Botón de Volver -->
+     <div>
+        <button class="btn-volver" @click="volver">← Volver</button>
+     </div>
     <div class="grid">
       <!-- Sección izquierda: Información en forma de tabla -->
       <div class="informacion">
@@ -89,7 +93,7 @@ export default {
     return {
       dofa: "", // Almacena la opción seleccionada en el menú DOFA
       tipo: "", // Almacena la opción seleccionada en el menú Tipo
-      proceso: "", // Almacena el valor ingresado en el campo Proceso
+      //proceso: "", // Almacena el valor ingresado en el campo Proceso
       area: "", // Almacena la opción seleccionada en el menú Área
       error: "", // Mensaje de error si falla la validación
       dofaResultados: {
@@ -101,6 +105,10 @@ export default {
     };
   },
   methods: {
+    volver() {
+      // Navega hacia atrás en el historial
+      this.$router.go(-1);
+    },
     validarYBuscar() {
       // Limpiar errores previos
       this.error = "";
@@ -110,10 +118,10 @@ export default {
         this.error = "Por favor selecciona una opción en el menú Tipo.";
         return;
       }
-      if (!this.proceso) {
-        this.error = "Por favor ingresa un valor en el campo Proceso.";
-        return;
-      }
+      // if (!this.proceso) {
+      //   this.error = "Por favor ingresa un valor en el campo Proceso.";
+      //   return;
+      // }
       if (!this.area) {
         this.error = "Por favor selecciona una opción en el menú Área.";
         return;
@@ -165,6 +173,23 @@ export default {
   background-size: cover;
   font-family: Arial, sans-serif;
   height: 100vh;
+}
+
+.btn-volver {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: #c91717;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn-volver:hover {
+  background-color: #ff4d4d;
 }
 
 /* Contenedor para dividir en dos secciones */

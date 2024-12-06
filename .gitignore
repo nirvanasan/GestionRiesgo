@@ -36,3 +36,6 @@ Frontend/.ntvs
 Frontend/*.njsproj
 Frontend/*.sln
 Frontend/*.sw?
+
+docker-compose
+Dockerfile
