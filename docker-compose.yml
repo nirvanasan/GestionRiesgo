@@ -5,7 +5,7 @@ volumes:
 
 services:
   db:
-    image: mariadb
+    image: mysql # Cambiado de mariadb a mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: app
