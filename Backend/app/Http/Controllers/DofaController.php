@@ -20,9 +20,11 @@ public function store(Request $request)
         'Oportunidad' => 'array',
         'Fortaleza' => 'array',
         'id_usuario' => 'required|integer',
+        'id_proceso' => 'required|integer'
     ]);
 
     $idUsuario = $validated['id_usuario'];
+    $idProceso = $validated['id_proceso'];
    
 
     // Procesar Debilidades
@@ -37,6 +39,7 @@ public function store(Request $request)
         Dofa::create([
             'codigo' => $codigo,
             'id_usuario' => $idUsuario,
+            'id_proceso' => $idProceso,
         ]);
     }
 
@@ -52,6 +55,7 @@ public function store(Request $request)
         Dofa::create([
             'codigo' => $codigo,
             'id_usuario' => $idUsuario,
+            'id_proceso' => $idProceso,
         ]);
     }
 
@@ -67,6 +71,7 @@ public function store(Request $request)
         Dofa::create([
             'codigo' => $codigo,
             'id_usuario' => $idUsuario,
+            'id_proceso' => $idProceso,
         ]);
     }
 
@@ -82,6 +87,7 @@ public function store(Request $request)
         Dofa::create([
             'codigo' => $codigo,
             'id_usuario' => $idUsuario,
+            'id_proceso' => $idProceso,
         ]);
     }
 

@@ -39,7 +39,7 @@
                       placeholder="Ingresa una descripción del proceso"
                     ></textarea>
                   </div>
-                  <button type="submit" class="submit-btn">Registrar Proceso</button>
+                  <button type="submit" class="submit-btn" @click="enviar">Registrar Proceso</button>
                 </form>
                 <div v-if="message" :class="{'success-message': isSuccess, 'error-message': !isSuccess}">
                   {{ message }}
@@ -53,13 +53,49 @@
 </template>
 
 <script>
+import axios from "axios";
+
 import EncabezadoView from './../EncabezadoView.vue';
 import NavegacionView from "./../navegacionView.vue";
+
 export default {
   name: 'MainPage',
   components: {
     EncabezadoView,
     NavegacionView,
+  },
+  data(){
+    return{
+      processName: "",
+      description: ""
+    }
+  },
+  methods:{
+    enviar(){
+
+      const payload = {
+        nombre: this.processName,
+        descripcion: this.description,
+      };
+      
+      console.log(payload)
+      
+      //alert("Se ha enviado la infromacion!")
+      axios.post('http://127.0.0.1:8000/api/procesos', payload)
+      .then(response => {
+        this.message = 'Proceso registrado con exito';
+        this.isSuccess = true;
+        this.processName = '';
+        this.description = '';
+      })
+      .catch(error => {
+        this.message = 'Error al registrar el proceso';
+        this.isSuccess = false;
+        console.error(error);
+      }
+
+      )
+    }
   }
 }
 </script>
@@ -124,11 +160,11 @@ export default {
   left: 60px; /* Ajusta la distancia desde el borde izquierdo */
   z-index: 100;
 }
-
+  
 .back-btn {
   padding: 8px 15px;
-  background-color: #f4ef86ed;
-  color: #000;
+  background-color: #e22424;
+  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -137,7 +173,7 @@ export default {
 }
 
 .back-btn:hover {
-  background-color: #acccee;
+  background-color: #ff0000;
 }
 
 /* Encabezado */
@@ -184,8 +220,8 @@ export default {
 .submit-btn {
   width: 100%;
   padding: 10px;
-  background-color: #f4ef86ed;
-  color: #000;
+  background-color: #e22424;
+  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -194,7 +230,8 @@ export default {
 }
 
 .submit-btn:hover {
-  background-color: #acccee;
+  background-color: rgb(255, 251, 0);
+  color: black;
 }
 
 /* Diseño responsivo */

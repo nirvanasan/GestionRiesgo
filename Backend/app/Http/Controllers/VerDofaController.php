@@ -17,10 +17,10 @@ class VerDofaController extends Controller
 
         // Validar los parámetros de búsqueda
         $validated = $request->validate([
-            'id_usuario' => 'required|integer', // Usuario es obligatorio
+            'id_usuario' => 'nullable|integer', // Usuario es obligatorio
             'dofa' => 'nullable|string|in:Debilidad,Amenaza,Oportunidad,Fortaleza', // Tipo de DOFA opcional
             'tipo' => 'nullable|string|in:Operativo,Estratégico,Táctico', // Tipo de categoría opcional
-            'area' => 'nullable|string|in:Sistemas,Gestión Humana,Producción' // Área opcional
+            'area' => 'nullable|string|in:Sistemas,Gestion Humana,Produccion' // Área opcional
         ]);
 
         // Capturar los parámetros validados

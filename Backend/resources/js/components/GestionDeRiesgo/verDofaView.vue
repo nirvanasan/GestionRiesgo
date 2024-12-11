@@ -13,7 +13,7 @@
                 {{ debilidad.descripcion }}
               </li>
             </ul>
-            <p v-else>No hay información disponible.</p>
+            <p v-else></p>
           </div>
           <div class="celda">
             <h3>Oportunidad</h3>
@@ -23,7 +23,7 @@
                 {{ oportunidad.descripcion }}
               </li>
             </ul>
-            <p v-else>No hay información disponible.</p>
+            <p v-else></p>
           </div>
           <div class="celda">
             <h3>Fortaleza</h3>
@@ -33,7 +33,7 @@
                 {{ fortaleza.descripcion }}
               </li>
             </ul>
-            <p v-else>No hay información disponible.</p>
+            <p v-else></p>
           </div>
           <div class="celda">
             <h3>Amenaza</h3>
@@ -43,7 +43,7 @@
                 {{ amenaza.descripcion }}
               </li>
             </ul>
-            <p v-else>No hay información disponible.</p>
+            <p v-else></p>
           </div>
         </div>
       </div>
@@ -73,20 +73,28 @@
           </select>
         </div>
 
-        <div class="opcion">
-          <label for="proceso">Proceso</label>
-          <input id="proceso" type="text" v-model="proceso" placeholder="Ingresa el proceso aquí" />
-        </div>
 
+        
+        <div class="opcion">
+        <label for="proceso">Proceso</label>
+        <select id="proceso" v-model="proceso">
+          <option v-for="proceso in procesos" :key="proceso.id" :value="proceso.id">
+            {{ proceso.nombre }}
+          </option>
+        </select>
+      </div>
+
+        <!--
         <div class="opcion">
           <label for="area">Área</label>
           <select id="area" v-model="area">
             <option value="">Selecciona una opción</option>
             <option value="Sistemas">Sistemas</option>
-            <option value="Gestión Humana">Gestión Humana</option>
-            <option value="Producción">Producción</option>
+            <option value="Gestion Humana">Gestión Humana</option>
+            <option value="Produccion">Producción</option>
           </select>
         </div>
+        -->
 
         <!-- Mensaje de error -->
         <p v-if="error" class="error">{{ error }}</p>
@@ -107,7 +115,8 @@ export default {
     return {
       dofa: "", // Almacena la opción seleccionada en el menú DOFA
       tipo: "", // Almacena la opción seleccionada en el menú Tipo
-      area: "", // Almacena la opción seleccionada en el menú Área
+      //area: "", // Almacena la opción seleccionada en el menú Área
+      procesos: [],
       error: "", // Mensaje de error si falla la validación
       dofaResultados: {
         Debilidades: [],
@@ -123,17 +132,26 @@ export default {
     if (userData) {
       this.user = JSON.parse(userData);
     }
+
+    this.cargarProcesos();
   },
   methods: {
+    
+
+    async cargarProcesos() {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/procesos-buscar");
+        this.procesos = response.data;
+      } catch (error) {
+        console.error("Error al cargar los procesos:", error);
+        this.error = "No se pudieron cargar los procesos.";
+      }
+    },
+
+
     validarYBuscar() {
       // Limpiar errores previos
       this.error = "";
-
-      // Validaciones: No es necesario validar 'tipo' ya que se debe permitir vacíos para obtener todos los resultados.
-      if (!this.area) {
-        this.error = "Por favor selecciona una opción en el menú Área.";
-        return;
-      }
 
       // Si todas las validaciones pasan, enviar solicitud al backend
       this.buscarInformacion();

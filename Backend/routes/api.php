@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DofaController;
 use App\Http\Controllers\VerDofaController;
+use App\Http\Controllers\ProcesoController;
 
 
 Route::get('/user', function (Request $request) {
@@ -18,3 +19,5 @@ Route::post('/users', [UserController::class, 'store']);
 Route::post('/registro', [RegisterController::class, 'register']);
 Route::post('/guardar-dofa', [DofaController::class, 'store']);
 Route::post('/buscar-dofa', [VerDofaController::class, 'buscar']);
+Route::post('/procesos', [ProcesoController::class, 'store']);
+Route::get('/procesos-buscar', [ProcesoController::class, 'buscar']);

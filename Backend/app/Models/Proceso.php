@@ -5,21 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Oportunidad extends Model
+class Proceso extends Model
 {
     use HasFactory;
 
-    protected $table = 'oportunidades';
+    protected $table = 'procesos';
 
-    protected $fillable = ['codigo_debilidad', 'descripcion', 'tipo']; 
+    protected $fillable = ['nombre', 'descripcion'];
 
     public $timestamps = true;
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = null;
-    
+
     public function dofa()
     {
-        return $this->belongsTo(Dofa::class, 'codigo_oportunidad', 'Codigo');
+        return $this->hasMany(Dofa::class, 'id_proceso', 'id');
     }
 }

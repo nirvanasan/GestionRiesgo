@@ -13,5 +13,16 @@ class Dofa extends Model
     protected $fillable = [
         'codigo',
         'id_usuario',
+        'id_proceso',
     ];
+
+    public $timestamps = true;
+
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = null;
+    
+    public function proceso()
+    {
+        return $this->belongsTo(Proceso::class, 'id_proceso', 'id');
+    }
 }

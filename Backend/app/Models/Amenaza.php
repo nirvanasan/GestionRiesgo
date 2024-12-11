@@ -11,7 +11,12 @@ class Amenaza extends Model
 
     protected $table = 'amenazas';
 
-    protected $fillable = ['codigo_debilidad', 'descripcion', 'tipo', 'created_at', 'updated_at']; 
+    protected $fillable = ['codigo_debilidad', 'descripcion', 'tipo']; 
+
+    public $timestamps = true;
+
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = null;
     
     public function dofa()
     {

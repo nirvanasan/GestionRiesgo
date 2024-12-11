@@ -233,13 +233,6 @@ export default {
       return;
     }
 
-    const procesoSeleccionado = this.procesos.find(proceso => proceso.id === this.proceso);
-
-    if (!procesoSeleccionado) {
-      alert("Por favor seleccione un proceso");
-      return;
-    }
-
     // Datos a enviar
     const data = {
       Debilidad: this.debilidades.map(item => ({ tipo: item.type, descripcion: item.text })),
@@ -247,8 +240,6 @@ export default {
       Oportunidad: this.oportunidades.map(item => ({ tipo: item.type, descripcion: item.text })),
       Fortaleza: this.fortalezas.map(item => ({ tipo: item.type, descripcion: item.text })),
       id_usuario: this.user.id,
-      //Proceso: { id: procesoSeleccionado.id, nombre: procesoSeleccionado.nombre },
-      id_proceso: procesoSeleccionado.id,
     };
 
     // Muestra el JSON en la consola
@@ -256,7 +247,6 @@ export default {
     let datos_json = JSON.stringify(data, null, 2)
 
     console.log(datos_json)
-  
    
     ///*
     fetch('http://127.0.0.1:8000/api/guardar-dofa', {
