@@ -43,7 +43,7 @@ return new class extends Migration
         // Crear tabla Oportunidades
         Schema::create('Oportunidades', function (Blueprint $table) {
             $table->id(); // Campo id auto incremental
-            $table->string('codigo_oportunidad')->virtualAs('CONCAT(id, "-O")'); // Campo Código con lógica concatenada
+            $table->string('codigo_oportunidad')->virtualAs('CONCAT(id, "O")'); // Campo Código con lógica concatenada
             $table->string('descripcion'); // Campo descripción
             $table->string('tipo');
             $table->timestamps(); // Campos created_at y updated_at

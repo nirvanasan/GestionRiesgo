@@ -20,6 +20,6 @@ class Proceso extends Model
 
     public function dofa()
     {
-        return $this->hasMany(Dofa::class, 'id_proceso', 'id');
+        return $this->hasMany(Dofa::class, 'id', 'id_proceso');
     }
 }

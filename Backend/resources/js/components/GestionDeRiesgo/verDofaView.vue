@@ -1,49 +1,52 @@
 <template>
   <div class="pagina">
     <div class="grid">
-      <!-- Sección izquierda: Información en forma de tabla -->
+      <!-- Sección izquierda: Información en forma de cuadrícula -->
       <div class="informacion">
         <h2>DOFA</h2>
         <div class="tabla-dofa">
+          <!-- Debilidades -->
           <div class="celda">
             <h3>Debilidad</h3>
-            <!-- Mostrar todas las debilidades -->
             <ul v-if="dofaResultados.Debilidades && dofaResultados.Debilidades.length">
               <li v-for="(debilidad, index) in dofaResultados.Debilidades" :key="index">
-                {{ debilidad.descripcion }}
+                {{ debilidad.descripcion + " "}} <span style="color: red;">({{debilidad.tipo }})</span>
               </li>
             </ul>
-            <p v-else></p>
+            <p v-else>No hay debilidades registradas.</p>
           </div>
+          
+          <!-- Oportunidades -->
           <div class="celda">
             <h3>Oportunidad</h3>
-            <!-- Mostrar todas las oportunidades -->
             <ul v-if="dofaResultados.Oportunidades && dofaResultados.Oportunidades.length">
               <li v-for="(oportunidad, index) in dofaResultados.Oportunidades" :key="index">
-                {{ oportunidad.descripcion }}
+                {{ oportunidad.descripcion + " "}} <span style="color: red;">({{oportunidad.tipo }})</span>
               </li>
             </ul>
-            <p v-else></p>
+            <p v-else>No hay oportunidades registradas.</p>
           </div>
+          
+          <!-- Fortalezas -->
           <div class="celda">
             <h3>Fortaleza</h3>
-            <!-- Mostrar todas las fortalezas -->
             <ul v-if="dofaResultados.Fortalezas && dofaResultados.Fortalezas.length">
               <li v-for="(fortaleza, index) in dofaResultados.Fortalezas" :key="index">
-                {{ fortaleza.descripcion }}
+                {{ fortaleza.descripcion + " "}} <span style="color: red;">({{fortaleza.tipo }})</span>
               </li>
             </ul>
-            <p v-else></p>
+            <p v-else>No hay fortalezas registradas.</p>
           </div>
+          
+          <!-- Amenazas -->
           <div class="celda">
             <h3>Amenaza</h3>
-            <!-- Mostrar todas las amenazas -->
             <ul v-if="dofaResultados.Amenazas && dofaResultados.Amenazas.length">
               <li v-for="(amenaza, index) in dofaResultados.Amenazas" :key="index">
-                {{ amenaza.descripcion }}
+                {{ amenaza.descripcion + " "}} <span style="color: red;">({{amenaza.tipo }})</span>
               </li>
             </ul>
-            <p v-else></p>
+            <p v-else>No hay amenazas registradas.</p>
           </div>
         </div>
       </div>
@@ -73,33 +76,18 @@
           </select>
         </div>
 
-
-        
         <div class="opcion">
-        <label for="proceso">Proceso</label>
-        <select id="proceso" v-model="proceso">
-          <option v-for="proceso in procesos" :key="proceso.id" :value="proceso.id">
-            {{ proceso.nombre }}
-          </option>
-        </select>
-      </div>
-
-        <!--
-        <div class="opcion">
-          <label for="area">Área</label>
-          <select id="area" v-model="area">
+          <label for="proceso">Proceso</label>
+          <select id="proceso" v-model="proceso">
             <option value="">Selecciona una opción</option>
-            <option value="Sistemas">Sistemas</option>
-            <option value="Gestion Humana">Gestión Humana</option>
-            <option value="Produccion">Producción</option>
+            <option v-for="proceso in procesos" :key="proceso.id" :value="proceso.id">
+              {{ proceso.nombre }}
+            </option>
           </select>
         </div>
-        -->
 
-        <!-- Mensaje de error -->
         <p v-if="error" class="error">{{ error }}</p>
 
-        <!-- Botón Buscar Información -->
         <button class="btn-buscar" @click="validarYBuscar">Buscar Información</button>
       </div>
     </div>
@@ -117,6 +105,7 @@ export default {
       tipo: "", // Almacena la opción seleccionada en el menú Tipo
       //area: "", // Almacena la opción seleccionada en el menú Área
       procesos: [],
+      proceso: '',
       error: "", // Mensaje de error si falla la validación
       dofaResultados: {
         Debilidades: [],
@@ -164,7 +153,10 @@ export default {
           dofa: this.dofa,
           tipo: this.tipo,  // Puede estar vacío si se quiere traer todos los tipos
           //area: this.area,  // Si es necesario en el backend
+          proceso: this.proceso
         };
+
+        console.log(payload);
 
         // Realizar la solicitud al backend
         const response = await axios.post("http://127.0.0.1:8000/api/buscar-dofa", payload);
@@ -218,6 +210,7 @@ export default {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
 .cuadro-informacion {
@@ -260,7 +253,7 @@ input {
 
 button {
   padding: 10px 20px;
-  background-color: #4caf50;
+  background-color: #ef0c0c;
   color: white;
   border: none;
   border-radius: 5px;
@@ -268,6 +261,43 @@ button {
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #fffb00;
+  color: #000000;
 }
+
+.celda {
+  background: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 30px; /* Incrementa espacio interno */
+  text-align: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 250px; /* Tamaño mínimo */
+  min-height: 180px; /* Altura mínima */
+}
+
+.tabla-dofa {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+}
+
+.celda h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.celda ul {
+  list-style-type:square; /* Tipo de viñeta (disco, círculo, cuadrado) */
+  padding-left: 20px; /* Espaciado a la izquierda de la lista */
+  text-align: left;
+}
+
+.celda ul li {
+  font-size: 14px;
+  margin: 5px 0;
+  margin-bottom: 0px; /* Espacio entre los elementos de la lista */
+
+}
+
+
 </style>

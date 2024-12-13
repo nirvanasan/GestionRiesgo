@@ -18,7 +18,6 @@ class ProcesoController extends Controller
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
         ]);
-
         // Crear el proceso
         Proceso::create($validatedData);
 
