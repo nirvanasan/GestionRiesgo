@@ -4,27 +4,10 @@
       <EncabezadoView/>
   
       
-      <!-- Contenido principal -->
+      
       <!-- Barra de navegación -->
-      <nav class="navigation">
-        <ul class="main-nav">
-          <div class="main-nav__item">
-            <router-link to="/dofa" class="create-account"><a router class="nav-link">DOFA</a></router-link>
-          </div>
-          <div class="main-nav__item">
-            <router-link to="/clasificacion" class="create-account"><a href="#" class="nav-link">Clasificación</a></router-link>
-          </div>
-          <div class="main-nav__item">
-            <router-link to="/controles" class="create-account"><a href="#" class="nav-link">Controles</a></router-link>
-          </div>
-          <div class="main-nav__item">
-            <router-link to="/accion" class="create-account"><a href="#" class="nav-link">Acción</a></router-link>
-          </div>
-          <div class="main-nav__item">
-            <router-link to="/seguimiento" class="create-account"><a href="#" class="nav-link">Seguimiento</a></router-link>
-          </div>
-        </ul>
-      </nav>
+      <NavegacionView/>
+      <!-- Contenido principal -->
       <main class="main-content">
         <section>
           <h4>Bienvenido a la sección principal</h4>
@@ -36,10 +19,12 @@
   
   <script>
    import EncabezadoView from '../EncabezadoView.vue';
+   import NavegacionView from "../navegacionView.vue";
   export default {
     name: 'MainPage',
     components: {
-      EncabezadoView
+      EncabezadoView,
+      NavegacionView
     }
   };
   </script>

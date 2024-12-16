@@ -4,58 +4,71 @@
       <EncabezadoView/>
   
       
-      <!-- Contenido principal -->
+     
       <!-- Barra de navegación -->
-      <nav class="navigation">
-        <ul class="main-nav">
-          <div class="main-nav__item">
-            <router-link to="/dofa" class="create-account"><a router class="nav-link">DOFA</a></router-link>
-          </div>
-          <div class="main-nav__item">
-            <router-link to="/clasificacion" class="create-account"><a href="#" class="nav-link">Clasificación</a></router-link>
-          </div>
-          <div class="main-nav__item">
-            <router-link to="/controles" class="create-account"><a href="#" class="nav-link">Controles</a></router-link>
-          </div>
-          <div class="main-nav__item">
-            <router-link to="/accion" class="create-account"><a href="#" class="nav-link">Acción</a></router-link>
-          </div>
-          <div class="main-nav__item">
-            <router-link to="/seguimiento" class="create-account"><a href="#" class="nav-link">Seguimiento</a></router-link>
-          </div>
-        </ul>
-      </nav>
+      <NavegacionView/>
+      <!-- Contenido principal -->
       <main class="main-content">
-        <section>
-          <h4>Bienvenido a la sección principal</h4>
-          <p>Aquí puedes agregar el contenido que desees mostrar.</p>
+        <section class="input-container">
+          <ContenedorView />
+          <div class="right-panel">
+              <div>
+                <h3>CONTROL ACTUAL DEL PROCESO</h3>
+                <textarea v-model="causasPotenciales"></textarea>
+              </div>
+              
+              <div class="probabilidad-container">
+                <div>
+                  <label>PROBABILIDAD</label>
+                  <input type="number" v-model="probabilidad" min="1" max="5" />
+                </div>
+                <div>
+                  <label>IMPACTO</label>
+                  <input type="number" v-model="impacto" min="1" max="5" />
+                </div>
+              </div>
+
+
+              <div class="buttons">
+                <button @click="limpiar" class="btn limpiar">Limpiar</button>
+                <button @click="ingresar" class="btn ingresar">Ingresar</button>
+              </div>
+            </div>
+
+        
         </section>
       </main>
     </div>
   </template>
   
   <script>
+  import ContenedorView from '../contenedorView.vue';
   import EncabezadoView from '../EncabezadoView.vue';
+  import NavegacionView from "../navegacionView.vue";
+
   export default {
     name: 'MainPage',
     components: {
-      EncabezadoView
+      EncabezadoView,
+      NavegacionView,
+      ContenedorView
     }
   };
   </script>
   
   <style scoped>
   .pagina {
-    display: grid;
-    grid-template-columns: repeat(20, 1fr); /* 20 columnas iguales */
-    grid-template-rows: 100px 100px auto; /* Filas más pequeñas */
-    background-image: url('/src/assets/img/Fondo2.png');
-    background-position: center center;
-    background-size: cover;
-    font-family: Arial, sans-serif;
-    height: 100vh; /* Ocupa el 100% del viewport */
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: 100px 100px auto;
+  background-image: url("/src/assets/img/Fondo2.png");
+  background-position: center center;
+  background-size: cover;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+}
 
-  }
+
   
   header {
     grid-column: 5 / 17; /* Ocupa todas las columnas */
@@ -82,14 +95,20 @@
   }
   
   .main-content {
-    grid-column: 5 / 17; /* Ocupa de la columna 5 a la 17 */
-    grid-row: 3; /* Empieza desde la fila 3 */
-    background-color: #ffffff;
-    padding: 20px;
-    padding-top: 0;
-    box-shadow: 0px 4px 8px rgba(87, 85, 85, 0.8);
-    height: 350px; /* Ajusta la altura según tus necesidades */
-    width: 100%; /* Ajusta el ancho según tus necesidades */
+  grid-column: 4 / 18;
+  grid-row: 3;
+  background-color: #ffffffc0;
+  padding: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8);
+  height: 450px;
+  width: 105%;
+  border-radius: 8px;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
 }
   
   .logo {
@@ -123,6 +142,74 @@
     background-color: white;
     color: red;
   }
+
+  .right-panel {
+  flex: 0 1 50%;
+  max-width: 600px;
+  padding: 15px;
+  border: 1px solid black; /* Línea divisoria */
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espacio entre los bloques */
+}
+
+textarea {
+  width: 100%; /* Ancho del textarea */
+  height: 140px;
+  margin-bottom: 10px;
+  resize: none;
+  background-color: rgba(245, 245, 245, 0.645);
+  border: 1px solid black; /* Opcional: Bordes más visibles */
+}
+
+.probabilidad-container {
+  display: flex;
+  flex-direction: column; /* Alinear en columna */
+  gap: 16px; /* Espacio entre filas */
+  align-items: center; /* Centrar los campos */
+}
+
+.probabilidad-container div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 16px;
+  gap: 5px; /* Espacio entre etiqueta y entrada */
+}
+
+input[type="number"] {
+  width: 60px;
+  padding: 5px;
+  text-align: center; /* Centrar el contenido */
+  border: 1px solid black; /* Bordes visibles */
+  background-color: rgba(245, 245, 245, 0.645);
+}
+
+.buttons {
+  display: flex;
+  gap: 20px; /* Espacio entre los botones */
+  justify-content: center; /* Centrado horizontal */
+}
+
+.btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.limpiar {
+  background-color: #d2b48c;
+}
+
+.ingresar {
+  background-color: #ff4d4d;
+  color: white;
+}
 
   /* */
   </style>

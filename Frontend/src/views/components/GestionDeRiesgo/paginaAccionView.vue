@@ -4,27 +4,10 @@
       <EncabezadoView/>
   
       
-      <!-- Contenido principal -->
+     
       <!-- Barra de navegación -->
-      <nav class="navigation">
-        <ul class="main-nav">
-          <div class="main-nav__item">
-            <router-link to="/dofa" class="create-account"><a router class="nav-link">DOFA</a></router-link>
-          </div>
-          <div class="main-nav__item">
-            <router-link to="/clasificacion" class="create-account"><a href="#" class="nav-link">Clasificación</a></router-link>
-          </div>
-          <div class="main-nav__item">
-            <router-link to="/controles" class="create-account"><a href="#" class="nav-link">Controles</a></router-link>
-          </div>
-          <div class="main-nav__item">
-            <router-link to="/accion" class="create-account"><a href="#" class="nav-link">Acción</a></router-link>
-          </div>
-          <div class="main-nav__item">
-            <router-link to="/seguimiento" class="create-account"><a href="#" class="nav-link">Seguimiento</a></router-link>
-          </div>
-        </ul>
-      </nav>
+        <NavegacionView/>
+      <!-- Contenido principal -->
       <main class="main-content">
         <section>
           <h4>Bienvenido a la sección principal</h4>
@@ -37,10 +20,12 @@
   <script>
 
 import EncabezadoView from '../EncabezadoView.vue';
+import NavegacionView from "../navegacionView.vue";
   export default {
 
     components: {
-      EncabezadoView
+      EncabezadoView,
+      NavegacionView
     }
     
   };
@@ -70,6 +55,8 @@ import EncabezadoView from '../EncabezadoView.vue';
     box-shadow: 0px 4px 8px rgba(87, 85, 85, 0.8);
     margin-top: 10px;
   }
+
+  
   .box1 {
   flex: 1;
   display: flex;
@@ -94,15 +81,17 @@ import EncabezadoView from '../EncabezadoView.vue';
   }
   
   .main-content {
-    grid-column: 5 / 17; /* Ocupa de la columna 5 a la 17 */
-    grid-row: 3; /* Empieza desde la fila 3 */
-    background-color: #ffffff;
-    padding: 20px;
-    padding-top: 0;
-    box-shadow: 0px 4px 8px rgba(87, 85, 85, 0.8);
-    height: 350px; /* Ajusta la altura según tus necesidades */
-    width: 100%; /* Ajusta el ancho según tus necesidades */
+  grid-column: 4 / 18;
+  grid-row: 3;
+  background-color: #ffffffc0;
+  padding: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8);
+  height: 450px;
+  width: 105%;
+  border-radius: 8px;
 }
+
+
   
   .logo {
     max-width: 100px;

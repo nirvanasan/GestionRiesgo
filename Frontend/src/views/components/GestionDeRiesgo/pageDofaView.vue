@@ -48,58 +48,61 @@
         </div>
 
         <div class="left-column">
-            <label>Debilidad</label>
-            <div class="readonly-box">
-              <span v-if="debilidades.length === 0" style="color: gray; font-style: italic">Aquí va la Debilidad</span>
-              <p v-for="(item, index) in debilidades" :key="index">
-                <span :class="getTypeClass(item.type)">
-                  {{ item.type }}:
-                </span>
-                {{ item.text }}
-              </p>
-            </div>
-
-            <label>Oportunidad</label>
-            <div class="readonly-box">
-              <span v-if="oportunidades.length === 0" style="color: gray; font-style: italic">Aquí va la Oportunidad</span>
-              <p v-for="(item, index) in oportunidades" :key="index">
-                <span :class="getTypeClass(item.type)">
-                  {{ item.type }}:
-                </span>
-                {{ item.text }}
-              </p>
-            </div>
+          <label>Debilidad</label>
+          <div class="readonly-box">
+            <span v-if="debilidades.length === 0" style="color: gray; font-style: italic">Aquí va la Debilidad</span>
+            <p v-for="(item, index) in debilidades" :key="index">
+              <span :class="getTypeClass(item.type)">
+                {{ item.type }}:
+              </span>
+              {{ item.text }}
+            </p>
           </div>
 
-          <div class="right-column">
-            <label>Fortaleza</label>
-            <div class="readonly-box">
-              <span v-if="fortalezas.length === 0" style="color: gray; font-style: italic">Aquí va la Fortaleza</span>
-              <p v-for="(item, index) in fortalezas" :key="index">
-                <span :class="getTypeClass(item.type)">
-                  {{ item.type }}:
-                </span>
-                {{ item.text }}
-              </p>
-            </div>
+          <label>Oportunidad</label>
+          <div class="readonly-box">
+            <span v-if="oportunidades.length === 0" style="color: gray; font-style: italic">Aquí va la Oportunidad</span>
+            <p v-for="(item, index) in oportunidades" :key="index">
+              <span :class="getTypeClass(item.type)">
+                {{ item.type }}:
+              </span>
+              {{ item.text }}
+            </p>
+          </div>
+        </div>
 
-            <label>Amenaza</label>
-            <div class="readonly-box">
-              <span v-if="amenazas.length === 0" style="color: gray; font-style: italic">Aquí va la Amenaza</span>
-              <p v-for="(item, index) in amenazas" :key="index">
-                <span :class="getTypeClass(item.type)">
-                  {{ item.type }}:
-                </span>
-                {{ item.text }}
-              </p>
-            </div>
-
-            <div class="button-container">
-              <button @click="enviarDatos" class="button">Enviar datos</button>
-            </div>
+        <div class="right-column">
+          <label>Fortaleza</label>
+          <div class="readonly-box">
+            <span v-if="fortalezas.length === 0" style="color: gray; font-style: italic">Aquí va la Fortaleza</span>
+            <p v-for="(item, index) in fortalezas" :key="index">
+              <span :class="getTypeClass(item.type)">
+                {{ item.type }}:
+              </span>
+              {{ item.text }}
+            </p>
           </div>
 
+          <label>Amenaza</label>
+          <div class="readonly-box">
+            <span v-if="amenazas.length === 0" style="color: gray; font-style: italic">Aquí va la Amenaza</span>
+            <p v-for="(item, index) in amenazas" :key="index">
+              <span :class="getTypeClass(item.type)">
+                {{ item.type }}:
+              </span>
+              {{ item.text }}
+            </p>
+          </div>
 
+          <div class="button-container">
+            <button 
+              @click="enviarDatos" 
+              class="button"
+            >
+              Enviar datos
+            </button>
+          </div>
+        </div>
       </section>
     </main>
   </div>
@@ -126,116 +129,101 @@ export default {
       selectedTipo: "Estratégico",
     };
   },
-  computed: {
-    // Computado para deshabilitar el botón "Enviar" si hay campos vacíos
-    isEnviarDisabled() {
-      return !(this.input1 && this.input2 && this.input3 && this.input4);
-    }
-  },
-
-  
   methods: {
-  handleSubmit() {
-    if (!this.descripcion.trim()) {
-      alert("Datos enviados!!.");
-      return;
-    }
+    handleSubmit() {
+      if (!this.descripcion.trim()) {
+        alert("Por favor, ingrese una descripción.");
+        return;
+      }
 
-    // Creación del objeto con texto y tipo
-    const entry = { text: this.descripcion, type: this.selectedTipo };
+      const entry = { text: this.descripcion, type: this.selectedTipo };
 
-    // Agregar al cuadrante correspondiente
-    switch (this.selectedCuadrante) {
-      case "Debilidad":
-        this.debilidades.push(entry);
-        break;
-      case "Oportunidad":
-        this.oportunidades.push(entry);
-        break;
-      case "Fortaleza":
-        this.fortalezas.push(entry);
-        break;
-      case "Amenaza":
-        this.amenazas.push(entry);
-        break;
-    }
+      switch (this.selectedCuadrante) {
+        case "Debilidad":
+          this.debilidades.push(entry);
+          break;
+        case "Oportunidad":
+          this.oportunidades.push(entry);
+          break;
+        case "Fortaleza":
+          this.fortalezas.push(entry);
+          break;
+        case "Amenaza":
+          this.amenazas.push(entry);
+          break;
+      }
 
-    this.descripcion = ""; // Limpia el campo de descripción
-  },
+      this.descripcion = "";
+    },
+    limpiar() {
+      this.debilidades = [];
+      this.oportunidades = [];
+      this.fortalezas = [];
+      this.amenazas = [];
+    },
+    getTypeClass(type) {
+      switch (type) {
+        case "Estratégico":
+          return "type-estrategico";
+        case "Operativo":
+          return "type-operativo";
+        case "Táctico":
+          return "type-tactico";
+        default:
+          return "";
+      }
+    },
+    enviarDatos() {
+      if (
+        this.debilidades.length === 0 &&
+        this.oportunidades.length === 0 &&
+        this.fortalezas.length === 0 &&
+        this.amenazas.length === 0
+      ) {
+        alert('Por favor, agregue información en al menos un cuadrante antes de enviar.');
+        return;
+      }
 
-  limpiar() {
-    this.debilidades = [];
-    this.oportunidades = [];
-    this.fortalezas = [];
-    this.amenazas = [];
-  },
+      const data = {
+        debilidades: this.debilidades,
+        oportunidades: this.oportunidades,
+        fortalezas: this.fortalezas,
+        amenazas: this.amenazas,
+      };
 
-
-   // Nueva función para determinar la clase CSS
-   getTypeClass(type) {
-    switch (type) {
-      case "Estratégico":
-        return "type-estrategico";
-      case "Operativo":
-        return "type-operativo";
-      case "Táctico":
-        return "type-tactico";
-      default:
-        return "";
-    }
-  },
-
-  enviarDatos() {
-    // Validación: todos los campos de la DOFA deben estar llenos antes de enviar
-    if (this.isEnviarDisabled) {
-      alert('Por favor, complete todos los campos de la DOFA antes de enviar.');
-      return;
-    }
-
-    // Datos a enviar
-    const data = {
-      debilidad: this.input1,
-      oportunidad: this.input2,
-      fortaleza: this.input3,
-      amenaza: this.input4
-    };
-
-    // Envía los datos mediante una petición POST
-    fetch('https://tudominio.com/api/enviar', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Datos enviados con éxito:', data);
-        alert('Datos enviados correctamente.');
+      fetch('https://tudominio.com/api/enviar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       })
-      .catch(error => {
-        console.error('Error al enviar los datos:', error);
-        alert('Error al enviar los datos.');
-      });
+        .then(response => response.json())
+        .then(data => {
+          console.log('Datos enviados con éxito:', data);
+          alert('Datos enviados correctamente.');
+        })
+        .catch(error => {
+          console.error('Error al enviar los datos:', error);
+          alert('Error al enviar los datos.');
+        });
+    },
   },
-
- 
-}
 };
 </script>
 
 
 <style scoped>
-.pagina {
-  display: grid;
-  grid-template-columns: repeat(20, 1fr);
-  grid-template-rows: 100px 100px auto;
-  background-image: url("/src/assets/img/Fondo2.png");
-  background-position: center center;
-  background-size: cover;
-  font-family: Arial, sans-serif;
-  height: 100vh;
-}
+  .pagina {
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    grid-template-rows: 100px 100px auto;
+    background-image: url("/src/assets/img/Fondo2.png");
+    background-position: center center;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+  }
 
 .navigation {
   grid-column: 5 / 17;

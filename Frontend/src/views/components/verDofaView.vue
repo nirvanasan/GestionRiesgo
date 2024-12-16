@@ -58,10 +58,6 @@
           </select>
         </div>
 
-        <div class="opcion">
-          <label for="proceso">Proceso</label>
-          <input id="proceso" type="text" v-model="proceso" placeholder="Ingresa el proceso aquí" />
-        </div>
 
         <div class="opcion">
           <label for="area">Área</label>
