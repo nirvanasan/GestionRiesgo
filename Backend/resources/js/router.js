@@ -9,6 +9,7 @@ import Dofa from './components/GestionDeRiesgo/pageDofaView.vue';
 import Eleccion from './components/GestionDeRiesgo/eleccionView.vue';
 import Proceso from './components/GestionDeRiesgo/procesoView.vue';
 import VerDofa from './components/GestionDeRiesgo/verDofaView.vue';
+import Clasificacion from './components/GestionDeRiesgo/paginaClasificacionView.vue';
 
 
 const routes = [
@@ -73,6 +74,15 @@ const routes = [
       meta: {
           requiresAuth: true,
           title: "DOFA"
+          }
+    },
+    {
+      path: '/clasificacion',
+      name: 'clasificacion',
+      component: Clasificacion,
+      meta: {
+          requiresAuth: true,
+          title: "Clasificacion"
           }
     },
 ];

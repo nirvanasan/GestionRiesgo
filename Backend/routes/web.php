@@ -41,3 +41,7 @@ Route::get('proceso', function () {
 Route::get('VerDofa', function () {
     return view('VerDofa');
 });
+
+Route::get('clasificacion', function () {
+    return view('clasificacion');
+});
