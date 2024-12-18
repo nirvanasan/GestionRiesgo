@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('Codigo'); // Campo "Codigo" de tipo varchar
             $table->unsignedBigInteger('id_usuario'); // Campo "id_usuario" de tipo int
             $table->unsignedBigInteger('id_proceso')->nullable(); 
+            $table->boolean('clasificacion')->default(false);
             $table->timestamps(); // Agrega campos "created_at" y "updated_at"
         });
     }

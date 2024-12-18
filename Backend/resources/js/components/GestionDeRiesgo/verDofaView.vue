@@ -116,6 +116,7 @@ export default {
       user: {}, // Resultados de la consulta a la base de datos divididos por secciones
     };
   },
+  
   mounted() {
     const userData = localStorage.getItem("user");
     if (userData) {
