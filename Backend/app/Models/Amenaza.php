@@ -11,7 +11,7 @@ class Amenaza extends Model
 
     protected $table = 'amenazas';
 
-    protected $fillable = ['codigo_debilidad', 'descripcion', 'tipo']; 
+    protected $fillable = ['codigo', 'descripcion', 'tipo']; 
 
     public $timestamps = true;
 
@@ -20,6 +20,6 @@ class Amenaza extends Model
     
     public function dofa()
     {
-        return $this->belongsTo(Dofa::class, 'codigo_amenaza', 'Codigo');
+        return $this->belongsTo(Dofa::class, 'codigo', 'Codigo');
     }
 }

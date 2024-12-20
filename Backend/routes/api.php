@@ -24,4 +24,4 @@ Route::post('/buscar-dofa', [VerDofaController::class, 'buscar']);
 Route::post('/procesos', [ProcesoController::class, 'store']);
 Route::get('/procesos-buscar', [ProcesoController::class, 'buscar']);
 Route::post('/oportunidad-riesgo', [AnalisisDofaController::class, 'getAnalisisDofaByUser']);
-Route::post('/clasificacion', [ClasificacionController::class, 'clasificacion']);
+Route::post('/clasificacion', [ClasificacionController::class, 'store']);

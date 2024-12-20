@@ -4,7 +4,7 @@
     <EncabezadoView />
 
     <!-- Barra de navegación -->
-    <NavegacionView />
+    <navegacionView />
 
     <!-- Contenido principal -->
     <main class="main-content">
@@ -13,14 +13,14 @@
         <div class="left-panel">
           <div class="section">
             <h3>OPORTUNIDAD</h3>
-            <select v-model="oportunidadSeleccionada" @change="handleSeleccionOportunidad">
-              <option v-for="op in oportunidades" :key="op.id" :value="op.id">{{ op.descripcion }}</option>
+            <select v-model="oportunidadSeleccionada" @change="actualizarSeleccion('oportunidad')">
+              <option v-for="op in oportunidades" :key="op.id" :value="op">{{ op.descripcion }}</option>
             </select>
           </div>
           <div class="section">
             <h3>RIESGO</h3>
-            <select v-model="riesgoSeleccionado" @change="handleSeleccionRiesgo">
-              <option v-for="riesgo in riesgos" :key="riesgo.id" :value="riesgo.id">{{ riesgo.descripcion }}</option>
+            <select v-model="riesgoSeleccionado" @change="actualizarSeleccion('riesgo')">
+              <option v-for="riesgo in riesgos" :key="riesgo.id" :value="riesgo">{{ riesgo.descripcion}}</option>
             </select>
           </div>
         </div>
@@ -29,11 +29,11 @@
         <div class="right-panel">
           <div>
             <h3>CAUSAS POTENCIALES</h3>
-            <textarea v-model="causasPotenciales"></textarea>
+            <textarea v-model="causas"></textarea>
           </div>
           <div>
             <h3>EFECTO POTENCIAL</h3>
-            <textarea v-model="efectoPotencial"></textarea>
+            <textarea v-model="efecto"></textarea>
           </div>
           <div class="probabilidad-container">
             <div>
@@ -61,26 +61,25 @@
 
 <script>
 import EncabezadoView from "../EncabezadoView.vue";
-import NavegacionView from "../navegacionView.vue";
+import navegacionView from "../navegacionView.vue";
 
 export default {
   name: "MainPage",
   components: {
     EncabezadoView,
-    NavegacionView,
+    navegacionView,
   },
 
   data() {
     return {
-      oportunidades: [], // Aquí se almacenarán las fortalezas y oportunidades
-      riesgos: [], // Aquí se almacenarán las debilidades y amenazas
-      oportunidadSeleccionada: null,
-      riesgoSeleccionado: null,
-      causasPotenciales: "",
-      efectoPotencial: "",
-      probabilidad: 1,
-      impacto: 1,
-      valoracion: 1,
+      oportunidades: "", // Aquí se almacenarán las fortalezas y oportunidades
+      riesgos: "", // Aquí se almacenarán las debilidades y amenazas
+      oportunidadSeleccionada: "",
+      riesgoSeleccionado: "",
+      causas: "",
+      efecto: "",
+      probabilidad: 0,
+      impacto: 0,
       user: {},
     };
   },
@@ -100,53 +99,85 @@ export default {
   },
 
   methods: {
-    limpiar() {
-      this.oportunidadSeleccionada = null;
-      this.riesgoSeleccionado = null;
-      this.causasPotenciales = "";
-      this.efectoPotencial = "";
-      this.probabilidad = 0;
-      this.impacto = 0;
-      this.valoracion = 0;
-    },
 
-    ingresar() {
-      if (this.oportunidadSeleccionada) {
-        // Encuentra el texto de la oportunidad seleccionada
-        const oportunidad = this.oportunidades.find(op => op.id === this.oportunidadSeleccionada);
-        //alert(`Oportunidad seleccionada: ${oportunidad.descripcion}`);
-        //console.log(`Oportunidad seleccionada: ${oportunidad.descripcion}`);
-        console.log("Datos ingresados:", {
-        oportunidad: oportunidad,
-        causasPotenciales: this.causasPotenciales,
-        efectoPotencial: this.efectoPotencial,
-        probabilidad: this.probabilidad,
-        impacto: this.impacto,
-        valoracion: this.valoracion,
-      });
-
-      } else if (this.riesgoSeleccionado) {
-
-        // Encuentra el texto del riesgo seleccionado
-        const riesgo = this.riesgos.find(r => r.id === this.riesgoSeleccionado);
-        //alert(`Riesgo seleccionado: ${riesgo.descripcion}`);
-        //console.log(`Riesgo seleccionado: ${riesgo.descripcion}`);
-        console.log("Datos ingresados:", {
-        riesgo: riesgo.descripcion,
-        causasPotenciales: this.causasPotenciales,
-        efectoPotencial: this.efectoPotencial,
-        probabilidad: this.probabilidad,
-        impacto: this.impacto,
-        valoracion: this.valoracion,
-      });
-
-      } else {
-        // Si no se ha seleccionado nada
-        alert("Debe seleccionar una Oportunidad o un Riesgo antes de ingresar.");
+    actualizarSeleccion(campo) {
+      if (campo === "oportunidad" && this.oportunidadSeleccionada) {
+        this.riesgoSeleccionado = null;
+      } else if (campo === "riesgo" && this.riesgoSeleccionado) {
+        this.oportunidadSeleccionada = null;
       }
     },
 
+    ingresar() {
+      // Validaciones básicas
+      if (!this.oportunidadSeleccionada && !this.riesgoSeleccionado) {
+        alert("Debe seleccionar una opción en Oportunidad o Riesgo.");
+        return;
+      }
+
+      if (!this.causas.trim() || !this.efecto.trim()) {
+        alert("Debe rellenar las causas y el efecto.");
+        return;
+      }
+
+      if (this.probabilidad < 1 || this.probabilidad > 5 || this.impacto < 1 || this.impacto > 5) {
+        alert("La probabilidad y el impacto deben estar entre 1 y 5.");
+        return;
+      }
+
+      const tipo = this.oportunidadSeleccionada ? "Oportunidad" : "Riesgo";
+      const seleccionado = this.oportunidadSeleccionada || this.riesgoSeleccionado;
+
+      const payload = {
+        id_elemento: seleccionado.codigo,
+        tipo,
+        causa: this.causas,
+        efecto: this.efecto,
+        probabilidad: this.probabilidad,
+        impacto: this.impacto,
+        valoracion: this.valoracion,
+      };
+
+      fetch("http://127.0.0.1:8000/api/clasificacion", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Error al enviar la información.");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          alert("Datos enviados exitosamente.");
+          this.limpiar();
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    },
+
+    limpiar() {
+      
+      this.oportunidadSeleccionada = "";
+      this.riesgoSeleccionado = "";
+      this.causas = "";
+      this.efecto = "";
+      this.probabilidad = 0;
+      this.impacto = 0;
+      
+      },
+
     cargarDatos() {
+
+      if (!this.user.id) {
+      console.error("Usuario no definido.");
+      return;
+    }
+
       const payload = {
         id_usuario: this.user.id,
       };
@@ -162,18 +193,13 @@ export default {
         .then((data) => {
           this.oportunidades = [...data.Fortalezas, ...data.Oportunidades];
           this.riesgos = [...data.Debilidades, ...data.Amenazas];
+          //console.log(this.oportunidades)
+          
+       
         })
         .catch((error) => {
           console.error("Error al cargar datos:", error);
         });
-    },
-
-    handleSeleccionOportunidad() {
-      this.riesgoSeleccionado = null; // Limpia la selección de riesgo
-    },
-
-    handleSeleccionRiesgo() {
-      this.oportunidadSeleccionada = null; // Limpia la selección de oportunidad
     },
   },
 };

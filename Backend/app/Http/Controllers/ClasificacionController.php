@@ -3,24 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Clasificacion;
 
 class ClasificacionController extends Controller
 {
-    public function clasificacion(Request $request)
+    public function store(Request $request)
     {
-
-        $request->validate([
-            'chimbada' => 'required|integer',
+        // Validación de datos
+        $validatedData = $request->validate([
+            'id_elemento' => 'required|string',
+            'tipo' => 'required|string|in:Oportunidad,Riesgo',
+            'causa' => 'required|string',
+            'efecto' => 'required|string',
+            'probabilidad' => 'required|integer|min:1|max:5',
+            'impacto' => 'required|integer|min:1|max:5',
+            'valoracion' => 'required|integer|min:1',
         ]);
 
-        $idUsuario = $request['chimbada'];
+        // Crear el registro en la base de datos
+        $clasificacion = Clasificacion::create($validatedData);
 
-        if($idUsuario == 1){
-            return response()->json("Melo pa", 200);
-        }else{
-            return response()->json("Nonas pa", 200);
-        }
-
-        
+        return response()->json([
+            'success' => true,
+            'message' => 'Registro creado exitosamente.',
+            'data' => $clasificacion,
+        ], 201);
     }
 }

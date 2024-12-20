@@ -16,8 +16,8 @@ return new class extends Migration
         // Crear tabla Amenazas
         Schema::create('Amenazas', function (Blueprint $table) {
             $table->id(); // Campo id auto incremental
-            $table->string('codigo_amenaza')->virtualAs('CONCAT(id, "A")'); // Campo Código con lógica concatenada
-            $table->string('descripcion'); // Campo descripción
+            $table->string('codigo')->virtualAs('CONCAT(id, "A")'); // Campo Código con lógica concatenada
+            $table->string('descripcion')->unique(); // Campo descripción
             $table->string('tipo');
             $table->timestamps(); // Campos created_at y updated_at
         });
@@ -25,8 +25,8 @@ return new class extends Migration
         // Crear tabla Debilidades
         Schema::create('Debilidades', function (Blueprint $table) {
             $table->id(); // Campo id auto incremental
-            $table->string('codigo_debilidad')->virtualAs('CONCAT(id, "D")'); // Campo Código con lógica concatenada
-            $table->string('descripcion'); // Campo descripción
+            $table->string('codigo')->virtualAs('CONCAT(id, "D")'); // Campo Código con lógica concatenada
+            $table->string('descripcion')->unique(); // Campo descripción
             $table->string('tipo');
             $table->timestamps(); // Campos created_at y updated_at
         });
@@ -34,8 +34,8 @@ return new class extends Migration
         // Crear tabla Fortalezas
         Schema::create('Fortalezas', function (Blueprint $table) {
             $table->id(); // Campo id auto incremental
-            $table->string('codigo_fortaleza')->virtualAs('CONCAT(id, "F")'); // Campo Código con lógica concatenada
-            $table->string('descripcion'); // Campo descripción
+            $table->string('codigo')->virtualAs('CONCAT(id, "F")'); // Campo Código con lógica concatenada
+            $table->string('descripcion')->unique(); // Campo descripción
             $table->string('tipo');
             $table->timestamps(); // Campos created_at y updated_at
         });
@@ -43,8 +43,8 @@ return new class extends Migration
         // Crear tabla Oportunidades
         Schema::create('Oportunidades', function (Blueprint $table) {
             $table->id(); // Campo id auto incremental
-            $table->string('codigo_oportunidad')->virtualAs('CONCAT(id, "O")'); // Campo Código con lógica concatenada
-            $table->string('descripcion'); // Campo descripción
+            $table->string('codigo')->virtualAs('CONCAT(id, "O")'); // Campo Código con lógica concatenada
+            $table->string('descripcion')->unique(); // Campo descripción
             $table->string('tipo');
             $table->timestamps(); // Campos created_at y updated_at
         });
