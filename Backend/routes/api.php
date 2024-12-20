@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DofaController;
 use App\Http\Controllers\VerDofaController;
 use App\Http\Controllers\ProcesoController;
+use App\Http\Controllers\AnalisisDofaController;
+use App\Http\Controllers\ClasificacionController;
 
 
 Route::get('/user', function (Request $request) {
@@ -21,3 +23,5 @@ Route::post('/guardar-dofa', [DofaController::class, 'store']);
 Route::post('/buscar-dofa', [VerDofaController::class, 'buscar']);
 Route::post('/procesos', [ProcesoController::class, 'store']);
 Route::get('/procesos-buscar', [ProcesoController::class, 'buscar']);
+Route::post('/oportunidad-riesgo', [AnalisisDofaController::class, 'getAnalisisDofaByUser']);
+Route::post('/clasificacion', [ClasificacionController::class, 'store']);

@@ -52,4 +52,24 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function oportunidades()
+    {
+        return $this->hasMany(Oportunidad::class, 'id_usuario');
+    }
+
+    public function amenazas()
+    {
+        return $this->hasMany(Amenaza::class, 'id_usuario');
+    }
+
+    public function debilidades()
+    {
+        return $this->hasMany(Debilidad::class, 'id_usuario');
+    }
+
+    public function fortalezas()
+    {
+        return $this->hasMany(Fortaleza::class, 'id_usuario');
+    }
 }

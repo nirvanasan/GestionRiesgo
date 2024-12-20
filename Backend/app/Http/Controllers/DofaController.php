@@ -34,7 +34,7 @@ public function store(Request $request)
             'tipo' => $debilidad['tipo'],
         ]);
         // Recuperar el código generado
-        $codigo = Debilidad::find($registro->id)->codigo_debilidad;
+        $codigo = Debilidad::find($registro->id)->codigo;
 
         Dofa::create([
             'codigo' => $codigo,
@@ -50,7 +50,7 @@ public function store(Request $request)
             'tipo' => $amenaza['tipo'],
         ]);
         // Recuperar el código generado
-        $codigo = Amenaza::find($registro->id)->codigo_amenaza;
+        $codigo = Amenaza::find($registro->id)->codigo;
 
         Dofa::create([
             'codigo' => $codigo,
@@ -66,7 +66,7 @@ public function store(Request $request)
             'tipo' => $oportunidad['tipo'] ?? '',
         ]);
         // Recuperar el código generado
-        $codigo = Oportunidad::find($registro->id)->codigo_oportunidad;
+        $codigo = Oportunidad::find($registro->id)->codigo;
 
         Dofa::create([
             'codigo' => $codigo,
@@ -82,7 +82,7 @@ public function store(Request $request)
             'tipo' => $fortaleza['tipo'],
         ]);
         // Recuperar el código generado
-        $codigo = Fortaleza::find($registro->id)->codigo_fortaleza;
+        $codigo = Fortaleza::find($registro->id)->codigo;
 
         Dofa::create([
             'codigo' => $codigo,

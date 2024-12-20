@@ -11,7 +11,7 @@ class Debilidad extends Model
 
     protected $table = 'debilidades';
 
-    protected $fillable = ['codigo_debilidad', 'descripcion', 'tipo']; 
+    protected $fillable = ['codigo', 'descripcion', 'tipo']; 
 
     public $timestamps = true;
 
@@ -20,6 +20,6 @@ class Debilidad extends Model
 
     public function dofa()
     {
-        return $this->belongsTo(Dofa::class, 'codigo_debilidad', 'Codigo');
+        return $this->belongsTo(Dofa::class, 'codigo', 'Codigo');
     }
 }
