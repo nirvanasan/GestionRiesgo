@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Clasificacion;
+use App\Models\Dofa;
 
 class ClasificacionController extends Controller
 {
@@ -22,6 +23,16 @@ class ClasificacionController extends Controller
 
         // Crear el registro en la base de datos
         $clasificacion = Clasificacion::create($validatedData);
+
+           // Buscar el registro en la tabla DOFA basado en id_elemento (Codigo)
+        $dofa = Dofa::where('Codigo', $validatedData['id_elemento'])->first();
+
+
+        if ($dofa) {
+            // Actualizar el campo 'clasificacion' a 1
+            $dofa->clasificacion = true;
+            $dofa->save();
+        }
 
         return response()->json([
             'success' => true,
