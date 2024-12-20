@@ -167,6 +167,7 @@
     grid-column: 6/10;
     grid-row: 3/10;
     border-radius: 10px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   }
   
   .reset-card {
@@ -259,7 +260,8 @@
     font-weight: bold;
     display: block;
     margin-bottom: 7px;
-  }
+    font-size: 12px; /* Cambia el tamaño de la fuente */
+}
   
   select,
   input {

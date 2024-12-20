@@ -13,7 +13,7 @@
       <div class="right-side">
         <div class="login-card">
           <div class="card-section">
-            <h2>Login</h2>
+          <h3>Gestion de riesgos</h3>
           </div>
           <form @submit.prevent="login">
             <div class="input-group">
@@ -185,7 +185,7 @@ export default {
   grid-column: 6/10;
   grid-row: 3/10;
    border-radius: 10px;
- 
+   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
    
 }
 
@@ -209,6 +209,7 @@ export default {
  
 .input-group {
   margin-bottom: 15px;
+  font-size: 12px;
 }
 
 .div-input-check{
