@@ -243,9 +243,9 @@ export default {
 /* Panel izquierdo */
 .left-panel {
 
-  padding: 20px;
-  width: 270px;
-  margin: 0px 55px;
+  padding: 60px;
+  width: 250px;
+  margin: 0px 60px;
 }
 
 .section {
@@ -254,7 +254,7 @@ export default {
 
 .section select {
   width: 300px; /* Cambia este valor según el ancho deseado */
-  height: 140px; /* Cambia este valor según la altura deseada */
+  height: 50px; /* Cambia este valor según la altura deseada */
   font-size: 14px; /* Aumenta el tamaño del texto si es necesario */
   background-color: rgba(240, 248, 255, 0.226);
 }
