@@ -9,7 +9,20 @@
         <NavegacionView/>
       <!-- Contenido principal -->
       <main class="main-content">
-       <ContenedorView />
+        <div class="left-panel">
+          <div class="section">
+            <h3>OPORTUNIDAD</h3>
+            <select v-model="oportunidadSeleccionada" @change="actualizarSeleccion('oportunidad')">
+              <option v-for="op in oportunidades" :key="op.id" :value="op">{{ op.descripcion }}</option>
+            </select>
+          </div>
+          <div class="section">
+            <h3>RIESGO</h3>
+            <select v-model="riesgoSeleccionado" @change="actualizarSeleccion('riesgo')">
+              <option v-for="riesgo in riesgos" :key="riesgo.id" :value="riesgo">{{ riesgo.descripcion}}</option>
+            </select>
+          </div>
+        </div>
         <div class="contenedor-izquierda">
           
         </div>
@@ -47,7 +60,6 @@
   
   <script>
 
-import ContenedorView from '../contenedorView.vue';
 import EncabezadoView from '../EncabezadoView.vue';
 import NavegacionView from "../navegacionView.vue";
 
@@ -57,8 +69,6 @@ import NavegacionView from "../navegacionView.vue";
     components: {
       EncabezadoView,
       NavegacionView,
-      ContenedorView
-
     },
   data() {
     return {
