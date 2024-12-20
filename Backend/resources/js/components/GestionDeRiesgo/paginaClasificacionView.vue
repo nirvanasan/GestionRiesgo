@@ -100,6 +100,10 @@ export default {
 
   methods: {
 
+    reloadPage() {
+      window.location.reload();
+    },
+
     actualizarSeleccion(campo) {
       if (campo === "oportunidad" && this.oportunidadSeleccionada) {
         this.riesgoSeleccionado = null;
@@ -158,6 +162,8 @@ export default {
         .catch((error) => {
           console.error("Error:", error);
         });
+
+        this.reloadPage();
     },
 
     limpiar() {

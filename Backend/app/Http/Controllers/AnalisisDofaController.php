@@ -20,9 +20,9 @@ class AnalisisDofaController extends Controller
         ]);
 
         $idUsuario = $request['id_usuario'];
-        $dofa = $validated['dofa'] ?? null;
-        $tipo = $validated['tipo'] ?? null;
-        $proceso = $validated['proceso'] ?? null;
+        $dofa = $request->input('dofa') ?? null;
+        $tipo = $request->input('tipo') ?? null;
+        $proceso = $request->input('proceso') ?? null;
 
         $resultados = [
             'Debilidades' => [],
@@ -31,10 +31,11 @@ class AnalisisDofaController extends Controller
             'Fortalezas' => []
         ];
 
-        // Consultar cada categoría según los filtros
+        // Consultar cada categoría según los filtros y clasificacion = 0
         if (!$dofa || $dofa === 'Debilidad') {
             $resultados['Debilidades'] = Debilidad::whereHas('dofa', function ($query) use ($idUsuario, $proceso) {
-                $query->where('id_usuario', $idUsuario);
+                $query->where('id_usuario', $idUsuario)
+                      ->where('clasificacion', 0);
                 if ($proceso) {
                     $query->where('id_proceso', $proceso);
                 }
@@ -45,7 +46,8 @@ class AnalisisDofaController extends Controller
 
         if (!$dofa || $dofa === 'Amenaza') {
             $resultados['Amenazas'] = Amenaza::whereHas('dofa', function ($query) use ($idUsuario, $proceso) {
-                $query->where('id_usuario', $idUsuario);
+                $query->where('id_usuario', $idUsuario)
+                      ->where('clasificacion', 0);
                 if ($proceso) {
                     $query->where('id_proceso', $proceso);
                 }
@@ -56,7 +58,8 @@ class AnalisisDofaController extends Controller
 
         if (!$dofa || $dofa === 'Oportunidad') {
             $resultados['Oportunidades'] = Oportunidad::whereHas('dofa', function ($query) use ($idUsuario, $proceso) {
-                $query->where('id_usuario', $idUsuario);
+                $query->where('id_usuario', $idUsuario)
+                      ->where('clasificacion', 0);
                 if ($proceso) {
                     $query->where('id_proceso', $proceso);
                 }
@@ -67,7 +70,8 @@ class AnalisisDofaController extends Controller
 
         if (!$dofa || $dofa === 'Fortaleza') {
             $resultados['Fortalezas'] = Fortaleza::whereHas('dofa', function ($query) use ($idUsuario, $proceso) {
-                $query->where('id_usuario', $idUsuario);
+                $query->where('id_usuario', $idUsuario)
+                      ->where('clasificacion', 0);
                 if ($proceso) {
                     $query->where('id_proceso', $proceso);
                 }

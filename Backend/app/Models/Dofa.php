@@ -14,6 +14,7 @@ class Dofa extends Model
         'codigo',
         'id_usuario',
         'id_proceso',
+        'clasificacion',
     ];
 
     public $timestamps = true;
@@ -25,4 +26,10 @@ class Dofa extends Model
     {
         return $this->belongsTo(Proceso::class, 'id_proceso', 'id');
     }
+
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'id_usuario');
+    }
+    
 }
