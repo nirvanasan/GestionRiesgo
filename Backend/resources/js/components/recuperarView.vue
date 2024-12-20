@@ -13,7 +13,7 @@
         <div class="right-side">
           <div class="reset-card">
             <div class="card-section">
-              <h2>Recuperar contraseña</h2>
+              <h2>Recupera tu contraseña</h2>
             </div>
             <form @submit.prevent="resetPassword">
               <div class="input-group">
@@ -94,6 +94,7 @@
     grid-column: 6/10;
     grid-row: 3/10;
     border-radius: 10px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   }
   
   .reset-card {
@@ -111,6 +112,7 @@
   
   .input-group {
     margin-bottom: 15px;
+    font-size: 12px;
   }
   
   .input-group label {
