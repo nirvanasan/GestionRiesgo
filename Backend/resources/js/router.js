@@ -10,6 +10,8 @@ import Eleccion from './components/GestionDeRiesgo/eleccionView.vue';
 import Proceso from './components/GestionDeRiesgo/procesoView.vue';
 import VerDofa from './components/GestionDeRiesgo/verDofaView.vue';
 import Clasificacion from './components/GestionDeRiesgo/paginaClasificacionView.vue';
+import Controles from './components/GestionDeRiesgo/paginaControlesView.vue';
+import Accion from './components/GestionDeRiesgo/paginaAccionView.vue';
 
 
 const routes = [
@@ -83,6 +85,24 @@ const routes = [
       meta: {
           requiresAuth: true,
           title: "Clasificacion"
+          }
+    },
+    {
+      path: '/controles',
+      name: 'controles',
+      component: Controles,
+      meta: {
+          requiresAuth: true,
+          title: "Controles"
+          }
+    },
+    {
+      path: '/accion',
+      name: 'accion',
+      component: Accion,
+      meta: {
+          requiresAuth: true,
+          title: "Accion"
           }
     },
 ];

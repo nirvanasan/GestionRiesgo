@@ -45,3 +45,11 @@ Route::get('VerDofa', function () {
 Route::get('clasificacion', function () {
     return view('clasificacion');
 });
+
+Route::get('controles', function () {
+    return view('controles');
+});
+
+Route::get('accion', function () {
+    return view('accion');
+});

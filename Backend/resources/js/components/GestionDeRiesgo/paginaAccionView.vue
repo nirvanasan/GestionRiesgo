@@ -106,7 +106,7 @@ import NavegacionView from "../navegacionView.vue";
     display: grid;
     grid-template-columns: repeat(20, 1fr); /* 20 columnas iguales */
     grid-template-rows: 100px 100px auto; /* Filas más pequeñas */
-    background-image: url('/src/assets/img/Fondo2.png');
+    background-image: url('../img/Fondo2.png');
     background-position: center center;
     background-size: cover;
     font-family: Arial, sans-serif;
