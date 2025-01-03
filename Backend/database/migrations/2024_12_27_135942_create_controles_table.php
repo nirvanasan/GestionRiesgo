@@ -11,18 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clasificacion', function (Blueprint $table) {
+        Schema::create('controles', function (Blueprint $table) {
+
             $table->id();
             $table->string('id_elemento');
-            $table->integer('id_usuario');
+            $table->string('usuario');
             $table->string('tipo');
-            $table->string('causa');
-            $table->string('efecto');
-            $table->integer('probabilidad');
-            $table->integer('impacto');
-            $table->integer('valoracion');
-            $table->boolean('control')->default(false);
+            $table->string('descripcion');
+            $table->string('probabilidad');
+            $table->string('impacto');
             $table->timestamps();
+
         });
     }
 
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('clasificacion');
+        Schema::dropIfExists('controles');
     }
 };

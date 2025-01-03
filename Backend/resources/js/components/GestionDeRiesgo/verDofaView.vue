@@ -10,7 +10,7 @@
             <h3>Debilidad</h3>
             <ul v-if="dofaResultados.Debilidades && dofaResultados.Debilidades.length">
               <li v-for="(debilidad, index) in dofaResultados.Debilidades" :key="index">
-                {{ debilidad.descripcion + " "}} <span style="color: red;">({{debilidad.tipo }})</span>
+                <b>{{ debilidad.codigo }}</b>{{": " + debilidad.descripcion + " "}} <span style="color: red;">({{debilidad.tipo }})</span>
               </li>
             </ul>
             <p v-else>No hay debilidades registradas.</p>
@@ -21,7 +21,7 @@
             <h3>Oportunidad</h3>
             <ul v-if="dofaResultados.Oportunidades && dofaResultados.Oportunidades.length">
               <li v-for="(oportunidad, index) in dofaResultados.Oportunidades" :key="index">
-                {{ oportunidad.descripcion + " "}} <span style="color: red;">({{oportunidad.tipo }})</span>
+                <b>{{ oportunidad.codigo }}</b>{{": " + oportunidad.descripcion + " "}} <span style="color: red;">({{oportunidad.tipo }})</span>
               </li>
             </ul>
             <p v-else>No hay oportunidades registradas.</p>
@@ -32,7 +32,7 @@
             <h3>Fortaleza</h3>
             <ul v-if="dofaResultados.Fortalezas && dofaResultados.Fortalezas.length">
               <li v-for="(fortaleza, index) in dofaResultados.Fortalezas" :key="index">
-                {{ fortaleza.descripcion + " "}} <span style="color: red;">({{fortaleza.tipo }})</span>
+                <b>{{ fortaleza.codigo }}</b>{{": " + fortaleza.descripcion + " "}} <span style="color: red;">({{fortaleza.tipo }})</span>
               </li>
             </ul>
             <p v-else>No hay fortalezas registradas.</p>
@@ -43,7 +43,7 @@
             <h3>Amenaza</h3>
             <ul v-if="dofaResultados.Amenazas && dofaResultados.Amenazas.length">
               <li v-for="(amenaza, index) in dofaResultados.Amenazas" :key="index">
-                {{ amenaza.descripcion + " "}} <span style="color: red;">({{amenaza.tipo }})</span>
+                <b>{{ amenaza.codigo }}</b>{{": " + amenaza.descripcion + " "}} <span style="color: red;">({{amenaza.tipo }})</span>
               </li>
             </ul>
             <p v-else>No hay amenazas registradas.</p>
