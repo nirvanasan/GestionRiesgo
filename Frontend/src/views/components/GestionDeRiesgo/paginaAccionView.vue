@@ -194,7 +194,14 @@ h3 {
   display: flex;
   justify-content: space-between;
   width: 300px;
-  gap: 2px;
+  gap: 2px; 
+}
+
+.probabilidad-impacto input {
+  width: 230px; /* Ajusta este valor según el tamaño deseado */
+  height: 30px; /* Opcional: ajustar la altura */
+  font-size: 12px; /* Opcional: ajustar el tamaño de la fuente */
+  padding: 2px; /* Opcional: ajustar el relleno interno */
 }
 
 .contenedor-derecha .valor-botones {
