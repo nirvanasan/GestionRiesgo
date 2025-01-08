@@ -29,3 +29,14 @@ export default {
   }
 };
 </script>
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Asegura que el body ocupe toda la altura */
+  overflow: hidden; /* Evita scroll innecesario */
+  
+}
+
+
+</style>
