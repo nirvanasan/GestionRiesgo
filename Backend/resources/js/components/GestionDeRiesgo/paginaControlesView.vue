@@ -30,12 +30,12 @@
 
           <div class="probabilidad-container">
             <div>
-              <label>PROBABILIDAD</label>
+              <label>Valoracion del control</label>
               <input type="number" v-model="probabilidad" min="1" max="5" />
             </div>
             <div>
-              <label>IMPACTO</label>
-              <input type="number" v-model="impacto" min="1" max="5" />
+              <label>Valoracion del riesgo/oportunidad residual</label>
+              <input type="number" v-model="impacto" min="1" max="5" disabled/>
             </div>
           </div>
 
@@ -78,16 +78,34 @@ export default {
       error: null,
     };
   },
+  watch: {
+    // Observa los cambios en "probabilidad"
+    probabilidad(newProbabilidad) {
+      if (this.oportunidadSeleccionada) {
+        this.impacto = this.oportunidadSeleccionada.valoracion * newProbabilidad;
+      } else if (this.riesgoSeleccionado) {
+        this.impacto = this.riesgoSeleccionado.valoracion * newProbabilidad;
+      }
+    },
+    // Observa los cambios en "oportunidadSeleccionada" para recalcular "impacto"
+    oportunidadSeleccionada(newOportunidad) {
+      if (newOportunidad) {
+        this.impacto = newOportunidad.valoracion * this.probabilidad;
+      }
+    },
+    // Observa los cambios en "riesgoSeleccionado" para recalcular "impacto"
+    riesgoSeleccionado(newRiesgo) {
+      if (newRiesgo) {
+        this.impacto = newRiesgo.valoracion * this.probabilidad;
+      }
+    },
+  },
   methods: {
-
     reloadPage() {
       window.location.reload();
     },
-
-
     async cargarDatos() {
       try {
-       
         const response = await axios.get("http://127.0.0.1:8000/api/cargar-clasificacion");
         const datos = response.data.data;
 
@@ -103,6 +121,7 @@ export default {
     actualizarSeleccion(tipo) {
       if (tipo === "oportunidad" && this.oportunidadSeleccionada) {
         this.riesgoSeleccionado = null; // Limpiar selección de riesgo
+        this.impacto = this.oportunidadSeleccionada.valoracion * this.probabilidad;
       } else if (tipo === "riesgo" && this.riesgoSeleccionado) {
         this.oportunidadSeleccionada = null; // Limpiar selección de oportunidad
       }
@@ -111,11 +130,10 @@ export default {
       this.oportunidadSeleccionada = null;
       this.riesgoSeleccionado = null;
       this.causasPotenciales = "";
-      this.probabilidad = null;
-      this.impacto = null;
+      this.probabilidad = 1; // Restablecer a valores iniciales
+      this.impacto = 1;
     },
     ingresar() {
-
       // Validar que al menos una opción esté seleccionada
       if (!this.oportunidadSeleccionada && !this.riesgoSeleccionado) {
         this.error = "Debe seleccionar al menos una opción entre oportunidad y riesgo.";
@@ -140,10 +158,8 @@ export default {
       this.error = "";
       let payload;
 
-      if(this.oportunidadSeleccionada){
-
-        /*
-        console.log("Ingresar datos:", {
+      if (this.oportunidadSeleccionada) {
+        payload = {
           id_elemento: this.oportunidadSeleccionada.id_elemento,
           usuario: this.user.id,
           tipo: "Oportunidad",
@@ -151,29 +167,9 @@ export default {
           control: this.causasPotenciales,
           probabilidad: this.probabilidad,
           impacto: this.impacto,
-          
-      });
-      */
-
-      payload = {
-
-        id_elemento: this.oportunidadSeleccionada.id_elemento,
-        usuario: this.user.id,
-        tipo: "Oportunidad",
-        descripcion: this.oportunidadSeleccionada.causa,
-        control: this.causasPotenciales,
-        probabilidad: this.probabilidad,
-        impacto: this.impacto
-      }
-
-
-      
-
-      } else if (this.riesgoSeleccionado){
-
-
-        /*
-        console.log("Ingresar datos:", {
+        };
+      } else if (this.riesgoSeleccionado) {
+        payload = {
           id_elemento: this.riesgoSeleccionado.id_elemento,
           usuario: this.user.id,
           tipo: "Riesgo",
@@ -181,39 +177,22 @@ export default {
           control: this.causasPotenciales,
           probabilidad: this.probabilidad,
           impacto: this.impacto,
-      });
-      */
-
-        payload = {
-
-          id_elemento: this.riesgoSeleccionado.id_elemento,
-          usuario: this.user.id,
-          tipo: "Riesgo",
-          descripcion: this.riesgoSeleccionado.causa,
-          control: this.causasPotenciales,
-          probabilidad: this.probabilidad,
-          impacto: this.impacto
-        }
-
+        };
       }
 
-    axios
-    .post("http://127.0.0.1:8000/api/cargar-control", payload)
-    .then((response) => {
-      console.log("Datos enviados correctamente:", response.data);
-      alert("Datos ingresados con éxito.");
-
-      this.limpiar(); // Limpiar el formulario después de enviar
-      this.reloadPage();
-    })
-    .catch((error) => {
-      console.error("Error al enviar los datos:", error);
-      this.error = "Hubo un error al enviar los datos. Por favor, inténtelo de nuevo.";
-    });
-    //console.log(payload);
-    
+      axios
+        .post("http://127.0.0.1:8000/api/cargar-control", payload)
+        .then((response) => {
+          console.log("Datos enviados correctamente:", response.data);
+          alert("Datos ingresados con éxito.");
+          this.limpiar(); // Limpiar el formulario después de enviar
+          this.reloadPage();
+        })
+        .catch((error) => {
+          console.error("Error al enviar los datos:", error);
+          this.error = "Hubo un error al enviar los datos. Por favor, inténtelo de nuevo.";
+        });
     },
-
   },
   mounted() {
     const userData = localStorage.getItem("user");
@@ -223,6 +202,8 @@ export default {
     this.cargarDatos();
   },
 };
+
+
 </script>
   
   <style scoped>
