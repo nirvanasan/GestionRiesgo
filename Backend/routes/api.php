@@ -10,6 +10,7 @@ use App\Http\Controllers\VerDofaController;
 use App\Http\Controllers\ProcesoController;
 use App\Http\Controllers\AnalisisDofaController;
 use App\Http\Controllers\ClasificacionController;
+use App\Http\Controllers\ControlController;
 
 
 Route::get('/user', function (Request $request) {
@@ -25,3 +26,5 @@ Route::post('/procesos', [ProcesoController::class, 'store']);
 Route::get('/procesos-buscar', [ProcesoController::class, 'buscar']);
 Route::post('/oportunidad-riesgo', [AnalisisDofaController::class, 'getAnalisisDofaByUser']);
 Route::post('/clasificacion', [ClasificacionController::class, 'store']);
+Route::get('/cargar-clasificacion', [ClasificacionController::class, 'index']);
+Route::post('/cargar-control', [ControlController::class, 'store']);

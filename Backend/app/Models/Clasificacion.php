@@ -15,6 +15,7 @@ class Clasificacion extends Model
     // Columnas permitidas para asignación masiva
     protected $fillable = [
         'id_elemento',
+        'id_usuario',
         'tipo',
         'causa',
         'efecto',
@@ -22,4 +23,14 @@ class Clasificacion extends Model
         'impacto',
         'valoracion',
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
+    public function controles()
+    {
+        return $this->hasMany(Control::class, 'id_elemento', 'id_elemento');
+    }
 }

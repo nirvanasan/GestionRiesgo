@@ -18,5 +18,7 @@ app.mount('#eleccion')
 app.mount('#proceso')
 app.mount('#VerDofa')
 app.mount('#clasificacion')
+app.mount('#controles')
+app.mount('#accion')
 
 app.config.globalProperties.$axios = axios;

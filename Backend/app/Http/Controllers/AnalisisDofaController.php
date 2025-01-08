@@ -16,7 +16,7 @@ class AnalisisDofaController extends Controller
     {
         // Validar que se envíe el id_usuario
         $request->validate([
-            'id_usuario' => 'required|integer|exists:users,id',
+            'id_usuario' => 'required|integer',
         ]);
 
         $idUsuario = $request['id_usuario'];

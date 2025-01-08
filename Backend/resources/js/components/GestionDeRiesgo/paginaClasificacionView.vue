@@ -12,15 +12,15 @@
         <!-- Parte izquierda -->
         <div class="left-panel">
           <div class="section">
-            <h3>OPORTUNIDAD</h3>
+            <h3>Oportunidad Inherente</h3>
             <select v-model="oportunidadSeleccionada" @change="actualizarSeleccion('oportunidad')">
-              <option v-for="op in oportunidades" :key="op.id" :value="op">{{ op.descripcion }}</option>
+              <option v-for="op in oportunidades" :key="op.id" :value="op">{{ op.codigo + ": " + op.descripcion }}</option>
             </select>
           </div>
           <div class="section">
-            <h3>RIESGO</h3>
+            <h3>Riesgo Inherente</h3>
             <select v-model="riesgoSeleccionado" @change="actualizarSeleccion('riesgo')">
-              <option v-for="riesgo in riesgos" :key="riesgo.id" :value="riesgo">{{ riesgo.descripcion}}</option>
+              <option v-for="riesgo in riesgos" :key="riesgo.id" :value="riesgo">{{ riesgo.codigo + ": " + riesgo.descripcion}}</option>
             </select>
           </div>
         </div>
@@ -47,7 +47,8 @@
           </div>
           <div class="valoracion-container">
             <label>VALORACIÓN </label>
-            <input type="text" v-model="valoracion" style="text-align: center;" readonly />
+            <input type="text" v-model="valoracion" :style="valoracionStyle" style="text-align: center;" readonly />
+            <span>{{ valoracionLabel }}</span>
           </div>
           <div class="buttons">
             <button @click="limpiar" class="btn limpiar">Limpiar</button>
@@ -78,8 +79,8 @@ export default {
       riesgoSeleccionado: "",
       causas: "",
       efecto: "",
-      probabilidad: 0,
-      impacto: 0,
+      probabilidad: 1,
+      impacto: 1,
       user: {},
     };
   },
@@ -96,10 +97,37 @@ export default {
     valoracion() {
       return this.probabilidad * this.impacto;
     },
+
+    valoracionStyle() {
+      const valor = this.valoracion;
+      if (this.riesgoSeleccionado) {
+        if (valor >= 1 && valor <= 4) return { backgroundColor: "yellow" };
+        if (valor >= 5 && valor <= 14) return { backgroundColor: "#F2A285" };
+        if (valor >= 15 && valor <= 25) return { backgroundColor: "red" };
+      } else if (this.oportunidadSeleccionada) {
+        if (valor >= 1 && valor <= 4) return { backgroundColor: "gray" };
+        if (valor >= 5 && valor <= 14) return { backgroundColor: "lightblue" };
+        if (valor >= 15 && valor <= 25) return { backgroundColor: "darkblue", color: "white" };
+      }
+      return {};
+    },
+
+    valoracionLabel() {
+      const valor = this.valoracion;
+      if (this.riesgoSeleccionado) {
+        if (valor >= 1 && valor <= 4) return "Aceptable";
+        if (valor >= 5 && valor <= 14) return "Tolerable";
+        if (valor >= 15 && valor <= 25) return "Inaceptable";
+      } else if (this.oportunidadSeleccionada) {
+        if (valor >= 1 && valor <= 4) return "No considerable";
+        if (valor >= 5 && valor <= 14) return "A considerar";
+        if (valor >= 15 && valor <= 25) return "A aprovechar";
+      }
+      return "";
+    },
   },
 
   methods: {
-
     reloadPage() {
       window.location.reload();
     },
@@ -134,6 +162,7 @@ export default {
 
       const payload = {
         id_elemento: seleccionado.codigo,
+        id_usuario: this.user.id,
         tipo,
         causa: this.causas,
         efecto: this.efecto,
@@ -156,33 +185,31 @@ export default {
           return response.json();
         })
         .then((data) => {
-          alert("Datos enviados exitosamente.");
+          
           this.limpiar();
         })
         .catch((error) => {
           console.error("Error:", error);
         });
 
-        this.reloadPage();
+      alert("Datos enviados exitosamente.");
+      this.reloadPage();
     },
 
     limpiar() {
-      
       this.oportunidadSeleccionada = "";
       this.riesgoSeleccionado = "";
       this.causas = "";
       this.efecto = "";
       this.probabilidad = 0;
       this.impacto = 0;
-      
-      },
+    },
 
     cargarDatos() {
-
       if (!this.user.id) {
-      console.error("Usuario no definido.");
-      return;
-    }
+        console.error("Usuario no definido.");
+        return;
+      }
 
       const payload = {
         id_usuario: this.user.id,
@@ -199,9 +226,6 @@ export default {
         .then((data) => {
           this.oportunidades = [...data.Fortalezas, ...data.Oportunidades];
           this.riesgos = [...data.Debilidades, ...data.Amenazas];
-          //console.log(this.oportunidades)
-          
-       
         })
         .catch((error) => {
           console.error("Error al cargar datos:", error);
@@ -223,7 +247,6 @@ export default {
   height: 100vh;
 }
 
-
 .main-content {
   grid-column: 4 / 18;
   grid-row: 3;
@@ -242,7 +265,6 @@ export default {
 
 /* Panel izquierdo */
 .left-panel {
-
   padding: 60px;
   width: 250px;
   margin: 0px 60px;
@@ -259,14 +281,11 @@ export default {
   background-color: rgba(240, 248, 255, 0.226);
 }
 
-
-
 h3 {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 8px;
 }
-
 
 /* Panel derecho */
 .right-panel {
@@ -277,7 +296,6 @@ h3 {
 
   border-radius: 8px;     /* Opcional: esquinas redondeadas */
   text-align: center;
-
 }
 
 textarea {
