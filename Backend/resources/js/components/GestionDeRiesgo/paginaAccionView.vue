@@ -1,80 +1,73 @@
 <template>
-    <div class="pagina">
-      <!-- Encabezado de la página -->
-      <EncabezadoView/>
-  
-      
-     
-      <!-- Barra de navegación -->
-        <NavegacionView/>
-      <!-- Contenido principal -->
-      <main class="main-content">
-        <div class="left-panel">
-            <div class="section">
-              <h3>OPORTUNIDAD</h3>
-              <select v-model="oportunidadSeleccionada" @change="actualizarSeleccion('oportunidad')">
-                <option v-for="op in oportunidades" :key="op.id" :value="op">{{ op.descripcion }}</option>
-              </select>
-            </div>
-            <div class="section">
-              <h3>RIESGO</h3>
-              <select v-model="riesgoSeleccionado" @change="actualizarSeleccion('riesgo')">
-                <option v-for="riesgo in riesgos" :key="riesgo.id" :value="riesgo">{{ riesgo.descripcion }}</option>
-              </select>
-            </div>
-            <div class="section">
-              <h3>INFORMACIÓN GENERAL</h3>
-              <textarea v-model="informacionGeneral" placeholder="Escribe aquí la información general"></textarea>
-            </div>
-        </div>
-        <div class="contenedor-izquierda">
-          
-        </div>
+  <div class="pagina">
+    <!-- Encabezado de la página -->
+    <EncabezadoView />
 
-        <!-- Contenedor derecho -->
-        <div class="contenedor-derecha">
-          <input type="text" placeholder="Acción recomendada" />
-          <input type="text" placeholder="Responsable" />
-          <input type="text" placeholder="Acción" />
-          <input type="text" placeholder="Proceso" />
-          <div class="fechas">
-            <div>
-              <label>FECHA DE CIERRE</label>
-              <input type="date" />
-            </div>
-            <div>
-              <label>FECHA DE SEGUIMIENTO</label>
-              <input type="date" />
-            </div>
-            <div class="probabilidad-impacto">
-              <input type="text" placeholder="Probabilidad" />
-              <input type="text" placeholder="Impacto" />
-            </div>
+    <!-- Barra de navegación -->
+    <NavegacionView />
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+      <div class="left-panel">
+        <div class="section">
+          <h3>OPORTUNIDAD</h3>
+          <select v-model="oportunidadSeleccionada" @change="actualizarSeleccion('oportunidad')">
+            <option v-for="op in oportunidades" :key="op.id" :value="op">{{ op.descripcion }}</option>
+          </select>
+        </div>
+        <div class="section">
+          <h3>RIESGO</h3>
+          <select v-model="riesgoSeleccionado" @change="actualizarSeleccion('riesgo')">
+            <option v-for="riesgo in riesgos" :key="riesgo.id" :value="riesgo">{{ riesgo.descripcion }}</option>
+          </select>
+        </div>
+        <div class="section">
+          <h3>INFORMACIÓN GENERAL</h3>
+          <textarea v-model="informacionGeneral" placeholder="Escribe aquí la información general"></textarea>
+        </div>
+      </div>
+
+      <!-- Contenedor derecho -->
+      <div class="contenedor-derecha">
+        <input type="text" v-model="accionRecomendada" placeholder="Acción recomendada" />
+        <input type="text" v-model="responsable" placeholder="Responsable" />
+        <input type="text" v-model="accion" placeholder="Acción" />
+        <input type="text" v-model="proceso" placeholder="Proceso" />
+        <div class="fechas">
+          <div>
+            <label>FECHA DE CIERRE</label>
+            <input type="date" v-model="fechaCierre" />
           </div>
-          
-          <div class="valor-botones">
-            <input type="text" placeholder="Valor" />
-            <button>Limpiar</button>
-            <button>Ingresar</button>
+          <div>
+            <label>FECHA DE SEGUIMIENTO</label>
+            <input type="date" v-model="fechaSeguimiento" />
+          </div>
+          <div class="probabilidad-impacto">
+            <input type="text" v-model="probabilidad" placeholder="Probabilidad" />
+            <input type="text" v-model="impacto" placeholder="Impacto" />
           </div>
         </div>
-      </main>
-    </div>
-  </template>
-  
-  <script>
 
+        <div class="valor-botones">
+          <input type="text" v-model="valor" placeholder="Valor" />
+          <button @click="limpiarCampos">Limpiar</button>
+          <button @click="enviarDatos">Ingresar</button>
+        </div>
+      </div>
+    </main>
+  </div>
+</template>
+
+<script>
 import EncabezadoView from '../EncabezadoView.vue';
 import NavegacionView from "../navegacionView.vue";
 
-
-  export default {
-
-    components: {
-      EncabezadoView,
-      NavegacionView,
-    },
-    data() {
+export default {
+  components: {
+    EncabezadoView,
+    NavegacionView,
+  },
+  data() {
     return {
       oportunidades: [
         { id: 1, descripcion: "Oportunidad 1" },
@@ -88,18 +81,73 @@ import NavegacionView from "../navegacionView.vue";
       ],
       oportunidadSeleccionada: null,
       riesgoSeleccionado: null,
-      informacionGeneral: ""
+      informacionGeneral: "",
+      accionRecomendada: "",
+      responsable: "",
+      accion: "",
+      proceso: "",
+      fechaCierre: "",
+      fechaSeguimiento: "",
+      probabilidad: "",
+      impacto: "",
+      valor: ""
     };
   },
   methods: {
     actualizarSeleccion(tipo) {
       console.log(`${tipo} seleccionado`);
+    },
+    limpiarCampos() {
+      this.oportunidadSeleccionada = null;
+      this.riesgoSeleccionado = null;
+      this.informacionGeneral = "";
+      this.accionRecomendada = "";
+      this.responsable = "";
+      this.accion = "";
+      this.proceso = "";
+      this.fechaCierre = "";
+      this.fechaSeguimiento = "";
+      this.probabilidad = "";
+      this.impacto = "";
+      this.valor = "";
+    },
+    enviarDatos() {
+      if (
+        !this.oportunidadSeleccionada ||
+        !this.riesgoSeleccionado ||
+        !this.informacionGeneral ||
+        !this.accionRecomendada ||
+        !this.responsable ||
+        !this.accion ||
+        !this.proceso ||
+        !this.fechaCierre ||
+        !this.fechaSeguimiento ||
+        !this.probabilidad ||
+        !this.impacto ||
+        !this.valor
+      ) {
+        alert("Todos los campos son obligatorios.");
+        return;
+      }
+
+      console.log("Datos ingresados:");
+      console.log("Oportunidad:", this.oportunidadSeleccionada.descripcion);
+      console.log("Riesgo:", this.riesgoSeleccionado.descripcion);
+      console.log("Información General:", this.informacionGeneral);
+      console.log("Acción Recomendada:", this.accionRecomendada);
+      console.log("Responsable:", this.responsable);
+      console.log("Acción:", this.accion);
+      console.log("Proceso:", this.proceso);
+      console.log("Fecha de Cierre:", this.fechaCierre);
+      console.log("Fecha de Seguimiento:", this.fechaSeguimiento);
+      console.log("Probabilidad:", this.probabilidad);
+      console.log("Impacto:", this.impacto);
+      console.log("Valor:", this.valor);
     }
   }
 };
-    
+</script>
 
-  </script>
   
   <style scoped>
   .pagina {
@@ -194,22 +242,37 @@ h3 {
   display: flex;
   justify-content: space-between;
   width: 300px;
-  gap: 2px;
+  gap: 2px; 
 }
 
-.contenedor-derecha .valor-botones {
+.probabilidad-impacto input {
+  width: 245px; /* Ajusta este valor según el tamaño deseado */
+  height: 30px; /* Opcional: ajustar la altura */
+  font-size: 12px; /* Opcional: ajustar el tamaño de la fuente */
+  padding: 2px; /* Opcional: ajustar el relleno interno */
+}
+
+.contenedor-derecha {
   display: flex;
   justify-content: space-between;
-  gap: 30px;
 }
 
+.valor-botones  {
+  display: flex;
+  width: 550px; /* Cambia este valor según el tamaño deseado */
+  gap: 20px;
+}
+
+
 button {
-  padding: 10px;
+  padding: 8px;
   border: none;
   border-radius: 4px;
-  color: #fff;
+  color: #000000;
   cursor: pointer;
+  background-color: #f3f94e;
 }
+
 
 button:nth-child(1) {
   background-color: #f4c136; /* Rojo para limpiar */
