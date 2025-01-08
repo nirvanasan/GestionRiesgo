@@ -30,12 +30,12 @@
 
           <div class="probabilidad-container">
             <div>
-              <label>PROBABILIDAD</label>
+              <label>Valoracion del control</label>
               <input type="number" v-model="probabilidad" min="1" max="5" />
             </div>
             <div>
-              <label>IMPACTO</label>
-              <input type="number" v-model="impacto" min="1" max="5" />
+              <label>Valoracion del riesgo/oportunidad residual</label>
+              <input type="number" v-model="impacto" min="1" max="5" disabled/>
             </div>
           </div>
 
@@ -197,22 +197,24 @@ export default {
 
       }
 
-    axios
-    .post("http://127.0.0.1:8000/api/cargar-control", payload)
-    .then((response) => {
-      console.log("Datos enviados correctamente:", response.data);
-      alert("Datos ingresados con éxito.");
 
-      this.limpiar(); // Limpiar el formulario después de enviar
-      this.reloadPage();
-    })
-    .catch((error) => {
-      console.error("Error al enviar los datos:", error);
-      this.error = "Hubo un error al enviar los datos. Por favor, inténtelo de nuevo.";
-    });
-    //console.log(payload);
-    
-    },
+      axios
+      .post("http://127.0.0.1:8000/api/cargar-control", payload)
+      .then((response) => {
+
+        console.log("Datos enviados correctamente:", response.data);
+        alert("Datos ingresados con éxito.");
+
+        this.limpiar(); // Limpiar el formulario después de enviar
+        this.reloadPage();
+      })
+      .catch((error) => {
+        console.error("Error al enviar los datos:", error);
+        this.error = "Hubo un error al enviar los datos. Por favor, inténtelo de nuevo.";
+      });
+      //console.log(payload);
+      
+      },
 
   },
   mounted() {
