@@ -253,17 +253,16 @@ export default {
   background-color: #ffffffc0;
   padding: 20px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8);
-  height: 480px;
+  height: 450px;
   width: 105%;
   border-radius: 8px;
-  display: flex; /* Habilita el modelo de Flexbox */
   justify-content: space-between; /* Espacio entre los elementos */
   align-items: flex-start; /* Alinea los elementos al inicio vertical */
 }
 
 .container {
   display: flex;
-  justify-content: space-between;
+  
 }
 
 /* Panel izquierdo */
@@ -292,9 +291,8 @@ h3 {
 
 /* Panel derecho */
 .right-panel {
-  flex: 0 1 60%;          /* Opcional: ajusta el ancho relativo */
+  flex: 0 1 70%;          /* Opcional: ajusta el ancho relativo */
   max-width: 600px;       /* Ancho máximo */
-  padding: 8px;
   background-color: rgba(255, 255, 255, 0); /* Opcional: para destacar el panel */
 
   border-radius: 8px;     /* Opcional: esquinas redondeadas */
