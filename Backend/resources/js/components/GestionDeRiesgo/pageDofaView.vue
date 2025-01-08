@@ -8,6 +8,12 @@
     <NavegacionView/>
     
     <main class="main-content">
+      <router-link
+          to="/eleccion"
+          class="btn-atras"
+          >
+          Atrás
+      </router-link>
       <section class="input-container">
         <div class="right-section">
           <div class="form-group">
@@ -307,6 +313,7 @@ export default {
 }
 
 .main-content {
+  position: relative;
   grid-column: 4 / 18;
   grid-row: 3;
   background-color: #ffffffc0;
@@ -446,5 +453,28 @@ textarea {
 .opcion {
   margin-bottom: 20px;
 }
+
+/* boton de atras*/
+
+.btn-atras {
+  position: absolute; /* Posicionamiento relativo al contenedor */
+  top: 10px;          /* Espaciado desde el borde superior */
+  padding: 8px 12px;
+  background-color: #c51922;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.btn-atras:hover {
+  background-color: #fbeb0f;
+  color: black;
+}
+
 
 </style>

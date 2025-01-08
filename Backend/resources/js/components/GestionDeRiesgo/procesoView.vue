@@ -9,10 +9,14 @@
 
           <section class="input-container">
 
-            <!-- Botón de Ir Atrás 
-            <div class="back-button-container">
-              <button @click="goBack" class="back-btn">← Ir Atrás</button>
-            </div>-->
+          
+              <router-link
+                  to="/eleccion"
+                  class="btn-atras"
+                  >
+                  Atrás
+              </router-link>
+           
             <div class="form-container">
               <div class="form-card">
                 <div class="card-header">
@@ -114,7 +118,7 @@ export default {
 }
 
 .input-container {
-    display: flex;
+  
     justify-content: center; /* Centra horizontalmente el contenido */
     align-items: center; /* Centra verticalmente el contenido */
     height: 400px; /* Opcional: asegura que el contenedor ocupe toda la altura de la ventana */
@@ -129,7 +133,7 @@ export default {
   background-color: #ffffffc0;
   padding: 20px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8);
-  height: 450px;
+  height: 480px;
   width: 105%;
   border-radius: 8px;
   justify-content: space-between; /* Espacio entre los elementos */
@@ -150,6 +154,7 @@ export default {
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: translateX(200px); /* Ajusta el valor según sea necesario */
 }
 
 /* Tarjeta del formulario */
@@ -231,6 +236,28 @@ export default {
   cursor: pointer;
   font-weight: bold;
   font-size: 16px;
+}
+
+.atras-btn{
+  text-align: left;
+}
+
+.btn-atras {
+  padding: 8px 12px;
+  background-color: #c51922;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.btn-atras:hover {
+  background-color: #fbeb0f;
+  color: black;
 }
 
 .submit-btn:hover {

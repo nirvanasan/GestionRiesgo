@@ -3,6 +3,14 @@
     <div class="grid">
       <!-- Sección izquierda: Información en forma de cuadrícula -->
       <div class="informacion">
+        <div class="atras-btn">
+          <router-link
+              to="/eleccion"
+              class="btn-atras"
+              >
+              Atrás
+          </router-link>
+        </div>
         <h2>DOFA</h2>
         <div class="tabla-dofa">
           <!-- Debilidades -->
@@ -298,6 +306,31 @@ button:hover {
   margin: 5px 0;
   margin-bottom: 0px; /* Espacio entre los elementos de la lista */
 
+}
+
+
+/* boton de atras*/
+
+.atras-btn{
+  text-align: left;
+}
+
+.btn-atras {
+  padding: 8px 12px;
+  background-color: #c51922;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.btn-atras:hover {
+  background-color: #fbeb0f;
+  color: black;
 }
 
 
