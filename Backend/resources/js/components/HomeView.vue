@@ -131,9 +131,8 @@ export default {
   grid-row: 5 / 5;
   display: flex;
   width: 70%;
-  height: 550px;
+  height: 500px;
   border-radius: 7px;
-  padding-top: 8%;
 }
 
 .sub-container {

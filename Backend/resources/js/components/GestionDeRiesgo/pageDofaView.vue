@@ -312,12 +312,9 @@ export default {
   background-color: #ffffffc0;
   padding: 20px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8);
-  height: 480px;
+  height: 450px;
   width: 105%;
   border-radius: 8px;
-  display: flex; /* Habilita el modelo de Flexbox */
-  justify-content: space-between; /* Espacio entre los elementos */
-  align-items: flex-start; /* Alinea los elementos al inicio vertical */
 }
 
 .nav-link {
