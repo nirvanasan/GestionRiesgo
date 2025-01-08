@@ -72,8 +72,8 @@ export default {
       oportunidadSeleccionada: null,
       riesgoSeleccionado: null,
       causasPotenciales: null,
-      probabilidad: null,
-      impacto: null,
+      probabilidad: 1,
+      impacto: 1,
       user: {},
       error: null,
     };
