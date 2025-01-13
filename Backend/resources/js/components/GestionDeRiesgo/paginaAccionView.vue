@@ -35,21 +35,21 @@
         <input type="text" v-model="proceso" placeholder="Proceso" />
         <div class="fechas">
           <div>
+            <label>FECHA DE SEGUIMIENTO </label>
+            <input type="date" v-model="fechaSeguimientoCierre" />
+          </div>
+          <div>
             <label>FECHA DE CIERRE</label>
             <input type="date" v-model="fechaCierre" />
           </div>
-          <div>
-            <label>FECHA DE SEGUIMIENTO</label>
-            <input type="date" v-model="fechaSeguimiento" />
-          </div>
-          <div class="probabilidad-impacto">
+          <!-- <div class="probabilidad-impacto">
             <input type="text" v-model="probabilidad" placeholder="Probabilidad" />
             <input type="text" v-model="impacto" placeholder="Impacto" />
-          </div>
+          </div> -->
         </div>
 
         <div class="valor-botones">
-          <input type="text" v-model="valor" placeholder="Valor" />
+          <!-- <input type="text" v-model="valor" placeholder="Valor" /> -->
           <button @click="limpiarCampos">Limpiar</button>
           <button @click="enviarDatos">Ingresar</button>
         </div>
@@ -229,13 +229,15 @@ h3 {
 
 .contenedor-derecha .fechas {
   display: flex;
-  justify-content: space-between;
   gap: 10px;
 }
 
 .contenedor-derecha .fechas div {
   display: flex;
   flex-direction: column;
+  width: 200px;
+  gap: 5px; 
+  height: 35px
 }
 
 .contenedor-derecha .probabilidad-impacto {
