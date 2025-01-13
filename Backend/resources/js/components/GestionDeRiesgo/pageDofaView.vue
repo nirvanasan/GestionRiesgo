@@ -2,20 +2,18 @@
   <div class="pagina">
     <!-- Encabezado de la página -->
     <EncabezadoView />
+
     <!-- Barra de navegación -->
-    
-    
-    <NavegacionView/>
-    
+    <NavegacionView />
+
     <main class="main-content">
-      <router-link
-          to="/eleccion"
-          class="btn-atras"
-          >
-          Atrás
-      </router-link>
+      <!-- Botón de retroceso -->
+      <router-link to="/eleccion" class="btn-atras">Atrás</router-link>
+
       <section class="input-container">
+        <!-- Sección derecha: Formularios -->
         <div class="right-section">
+          <!-- Selector de Proceso -->
           <div class="form-group">
             <label for="proceso">Proceso</label>
             <select id="proceso" v-model="proceso">
@@ -24,7 +22,7 @@
               </option>
             </select>
           </div>
-          
+
           <!-- Selector de Cuadrante -->
           <div class="form-group">
             <label for="cuadrante">Seleccione un cuadrante</label>
@@ -64,63 +62,77 @@
           </div>
         </div>
 
+        <!-- Sección izquierda: Listas de cuadrantes -->
         <div class="left-column">
-            <label>Debilidad</label>
-            <div class="readonly-box">
-              <span v-if="debilidades.length === 0 "style="color: gray; font-style: italic">Ingrese aquí</span>
-              <p v-for="(item, index) in debilidades" :key="index">
+          <!-- Debilidad -->
+          <label>Debilidad</label>
+          <div class="readonly-box">
+            <span v-if="debilidades.length === 0" style="color: gray; font-style: italic">Ingrese aquí</span>
+            <div v-for="(item, index) in debilidades" :key="index">
+              <div v-if="editingItem === item">
+                <textarea v-model="editingText" class="edit-input"></textarea>
+                <button @click="saveEdit(item, index, 'debilidades')" class="btn save-btn">Guardar</button>
+                <button @click="cancelEdit" class="btn cancel-btn">Cancelar</button>
+              </div>
+              <div v-else>
                 <span :class="getTypeClass(item.type)">
                   {{ item.type }}:
                 </span>
                 {{ item.text }}
-              </p>
-            </div>
-
-            <label>Oportunidad</label>
-            <div class="readonly-box">
-              <span v-if="oportunidades.length === 0" style="color: gray; font-style: italic">Ingrese aquí</span>
-              <p v-for="(item, index) in oportunidades" :key="index">
-                <span :class="getTypeClass(item.type)">
-                  {{ item.type }}:
-                </span>
-                {{ item.text }}
-              </p>
+                <button @click="editItem(item, item.text)" class="btn edit-btn">Editar</button>
+              </div>
             </div>
           </div>
 
-          <div class="right-column">
-            <label>Fortaleza</label>
-            <div class="readonly-box">
-              <span v-if="fortalezas.length === 0" style="color: gray; font-style: italic">Ingrese aquí</span>
-              <p v-for="(item, index) in fortalezas" :key="index">
-                <span :class="getTypeClass(item.type)">
-                  {{ item.type }}:
-                </span>
-                {{ item.text }}
-              </p>
+          <!-- Oportunidad -->
+          <label>Oportunidad</label>
+          <div class="readonly-box">
+            <span v-if="oportunidades.length === 0" style="color: gray; font-style: italic">Ingrese aquí</span>
+            <div v-for="(item, index) in oportunidades" :key="index">
+              <span :class="getTypeClass(item.type)">
+                {{ item.type }}:
+              </span>
+              {{ item.text }}
             </div>
+          </div>
+        </div>
 
-            <label>Amenaza</label>
-            <div class="readonly-box">
-              <span v-if="amenazas.length === 0" style="color: gray; font-style: italic">Ingrese aquí</span>
-              <p v-for="(item, index) in amenazas" :key="index">
-                <span :class="getTypeClass(item.type)">
-                  {{ item.type }}:
-                </span>
-                {{ item.text }}
-              </p>
-            </div>
-
-            <div class="button-container">
-              <button @click="enviarDatos" class="button">Enviar datos</button>
+        <!-- Sección derecha adicional: Fortalezas y Amenazas -->
+        <div class="right-column">
+          <!-- Fortaleza -->
+          <label>Fortaleza</label>
+          <div class="readonly-box">
+            <span v-if="fortalezas.length === 0" style="color: gray; font-style: italic">Ingrese aquí</span>
+            <div v-for="(item, index) in fortalezas" :key="index">
+              <span :class="getTypeClass(item.type)">
+                {{ item.type }}:
+              </span>
+              {{ item.text }}
             </div>
           </div>
 
+          <!-- Amenaza -->
+          <label>Amenaza</label>
+          <div class="readonly-box">
+            <span v-if="amenazas.length === 0" style="color: gray; font-style: italic">Ingrese aquí</span>
+            <div v-for="(item, index) in amenazas" :key="index">
+              <span :class="getTypeClass(item.type)">
+                {{ item.type }}:
+              </span>
+              {{ item.text }}
+            </div>
+          </div>
 
+          <!-- Botón de Enviar Datos -->
+          <div class="button-container">
+            <button @click="enviarDatos" class="button">Enviar datos</button>
+          </div>
+        </div>
       </section>
     </main>
   </div>
 </template>
+
 
 <script>
 import EncabezadoView from '../EncabezadoView.vue';
@@ -130,7 +142,7 @@ export default {
   name: 'MainPage',
   components: {
     EncabezadoView,
-    NavegacionView
+    NavegacionView,
   },
   data() {
     return {
@@ -138,153 +150,123 @@ export default {
       oportunidades: [],
       fortalezas: [],
       amenazas: [],
-
       descripcion: "",
       selectedCuadrante: "",
       selectedTipo: "",
-      user:{},
+      user: {},
       procesos: [],
     };
   },
-  mounted(){
+  mounted() {
     const userData = localStorage.getItem('user');
     if (userData) {
       this.user = JSON.parse(userData); // Asignar el objeto usuario desde localStorage
-    } 
+    }
     this.cargarProcesos();
   },
   computed: {
     // Computado para deshabilitar el botón "Enviar" si hay campos vacíos
     isEnviarDisabled() {
       return !(this.input1 && this.input2 && this.input3 && this.input4);
-    }
+    },
   },
-
-  
   methods: {
-
-
-  async cargarProcesos() {
-    try {
-      const response = await axios.get("http://127.0.0.1:8000/api/procesos-buscar");
-      this.procesos = response.data;
-    } catch (error) {
-      console.error("Error al cargar los procesos:", error);
-      this.error = "No se pudieron cargar los procesos.";
-    }
-  },
-
-
-  handleSubmit() {
-    if (!this.descripcion.trim()) {
-      alert("Debe ingresar una descripción!");
-      return;
-    }
-
-    // Creación del objeto con texto y tipo
-    const entry = { text: this.descripcion, type: this.selectedTipo };
-
-    // Agregar al cuadrante correspondiente
-    switch (this.selectedCuadrante) {
-      case "Debilidad":
-        this.debilidades.push(entry);
-        break;
-      case "Oportunidad":
-        this.oportunidades.push(entry);
-        break;
-      case "Fortaleza":
-        this.fortalezas.push(entry);
-        break;
-      case "Amenaza":
-        this.amenazas.push(entry);
-        break;
-    }
-
-    this.descripcion = ""; // Limpia el campo de descripción
-    //alert(this.selectedCuadrante + " añadida de tipo " + this.selectedTipo);
-  },
-
-  limpiar() {
-    this.debilidades = [];
-    this.oportunidades = [];
-    this.fortalezas = [];
-    this.amenazas = [];
-  },
-
-
-   // Nueva función para determinar la clase CSS
-   getTypeClass(type) {
-    switch (type) {
-      case "Estratégico":
-        return "type-estrategico";
-      case "Operativo":
-        return "type-operativo";
-      case "Táctico":
-        return "type-tactico";
-      default:
-        return "";
-    }
-  },
-
-  enviarDatos() {
-    // Validación: todos los campos de la DOFA deben estar llenos antes de enviar
-
-    if(
-      this.debilidades.length == 0 &&
-      this.oportunidades.length == 0 &&
-      this.fortalezas.length == 0 &&
-      this.amenazas.length == 0
-    ){
-      alert("Por favor agregue un elemento antes de enviar")
-      return;
-    }
-
-    const procesoSeleccionado = this.procesos.find(proceso => proceso.id === this.proceso);
-
-    if (!procesoSeleccionado) {
-      alert("Por favor seleccione un proceso");
-      return;
-    }
-
-    // Datos a enviar
-    const data = {
-      Debilidad: this.debilidades.map(item => ({ tipo: item.type, descripcion: item.text })),
-      Amenaza: this.amenazas.map(item => ({ tipo: item.type, descripcion: item.text })),
-      Oportunidad: this.oportunidades.map(item => ({ tipo: item.type, descripcion: item.text })),
-      Fortaleza: this.fortalezas.map(item => ({ tipo: item.type, descripcion: item.text })),
-      id_usuario: this.user.id,
-      //Proceso: { id: procesoSeleccionado.id, nombre: procesoSeleccionado.nombre },
-      id_proceso: procesoSeleccionado.id,
-    };
-
-    // Muestra el JSON en la consola
-    
-    let datos_json = JSON.stringify(data, null, 2)
-
-    console.log(datos_json)
-  
-   
-    ///*
-    fetch('http://127.0.0.1:8000/api/guardar-dofa', {
+    async cargarProcesos() {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/procesos-buscar");
+        this.procesos = response.data;
+      } catch (error) {
+        console.error("Error al cargar los procesos:", error);
+        this.error = "No se pudieron cargar los procesos.";
+      }
+    },
+    handleSubmit() {
+      if (!this.descripcion.trim()) {
+        alert("Debe ingresar una descripción!");
+        return;
+      }
+      // Crear objeto con texto y tipo
+      const entry = { text: this.descripcion, type: this.selectedTipo };
+      // Agregar al cuadrante correspondiente
+      switch (this.selectedCuadrante) {
+        case "Debilidad":
+          this.debilidades.push(entry);
+          break;
+        case "Oportunidad":
+          this.oportunidades.push(entry);
+          break;
+        case "Fortaleza":
+          this.fortalezas.push(entry);
+          break;
+        case "Amenaza":
+          this.amenazas.push(entry);
+          break;
+      }
+      this.descripcion = ""; // Limpiar campo descripción
+    },
+    limpiar() {
+      this.debilidades = [];
+      this.oportunidades = [];
+      this.fortalezas = [];
+      this.amenazas = [];
+    },
+    // Determinar clase CSS según el tipo
+    getTypeClass(type) {
+      switch (type) {
+        case "Estratégico":
+          return "type-estrategico";
+        case "Operativo":
+          return "type-operativo";
+        case "Táctico":
+          return "type-tactico";
+        default:
+          return "";
+      }
+    },
+    enviarDatos() {
+      if (
+        this.debilidades.length === 0 &&
+        this.oportunidades.length === 0 &&
+        this.fortalezas.length === 0 &&
+        this.amenazas.length === 0
+      ) {
+        alert("Por favor agregue un elemento antes de enviar");
+        return;
+      }
+      const procesoSeleccionado = this.procesos.find(proceso => proceso.id === this.proceso);
+      if (!procesoSeleccionado) {
+        alert("Por favor seleccione un proceso");
+        return;
+      }
+      // Crear objeto con datos a enviar
+      const data = {
+        Debilidad: this.debilidades.map(item => ({ tipo: item.type, descripcion: item.text })),
+        Amenaza: this.amenazas.map(item => ({ tipo: item.type, descripcion: item.text })),
+        Oportunidad: this.oportunidades.map(item => ({ tipo: item.type, descripcion: item.text })),
+        Fortaleza: this.fortalezas.map(item => ({ tipo: item.type, descripcion: item.text })),
+        id_usuario: this.user.id,
+        id_proceso: procesoSeleccionado.id,
+      };
+      console.log(JSON.stringify(data, null, 2));
+      // Enviar datos al servidor
+      fetch('http://127.0.0.1:8000/api/guardar-dofa', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-    })
-    .then(response => response.json())
-    .then(response => {
-        alert(response.message);
-        this.limpiar();
-    })
-    .catch(error => {
-        console.error('Error al enviar los datos:', error);
-        alert('Error al enviar los datos.');
-    });//*/
+      })
+        .then(response => response.json())
+        .then(response => {
+          alert(response.message);
+          this.limpiar();
+        })
+        .catch(error => {
+          console.error('Error al enviar los datos:', error);
+          alert('Error al enviar los datos.');
+        });
+    },
   },
-
- 
-}
 };
 </script>
 
@@ -475,6 +457,37 @@ textarea {
   background-color: #fbeb0f;
   color: black;
 }
+
+/* editar*/
+
+.edit-input {
+  width: 100%;
+  height: auto;
+  font-size: 14px;
+}
+
+.btn {
+  margin: 5px;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.save-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.edit-btn {
+  background-color: #2196f3;
+  color: white;
+}
+
 
 
 </style>
