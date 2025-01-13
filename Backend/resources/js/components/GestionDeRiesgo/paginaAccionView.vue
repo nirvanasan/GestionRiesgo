@@ -272,7 +272,7 @@ button {
   border-radius: 4px;
   color: #000000;
   cursor: pointer;
-  background-color: #f3f94e;
+  background-color: gray;
 }
 
 
@@ -281,7 +281,7 @@ button:nth-child(1) {
 }
 
 button:nth-child(2) {
-  background-color: #ff0000; /* Verde para ingresar */
+  background-color: gray; /* Verde para ingresar */
 }
 
   </style>

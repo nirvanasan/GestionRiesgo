@@ -145,6 +145,8 @@ export default {
         this.error = "Debe ingresar una descripción en 'Control actual del proceso'.";
         return;
       }
+
+      /*
       if (!this.probabilidad || this.probabilidad < 1 || this.probabilidad > 5) {
         this.error = "Debe ingresar un valor de probabilidad entre 1 y 5.";
         return;
@@ -152,7 +154,7 @@ export default {
       if (!this.impacto || this.impacto < 1 || this.impacto > 5) {
         this.error = "Debe ingresar un valor de impacto entre 1 y 5.";
         return;
-      }
+      }*/
 
       // Si todo está correcto, enviar los datos
       this.error = "";
