@@ -10,15 +10,16 @@ app.use(router); // Registra el router en la aplicación
 
 app.mount('#app');
 app.mount('#registro');
-app.mount('#home')
-app.mount('#recuperar')
-app.mount('#main')
-app.mount('#dofa')
-app.mount('#eleccion')
-app.mount('#proceso')
-app.mount('#VerDofa')
-app.mount('#clasificacion')
-app.mount('#controles')
-app.mount('#accion')
+app.mount('#home');
+app.mount('#recuperar');
+app.mount('#main');
+app.mount('#dofa');
+app.mount('#eleccion');
+app.mount('#proceso');
+app.mount('#VerDofa');
+app.mount('#clasificacion');
+app.mount('#controles');
+app.mount('#accion');
+app.mount('#seguimiento');
 
 app.config.globalProperties.$axios = axios;

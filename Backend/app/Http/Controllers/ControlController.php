@@ -35,4 +35,21 @@ class ControlController extends Controller
             'control' => $control,
         ], 201);
     }
+
+
+    public function index(Request $request)
+    {
+        // Obtiene el parámetro 'usuario' de la consulta GET
+        $usuario = $request->query('usuario');
+
+        // Consulta la tabla controles
+        $controles = Control::when($usuario, function ($query, $usuario) {
+            return $query->where('usuario', $usuario);
+        })->get();
+
+        // Respuesta con los controles encontrados
+        return response()->json([
+            'controles' => $controles,
+        ]);
+    }
 }

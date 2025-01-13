@@ -53,3 +53,7 @@ Route::get('controles', function () {
 Route::get('accion', function () {
     return view('accion');
 });
+
+Route::get('seguimiento', function () {
+    return view('seguimiento');
+});

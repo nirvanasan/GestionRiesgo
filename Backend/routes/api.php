@@ -28,3 +28,4 @@ Route::post('/oportunidad-riesgo', [AnalisisDofaController::class, 'getAnalisisD
 Route::post('/clasificacion', [ClasificacionController::class, 'store']);
 Route::get('/cargar-clasificacion', [ClasificacionController::class, 'index']);
 Route::post('/cargar-control', [ControlController::class, 'store']);
+Route::get('/cargar-controles', [ControlController::class, 'index']);

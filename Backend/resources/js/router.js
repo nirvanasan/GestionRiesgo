@@ -12,6 +12,7 @@ import VerDofa from './components/GestionDeRiesgo/verDofaView.vue';
 import Clasificacion from './components/GestionDeRiesgo/paginaClasificacionView.vue';
 import Controles from './components/GestionDeRiesgo/paginaControlesView.vue';
 import Accion from './components/GestionDeRiesgo/paginaAccionView.vue';
+import Seguimiento from './components/GestionDeRiesgo/paginaSeguimientoView.vue';
 
 
 const routes = [
@@ -100,6 +101,15 @@ const routes = [
       path: '/accion',
       name: 'accion',
       component: Accion,
+      meta: {
+          requiresAuth: true,
+          title: "Accion"
+          }
+    },
+    {
+      path: '/seguimiento',
+      name: 'seguimiento',
+      component: Seguimiento,
       meta: {
           requiresAuth: true,
           title: "Accion"

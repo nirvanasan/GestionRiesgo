@@ -69,16 +69,8 @@ export default {
   },
   data() {
     return {
-      oportunidades: [
-        { id: 1, descripcion: "Oportunidad 1" },
-        { id: 2, descripcion: "Oportunidad 2" },
-        { id: 3, descripcion: "Oportunidad 3" }
-      ],
-      riesgos: [
-        { id: 1, descripcion: "Riesgo 1" },
-        { id: 2, descripcion: "Riesgo 2" },
-        { id: 3, descripcion: "Riesgo 3" }
-      ],
+      oportunidades: [],
+      riesgos: [],
       oportunidadSeleccionada: null,
       riesgoSeleccionado: null,
       informacionGeneral: "",
@@ -94,6 +86,9 @@ export default {
     };
   },
   methods: {
+
+    
+
     actualizarSeleccion(tipo) {
       console.log(`${tipo} seleccionado`);
     },
