@@ -12,13 +12,13 @@
         <div class="section">
           <h3>OPORTUNIDAD</h3>
           <select v-model="oportunidadSeleccionada" @change="actualizarSeleccion('oportunidad')">
-            <option v-for="op in oportunidades" :key="op.id" :value="op">{{ op.descripcion }}</option>
+            <option v-for="op in oportunidades" :key="op.id" :value="op">{{ op.id_elemento + ": " + op.descripcion }}</option>
           </select>
         </div>
         <div class="section">
           <h3>RIESGO</h3>
           <select v-model="riesgoSeleccionado" @change="actualizarSeleccion('riesgo')">
-            <option v-for="riesgo in riesgos" :key="riesgo.id" :value="riesgo">{{ riesgo.descripcion }}</option>
+            <option v-for="riesgo in riesgos" :key="riesgo.id" :value="riesgo">{{ riesgo.id_elemento + ": " + riesgo.descripcion }}</option>
           </select>
         </div>
         <div class="section">
@@ -82,12 +82,28 @@ export default {
       fechaSeguimiento: "",
       probabilidad: "",
       impacto: "",
-      valor: ""
+      valor: "",
+      user: {}
     };
   },
+  
   methods: {
 
-    
+    async obtenerControles() {
+      try {
+        const payload = {
+          usuario: this.user.id
+        }
+        const response = await axios.get('http://127.0.0.1:8000/api/cargar-controles',payload);  // Llama al endpoint
+
+        // Filtra las oportunidades y riesgos según el tipo
+        this.oportunidades = response.data.controles.filter(control => control.tipo === 'Oportunidad');
+        this.riesgos = response.data.controles.filter(control => control.tipo === 'Riesgo');
+      } catch (error) {
+        console.error('Error al obtener los controles:', error);
+        alert('Error al cargar los datos de controles.');
+      }
+    },
 
     actualizarSeleccion(tipo) {
       console.log(`${tipo} seleccionado`);
@@ -139,6 +155,15 @@ export default {
       console.log("Impacto:", this.impacto);
       console.log("Valor:", this.valor);
     }
+  },
+  mounted() {
+    
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      this.user = JSON.parse(userData);
+    }
+    
+    this.obtenerControles();
   }
 };
 </script>
