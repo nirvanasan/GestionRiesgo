@@ -276,7 +276,7 @@ button:nth-child(1) {
 }
 
 button:nth-child(2) {
-  background-color: gray; /* Verde para ingresar */
+  background-color: rgb(235, 41, 41); /* Verde para ingresar */
 }
 
   </style>
