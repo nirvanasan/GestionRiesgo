@@ -30,4 +30,12 @@ class UserController extends Controller
             'user' => $user,
         ], 201);
     }
+
+    public function index()
+    {
+        $users = User::all();
+        return response()->json([
+            'users' => $users,
+        ]);
+    }
 }

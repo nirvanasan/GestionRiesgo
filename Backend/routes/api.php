@@ -13,6 +13,7 @@ use App\Http\Controllers\ClasificacionController;
 use App\Http\Controllers\ControlController;
 
 
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 });
@@ -29,3 +30,4 @@ Route::post('/clasificacion', [ClasificacionController::class, 'store']);
 Route::get('/cargar-clasificacion', [ClasificacionController::class, 'index']);
 Route::post('/cargar-control', [ControlController::class, 'store']);
 Route::get('/cargar-controles', [ControlController::class, 'index']);
+Route::get('/cargar-usuarios', [UserController::class, 'index']);

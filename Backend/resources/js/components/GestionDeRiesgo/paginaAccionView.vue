@@ -24,20 +24,25 @@
         <div class="section">
           <h3>INFORMACIÓN GENERAL</h3>
           <textarea v-model="informacionGeneral" placeholder="Escribe aquí la información general"></textarea>
-        </div>
+        </div>  
       </div>
 
       <!-- Contenedor derecho -->
       <div class="contenedor-derecha">
         <input type="text" v-model="accionRecomendada" placeholder="Acción recomendada" />
+
+
+
         <div class="select-container">
             <select v-model="responsable" class="custom-select">
               <option disabled value="">Seleccione un responsable </option>
-              <option v-for="opcion in responsables" :key="opcion.id" :value="opcion.nombre">
-                {{ opcion.nombre }}
+              <option v-for="opcion in responsables" :key="opcion.id" :value="opcion.name">
+                {{ opcion.name }}
               </option>
             </select>
           </div>
+
+          
         <input type="text" v-model="accion" placeholder="Acción" />
         <!-- Selector para el proceso con flecha -->
           <div class="select-container">
@@ -48,6 +53,7 @@
               </option>
             </select>
           </div>
+          
         <div class="fechas">
           <div>
             <label>FECHA DE SEGUIMIENTO </label>
@@ -92,18 +98,10 @@ export default {
       informacionGeneral: "",
       accionRecomendada: "",
       responsable: "",
-      responsables: [
-        { id: 1, nombre: "responsable 1" },
-        { id: 2, nombre: "responsable 2" },
-        { id: 3, nombre: "responsable 3" }
-      ],
+      responsables: [],
       accion: "",
       proceso: "",
-      procesos: [
-        { id: 1, nombre: "Proceso 1" },
-        { id: 2, nombre: "Proceso 2" },
-        { id: 3, nombre: "Proceso 3" }
-      ],
+      procesos: [],
       fechaCierre: "",
       fechaSeguimiento: "",
       probabilidad: "",
@@ -113,6 +111,29 @@ export default {
     };
   },
   methods: {
+
+    // Método para cargar responsables desde el backend
+    async cargarResponsables() {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/cargar-usuarios");
+        this.responsables = response.data.users;
+        console.log(response.data)
+      } catch (error) {
+        console.error("Error al cargar los responsables:", error);
+        alert("No se pudieron cargar los responsables.");
+      }
+    },
+
+    async cargarProcesos() {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/procesos-buscar");
+        this.procesos = response.data;
+      } catch (error) {
+        console.error("Error al cargar los procesos:", error);
+        this.error = "No se pudieron cargar los procesos.";
+      }
+    },
+
     // Método para obtener controles desde el backend
     async obtenerControles() {
       try {
@@ -194,9 +215,12 @@ export default {
     const userData = localStorage.getItem("user");
     if (userData) {
       this.user = JSON.parse(userData);
+      this.cargarResponsables();
+      this.obtenerControles();
+      this.cargarProcesos();
     }
-
-    this.obtenerControles();
+   
+    
   }
 };
 </script>
@@ -349,11 +373,11 @@ button:nth-child(2) {
 
 /* Personalización del select */
 .custom-select {
-  width: 99%;
+  width: 98.5%;
   padding: 9px;
   font-size: 13px;
   border-radius: 5px;
-  background-color: #f9f9f9d7;
+  background-color: #f9f9f9b5;
   color: #636262;
   appearance: none; /* Oculta la flecha nativa */
   -webkit-appearance: none;
