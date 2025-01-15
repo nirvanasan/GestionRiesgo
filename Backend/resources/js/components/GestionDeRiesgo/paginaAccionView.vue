@@ -32,12 +32,14 @@
         <input type="text" v-model="accionRecomendada" placeholder="Acción recomendada" />
         <input type="text" v-model="responsable" placeholder="Responsable" />
         <input type="text" v-model="accion" placeholder="Acción" />
-        <select v-model="proceso">
+
+        <select id="proceso" v-model="proceso">
             <option disabled value="">Seleccione un proceso</option>
-            <option v-for="opcion in procesos" :key="opcion.id" :value="opcion.nombre">
-              {{ opcion.nombre }}
+            <option v-for="proceso in procesos" :key="proceso.id" :value="proceso.id">
+              {{ proceso.nombre }}
             </option>
         </select>
+        
         <div class="fechas">
           <div>
             <label>FECHA DE SEGUIMIENTO </label>
@@ -83,7 +85,7 @@ export default {
       accionRecomendada: "",
       responsable: "",
       accion: "",
-      proceso: "",
+      procesos: "",
       fechaCierre: "",
       fechaSeguimiento: "",
       probabilidad: "",
@@ -93,6 +95,17 @@ export default {
     };
   },
   methods: {
+
+    async cargarProcesos() {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/procesos-buscar");
+        this.procesos = response.data;
+      } catch (error) {
+        console.error("Error al cargar los procesos:", error);
+        this.error = "No se pudieron cargar los procesos.";
+      }
+    },
+
     // Método para obtener controles desde el backend
     async obtenerControles() {
       try {
@@ -177,6 +190,7 @@ export default {
     }
 
     this.obtenerControles();
+    this.cargarProcesos();
   }
 };
 </script>
