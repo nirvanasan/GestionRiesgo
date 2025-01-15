@@ -32,7 +32,7 @@
         <input type="text" v-model="accionRecomendada" placeholder="Acción recomendada" />
         <div class="select-container">
             <select v-model="responsable" class="custom-select">
-              <option disabled value="">Seleccione un responsable</option>
+              <option disabled value="">Seleccione un responsable </option>
               <option v-for="opcion in responsables" :key="opcion.id" :value="opcion.nombre">
                 {{ opcion.nombre }}
               </option>
