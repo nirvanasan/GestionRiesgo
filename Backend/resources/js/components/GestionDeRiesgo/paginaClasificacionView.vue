@@ -290,8 +290,9 @@ h3 {
 }
 
 /* Panel derecho */
-.right-panel {  
-  max-width: 63px;       /* Ancho máximo */
+.right-panel {
+  flex: 0 1 60%;          /* Opcional: ajusta el ancho relativo */
+  max-width: 635px;       /* Ancho máximo */
   background-color: rgba(255, 255, 255, 0); /* Opcional: para destacar el panel */
   border: 1px solid black; /* Línea divisoria */
   border-radius: 8px;     /* Opcional: esquinas redondeadas */
