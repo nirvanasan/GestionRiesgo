@@ -30,14 +30,24 @@
       <!-- Contenedor derecho -->
       <div class="contenedor-derecha">
         <input type="text" v-model="accionRecomendada" placeholder="Acción recomendada" />
-        <input type="text" v-model="responsable" placeholder="Responsable" />
+        <div class="select-container">
+            <select v-model="responsable" class="custom-select">
+              <option disabled value="">Seleccione un responsable</option>
+              <option v-for="opcion in responsables" :key="opcion.id" :value="opcion.nombre">
+                {{ opcion.nombre }}
+              </option>
+            </select>
+          </div>
         <input type="text" v-model="accion" placeholder="Acción" />
-        <select v-model="proceso">
-            <option disabled value="">Seleccione un proceso</option>
-            <option v-for="opcion in procesos" :key="opcion.id" :value="opcion.nombre">
-              {{ opcion.nombre }}
-            </option>
-        </select>
+        <!-- Selector para el proceso con flecha -->
+          <div class="select-container">
+            <select v-model="proceso" class="custom-select">
+              <option disabled value="">Seleccione un proceso</option>
+              <option v-for="opcion in procesos" :key="opcion.id" :value="opcion.nombre">
+                {{ opcion.nombre }}
+              </option>
+            </select>
+          </div>
         <div class="fechas">
           <div>
             <label>FECHA DE SEGUIMIENTO </label>
@@ -82,8 +92,18 @@ export default {
       informacionGeneral: "",
       accionRecomendada: "",
       responsable: "",
+      responsables: [
+        { id: 1, nombre: "responsable 1" },
+        { id: 2, nombre: "responsable 2" },
+        { id: 3, nombre: "responsable 3" }
+      ],
       accion: "",
       proceso: "",
+      procesos: [
+        { id: 1, nombre: "Proceso 1" },
+        { id: 2, nombre: "Proceso 2" },
+        { id: 3, nombre: "Proceso 3" }
+      ],
       fechaCierre: "",
       fechaSeguimiento: "",
       probabilidad: "",
@@ -254,7 +274,7 @@ h3 {
 
 .contenedor-derecha textarea,
 .contenedor-derecha input {
-  width: 90%;
+  width: 96%;
   padding: 8px;
   border: 1px solid #000000e6;
   border-radius: 4px;
@@ -316,6 +336,40 @@ button:nth-child(1) {
 
 button:nth-child(2) {
   background-color: rgb(235, 41, 41); /* Verde para ingresar */
+}
+
+
+/* estilo de eleccion */
+
+/* Contenedor para posicionar el select y la flecha */
+.select-container {
+  position: relative;
+  width: 100%; /* Ajusta el ancho del contenedor según sea necesario */
+}
+
+/* Personalización del select */
+.custom-select {
+  width: 99%;
+  padding: 9px;
+  font-size: 13px;
+  border-radius: 5px;
+  background-color: #f9f9f9d7;
+  color: #636262;
+  appearance: none; /* Oculta la flecha nativa */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Flecha personalizada */
+.select-container::after {
+  content: "▼"; /* Flecha hacia abajo */
+  font-size: 18px; /* Tamaño de la flecha */
+  color: #000000; /* Color de la flecha */
+  position: absolute;
+  top: 50%; /* Centrar verticalmente */
+  right: 15px; /* Mueve la flecha más a la derecha */
+  transform: translateY(-50%);
+  pointer-events: none; /* Evita que interfiera con clics */
 }
 
   </style>
