@@ -295,7 +295,7 @@ input[type="radio"] {
   display: flex;
   width: 50px; /* Cambia este valor según el tamaño deseado */
   gap: 20px;
-  padding: 180px;
+ 
 }
 
 
