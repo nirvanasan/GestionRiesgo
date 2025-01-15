@@ -24,7 +24,7 @@
         <div class="section">
           <h3>INFORMACIÓN GENERAL</h3>
           <textarea v-model="informacionGeneral" placeholder="Escribe aquí la información general"></textarea>
-        </div>
+        </div>  
       </div>
 
       <!-- Contenedor derecho -->
