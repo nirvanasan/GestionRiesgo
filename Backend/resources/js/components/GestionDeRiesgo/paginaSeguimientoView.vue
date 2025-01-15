@@ -55,17 +55,17 @@
         <div class="group">
           <div class="form-group">
             <label for="probabilidad">Probabilidad:</label>
-            <input type="number" id="probabilidad" v-model="probabilidad" min="1" max="5" />
+            <input type="number" id="probabilidad" v-model="probabilidad" min="0" max="5" />
           </div>
 
           <div class="form-group">
             <label for="impacto">Impacto:</label>
-            <input type="number" id="impacto" v-model="impacto" min="1" max="5" />
+            <input type="number" id="impacto" v-model="impacto" min="0" max="5" />
           </div>
 
           <div class="form-group">
             <label for="valoracion-control">Valoración del Control:</label>
-            <input type="number" id="valoracion-control" v-model="valoracionControl" min="1" max="5" />
+            <input type="number" id="valoracion-control" v-model="valoracionControl" min="0" max="5" />
           </div>
         </div>
 
@@ -118,10 +118,10 @@ export default {
       cierre: null,
       riesgoN: null,
       fecha: "", 
-      probabilidad: 1,
-      impacto: 1,
+      probabilidad: 0,
+      impacto: 0,
       controlActual: "", 
-      valoracionControl: 1,
+      valoracionControl: 0,
     };
   },
   computed: {
@@ -166,9 +166,9 @@ export default {
       this.cierre = null;
       this.riesgoN = null;
       this.fecha = "";
-      this.probabilidad = 1;
-      this.impacto = 1;
-      this.valoracionControl = 1;
+      this.probabilidad = 0;
+      this.impacto = 0;
+      this.valoracionControl = 0;
     },
   },
 };

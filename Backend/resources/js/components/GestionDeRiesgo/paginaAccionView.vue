@@ -32,7 +32,12 @@
         <input type="text" v-model="accionRecomendada" placeholder="Acción recomendada" />
         <input type="text" v-model="responsable" placeholder="Responsable" />
         <input type="text" v-model="accion" placeholder="Acción" />
-        <input type="text" v-model="proceso" placeholder="Proceso" />
+        <select v-model="proceso">
+            <option disabled value="">Seleccione un proceso</option>
+            <option v-for="opcion in procesos" :key="opcion.id" :value="opcion.nombre">
+              {{ opcion.nombre }}
+            </option>
+        </select>
         <div class="fechas">
           <div>
             <label>FECHA DE SEGUIMIENTO </label>
@@ -61,6 +66,7 @@
 <script>
 import EncabezadoView from '../EncabezadoView.vue';
 import NavegacionView from "../navegacionView.vue";
+import axios from "axios";
 
 export default {
   components: {
@@ -86,28 +92,50 @@ export default {
       user: {}
     };
   },
-  
   methods: {
-
+    // Método para obtener controles desde el backend
     async obtenerControles() {
       try {
-        const payload = {
-          usuario: this.user.id
-        }
-        const response = await axios.get('http://127.0.0.1:8000/api/cargar-controles',payload);  // Llama al endpoint
+        const response = await axios.get('http://127.0.0.1:8000/api/cargar-controles', {
+          params: { usuario: this.user.id },
+        });
 
-        // Filtra las oportunidades y riesgos según el tipo
-        this.oportunidades = response.data.controles.filter(control => control.tipo === 'Oportunidad');
-        this.riesgos = response.data.controles.filter(control => control.tipo === 'Riesgo');
+        this.oportunidades = response.data.controles.filter(
+          control => control.tipo === 'Oportunidad'
+        );
+        this.riesgos = response.data.controles.filter(
+          control => control.tipo === 'Riesgo'
+        );
       } catch (error) {
         console.error('Error al obtener los controles:', error);
         alert('Error al cargar los datos de controles.');
       }
     },
 
-    actualizarSeleccion(tipo) {
-      console.log(`${tipo} seleccionado`);
+    // Método para validar los campos antes de enviar
+    validarCampos() {
+      const errores = [];
+      if (!this.oportunidadSeleccionada) errores.push("Seleccione una oportunidad.");
+      if (!this.riesgoSeleccionado) errores.push("Seleccione un riesgo.");
+      if (!this.informacionGeneral) errores.push("Complete la información general.");
+      if (!this.accionRecomendada) errores.push("Complete la acción recomendada.");
+      if (!this.responsable) errores.push("Complete el responsable.");
+      if (!this.accion) errores.push("Complete la acción.");
+      if (!this.proceso) errores.push("Seleccione un proceso.");
+      if (!this.fechaCierre) errores.push("Complete la fecha de cierre.");
+      if (!this.fechaSeguimiento) errores.push("Complete la fecha de seguimiento.");
+      if (!this.probabilidad) errores.push("Complete la probabilidad.");
+      if (!this.impacto) errores.push("Complete el impacto.");
+      if (!this.valor) errores.push("Complete el valor.");
+
+      if (errores.length > 0) {
+        alert(errores.join("\n"));
+        return false;
+      }
+      return true;
     },
+
+    // Método para limpiar los campos
     limpiarCampos() {
       this.oportunidadSeleccionada = null;
       this.riesgoSeleccionado = null;
@@ -122,24 +150,10 @@ export default {
       this.impacto = "";
       this.valor = "";
     },
+
+    // Método para enviar los datos al backend
     enviarDatos() {
-      if (
-        !this.oportunidadSeleccionada ||
-        !this.riesgoSeleccionado ||
-        !this.informacionGeneral ||
-        !this.accionRecomendada ||
-        !this.responsable ||
-        !this.accion ||
-        !this.proceso ||
-        !this.fechaCierre ||
-        !this.fechaSeguimiento ||
-        !this.probabilidad ||
-        !this.impacto ||
-        !this.valor
-      ) {
-        alert("Todos los campos son obligatorios.");
-        return;
-      }
+      if (!this.validarCampos()) return;
 
       console.log("Datos ingresados:");
       console.log("Oportunidad:", this.oportunidadSeleccionada.descripcion);
@@ -157,16 +171,16 @@ export default {
     }
   },
   mounted() {
-    
     const userData = localStorage.getItem("user");
     if (userData) {
       this.user = JSON.parse(userData);
     }
-    
+
     this.obtenerControles();
   }
 };
 </script>
+
 
   
   <style scoped>
