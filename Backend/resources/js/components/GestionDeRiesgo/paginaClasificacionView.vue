@@ -290,11 +290,10 @@ h3 {
 }
 
 /* Panel derecho */
-.right-panel {
-  flex: 0 1 70%;          /* Opcional: ajusta el ancho relativo */
-  max-width: 600px;       /* Ancho máximo */
+.right-panel {  
+  max-width: 63px;       /* Ancho máximo */
   background-color: rgba(255, 255, 255, 0); /* Opcional: para destacar el panel */
-
+  border: 1px solid black; /* Línea divisoria */
   border-radius: 8px;     /* Opcional: esquinas redondeadas */
   text-align: center;
 }
@@ -344,18 +343,16 @@ input[type="text"] {
 }
 
 .btn {
-  padding: 5px 10px;
+  padding: 8px 10px;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
+  background-color: #C51922;
+  color: #ffffff;
 }
 
-.limpiar {
-  background-color: #d2b48c;
-}
-
-.ingresar {
-  background-color: #ff4d4d;
-  color: white;
+.btn:hover{
+  background-color: #ffe100;
+  color: black;
 }
 </style>

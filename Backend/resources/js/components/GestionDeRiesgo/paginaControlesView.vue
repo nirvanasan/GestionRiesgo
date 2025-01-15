@@ -324,7 +324,7 @@ background-color: rgba(240, 248, 255, 0.226);
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Espacio entre los bloques */
+  gap: 15px; /* Espacio entre los bloques */
 }
 
 textarea {
@@ -363,25 +363,26 @@ input[type="number"] {
   display: flex;
   gap: 20px; /* Espacio entre los botones */
   justify-content: center; /* Centrado horizontal */
+
 }
 
 .btn {
-  padding: 8px 20px;
+  padding: 10px 12px;
   border: none;
-  border-radius: 30px;
+  border-radius: 4px;
   cursor: pointer;
   font-size: 10px;
   font-weight: bold;
+  background-color: #C51922;
+  color: #ffffff;
 }
 
-.limpiar {
-  background-color: #d2b48c;
+.btn:hover{
+  background-color: #ffe100;
+  color: black;
 }
 
-.ingresar {
-  background-color: #ff4d4d;
-  color: white;
-}
+
 
 .error-message {
   color: red;
