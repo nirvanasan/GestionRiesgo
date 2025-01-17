@@ -31,10 +31,21 @@
       <div class="contenedor-derecha">
         <input type="text" v-model="accionRecomendada" placeholder="Acción recomendada" />
 
-
+        <!-- <div class="select-container">
+            <select 
+              v-model="responsable"
+              class="custom-select"
+              :class="{ 'option-selected': responsable !== '' }">
+              <option disabled value="">Seleccione un responsable </option>
+              <option v-for="opcion in Responsables" :key="opcion.id" :value="opcion.nombre">
+                {{ opcion.nombre }}
+              </option>
+            </select>
+          </div> -->
 
         <div class="select-container">
-            <select v-model="responsable" class="custom-select">
+            <select v-model="responsable" class="custom-select"
+            :class="{ 'option-selected': responsable !== '' }">
               <option disabled value="">Seleccione un responsable </option>
               <option v-for="opcion in responsables" :key="opcion.id" :value="opcion.name">
                 {{ opcion.name }}
@@ -46,7 +57,8 @@
         <input type="text" v-model="accion" placeholder="Acción" />
         <!-- Selector para el proceso con flecha -->
           <div class="select-container">
-            <select v-model="proceso" class="custom-select">
+            <select v-model="proceso" class="custom-select"
+            :class="{ 'option-selected': proceso !== '' }">
               <option disabled value="">Seleccione un proceso</option>
               <option v-for="opcion in procesos" :key="opcion.id" :value="opcion.nombre">
                 {{ opcion.nombre }}
@@ -373,16 +385,23 @@ button:nth-child(2) {
 
 /* Personalización del select */
 .custom-select {
-  width: 98.5%;
+  width: 99%;
   padding: 9px;
   font-size: 13px;
   border-radius: 5px;
-  background-color: #f9f9f9b5;
-  color: #636262;
+  background-color: #f9f9f9d7;
+  color: #898282;
   appearance: none; /* Oculta la flecha nativa */
   -webkit-appearance: none;
   -moz-appearance: none;
+
 }
+
+.custom-select.option-selected {
+  color: #000000; /* Darker text color */
+  background-color: #fff5f598; /* Temporary background to test */
+}
+
 
 /* Flecha personalizada */
 .select-container::after {
