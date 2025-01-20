@@ -354,6 +354,6 @@ input[type="text"] {
 
 .btn:hover{
   background-color: #ffe100;
-  color: black;
+  color: rgb(0, 0, 0);
 }
 </style>

@@ -49,50 +49,63 @@
         </div>
       </div>
 
-      <!-- Sección derecha: Grupos -->
       <div class="right-section">
-        <!-- Grupo 1: Probabilidad, Impacto, Valoración del Control -->
-        <div class="group">
-          <div class="form-group">
-            <label for="probabilidad">Probabilidad:</label>
-            <input type="number" id="probabilidad" v-model="probabilidad" min="0" max="5" />
-          </div>
-
-          <div class="form-group">
-            <label for="impacto">Impacto:</label>
-            <input type="number" id="impacto" v-model="impacto" min="0" max="5" />
-          </div>
-
-          <div class="form-group">
-            <label for="valoracion-control">Valoración del Control:</label>
-            <input type="number" id="valoracion-control" v-model="valoracionControl" min="0" max="5" />
-          </div>
+        <!-- Parte superior: Oportunidad y Riesgo -->
+        <div class="section">
+          <h3>OPORTUNIDAD</h3>
+          <select v-model="oportunidadSeleccionada" @change="actualizarSeleccion('oportunidad')">
+            <option v-for="op in oportunidades" :key="op.id" :value="op">{{ op.id_elemento + ": " + op.descripcion }}</option>
+          </select>
+        </div>
+        <div class="section">
+          <h3>RIESGO</h3>
+          <select v-model="riesgoSeleccionado" @change="actualizarSeleccion('riesgo')">
+            <option v-for="riesgo in riesgos" :key="riesgo.id" :value="riesgo">{{ riesgo.id_elemento + ": " + riesgo.descripcion }}</option>
+          </select>
         </div>
 
-        <!-- Grupo 2: Fecha, Valoración del Riesgo, Valoración Total -->
-        <div class="group">
-          <div class="form-group">
-            <label for="fecha">Fecha:</label>
-            <input type="date" id="fecha" v-model="fecha" />
+        <!-- Parte inferior: campos principales en dos columnas -->
+        <div class="main-fields-container">
+          <!-- Primera columna -->
+          <div class="group">
+            <div class="form-group">
+              <label for="probabilidad">Probabilidad:</label>
+              <input type="number" id="probabilidad" v-model="probabilidad" min="0" max="5" />
+            </div>
+            <div class="form-group">
+              <label for="impacto">Impacto:</label>
+              <input type="number" id="impacto" v-model="impacto" min="0" max="5" />
+            </div>
+            <div class="form-group">
+              <label for="valoracion-control">Valoración del Control:</label>
+              <input type="number" id="valoracion-control" v-model="valoracionControl" min="0" max="5" />
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="valoracion-riesgo">Valoración del Riesgo:</label>
-            <input type="number" id="valoracion-riesgo" :value="valoracionRiesgo" readonly />
+          <!-- Segunda columna -->
+          <div class="group">
+            <div class="form-group">
+              <label for="fecha">Fecha:</label>
+              <input type="date" id="fecha" v-model="fecha" />
+            </div>
+            <div class="form-group">
+              <label for="valoracion-riesgo">Valoración del Riesgo:</label>
+              <input type="number" id="valoracion-riesgo" :value="valoracionRiesgo" readonly />
+            </div>
+            <div class="form-group">
+              <label for="valoracion-total">Valoración Total:</label>
+              <input type="number" id="valoracion-total" :value="valoracionTotal" readonly />
+            </div>
           </div>
-
-          <div class="form-group">
-            <label for="valoracion-total">Valoración Total:</label>
-            <input type="number" id="valoracion-total" :value="valoracionTotal" readonly />
-          </div>
-
-          <div class="valor-botones">
-          <button @click="enviarFormulario">Enviar</button>
-          <button @click="limpiarFormulario">Limpiar</button>
-        </div>
         </div>
 
         <!-- Botones -->
+        <div class="valor-botones">
+          <button @click="limpiarFormulario">Limpiar</button>
+          <button @click="enviarFormulario">Enviar</button>
+        </div>
+
+
         
       </div>
     </main>
@@ -219,22 +232,83 @@ export default {
   border-radius: 4px;
 }
 
-.right-section {
-  flex: 2;
+/* Contenedor para oportunidad y riesgo */
+.top-container {
   display: flex;
-  margin: 2%;
-}
-
-.group {
-  display: flex;
-  flex-direction: column;
-  margin-left: 10%;
+  flex-direction: row;
+  justify-content: space-between; /* Espaciado uniforme */
   gap: 20px;
 }
 
-.form-group {
+/* Contenedor para los campos principales */
+.main-fields-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Estilo individual para las columnas */
+.group {
+  flex: 1; /* Ambas columnas ocupan el mismo espacio */
   display: flex;
   flex-direction: column;
+  gap: 15px;
+}
+
+/* Botones */
+.valor-botones {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.top-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Espaciado uniforme */
+  gap: 20px;
+}
+.section {
+  margin-bottom: 15px;
+}
+
+.section select, 
+.section textarea {
+  width: 100%;
+  font-size: 14px;
+  background-color: rgba(240, 248, 255, 0.226);
+  border: 1px solid #ccc;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+
+
+/* Contenedor para los grupos */
+.groups-container {
+  display: flex;
+  flex-direction: row; /* Organiza en columnas */
+  justify-content: space-between; /* Espacio entre grupo1 y grupo2 */
+  gap: 20px; /* Espaciado entre las columnas */
+}
+
+/* Ajusta los estilos de los grupos */
+.group1,
+.group2 {
+  flex: 1; /* Ambos ocupan el mismo espacio */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Contenedor para los botones */
+.valor-botones {
+  display: flex;
+  justify-content: center; /* Centra los botones */
+  gap: 20px; /* Espaciado entre los botones */
+  margin-top: 20px; /* Espacio respecto al contenido superior */
 }
 
 .input-group {
@@ -254,16 +328,16 @@ input[type="date"] {
 
 button {
   padding: 5px 10px;
-  background-color: #007bff;
-  color: white;
+  background-color: #C51922;
+  color: rgb(255, 255, 255);
   border: none;
   border-radius: 4px;
   cursor: pointer;
 }
 
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+button:hover{
+  background-color: #ffe100;
+  color: black;
 }
 
 /* si o no  */
@@ -291,31 +365,9 @@ input[type="radio"] {
 
 /* botones  */
 
-.valor-botones  {
-  display: flex;
-  width: 50px; /* Cambia este valor según el tamaño deseado */
-  gap: 20px;
- 
-}
 
 
-button {
-  padding: 8px;
-  border: none;
-  border-radius: 4px;
-  color: #000000;
-  cursor: pointer;
-  background-color: gray;
-}
 
-
-button:nth-child(1) {
-  background-color: #f4c136; /* Rojo para limpiar */
-}
-
-button:nth-child(2) {
-  background-color: rgb(235, 41, 41); /* Verde para ingresar */
-}
 
 
 

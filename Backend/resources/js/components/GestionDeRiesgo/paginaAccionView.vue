@@ -360,20 +360,14 @@ button {
   padding: 8px;
   border: none;
   border-radius: 4px;
-  color: #000000;
+  color: #ffe0e0;
   cursor: pointer;
-  background-color: gray;
-}
-
-
-button:nth-child(1) {
-  background-color: #f4c136; /* Rojo para limpiar */
-}
-
-button:nth-child(2) {
   background-color: rgb(235, 41, 41); /* Verde para ingresar */
 }
-
+ button:hover{
+  background-color: #ffe100;
+  color: black;
+ }
 
 /* estilo de eleccion */
 
