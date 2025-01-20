@@ -69,7 +69,7 @@
         <div class="fechas">
           <div>
             <label>FECHA DE SEGUIMIENTO </label>
-            <input type="date" v-model="fechaSeguimientoCierre" />
+            <input type="date" v-model="fechaSeguimiento" />
           </div>
           <div>
             <label>FECHA DE CIERRE</label>
@@ -124,6 +124,14 @@ export default {
   },
   methods: {
 
+    actualizarSeleccion(tipo) {
+      if (tipo === 'oportunidad') {
+        this.riesgoSeleccionado = null;
+      } else if (tipo === 'riesgo') {
+        this.oportunidadSeleccionada = null;
+      }
+    },
+
     // Método para cargar responsables desde el backend
     async cargarResponsables() {
       try {
@@ -165,28 +173,7 @@ export default {
       }
     },
 
-    // Método para validar los campos antes de enviar
-    validarCampos() {
-      const errores = [];
-      if (!this.oportunidadSeleccionada) errores.push("Seleccione una oportunidad.");
-      if (!this.riesgoSeleccionado) errores.push("Seleccione un riesgo.");
-      if (!this.informacionGeneral) errores.push("Complete la información general.");
-      if (!this.accionRecomendada) errores.push("Complete la acción recomendada.");
-      if (!this.responsable) errores.push("Complete el responsable.");
-      if (!this.accion) errores.push("Complete la acción.");
-      if (!this.proceso) errores.push("Seleccione un proceso.");
-      if (!this.fechaCierre) errores.push("Complete la fecha de cierre.");
-      if (!this.fechaSeguimiento) errores.push("Complete la fecha de seguimiento.");
-      if (!this.probabilidad) errores.push("Complete la probabilidad.");
-      if (!this.impacto) errores.push("Complete el impacto.");
-      if (!this.valor) errores.push("Complete el valor.");
-
-      if (errores.length > 0) {
-        alert(errores.join("\n"));
-        return false;
-      }
-      return true;
-    },
+    
 
     // Método para limpiar los campos
     limpiarCampos() {
@@ -197,31 +184,86 @@ export default {
       this.responsable = "";
       this.accion = "";
       this.proceso = "";
-      this.fechaCierre = "";
-      this.fechaSeguimiento = "";
+      this.fechaCierre = null;
+      this.fechaSeguimiento = null;
       this.probabilidad = "";
       this.impacto = "";
       this.valor = "";
     },
 
-    // Método para enviar los datos al backend
-    enviarDatos() {
-      if (!this.validarCampos()) return;
+    
+    async enviarDatos() {
 
-      console.log("Datos ingresados:");
-      console.log("Oportunidad:", this.oportunidadSeleccionada.descripcion);
-      console.log("Riesgo:", this.riesgoSeleccionado.descripcion);
-      console.log("Información General:", this.informacionGeneral);
-      console.log("Acción Recomendada:", this.accionRecomendada);
-      console.log("Responsable:", this.responsable);
-      console.log("Acción:", this.accion);
-      console.log("Proceso:", this.proceso);
-      console.log("Fecha de Cierre:", this.fechaCierre);
-      console.log("Fecha de Seguimiento:", this.fechaSeguimiento);
-      console.log("Probabilidad:", this.probabilidad);
-      console.log("Impacto:", this.impacto);
-      console.log("Valor:", this.valor);
+    if (
+      !this.oportunidadSeleccionada && !this.riesgoSeleccionado || // Debe seleccionarse oportunidad o riesgo
+      !this.informacionGeneral.trim() || // Información general es obligatoria
+      !this.accionRecomendada.trim() || // Acción recomendada es obligatoria
+      !this.responsable || // Responsable es obligatorio
+      !this.accion.trim() || // Acción es obligatoria
+      !this.proceso || // Proceso es obligatorio
+      !this.fechaSeguimiento || // Fecha de seguimiento es obligatoria
+      !this.fechaCierre // Fecha de cierre es obligatoria
+    ) {
+      alert("Por favor, complete todos los campos obligatorios antes de enviar.");
+      return; // Detener el envío
     }
+
+      if(this.oportunidadSeleccionada){
+
+
+        try {
+
+          await axios.post("http://127.0.0.1:8000/api/acciones", {
+            id_elemento: this.oportunidadSeleccionada.id_elemento,
+            tipo: "Oportunidad",
+            informacion: this.informacionGeneral,
+            accion: this.accionRecomendada,
+            responsable: this.responsable,
+            acciones: this.accion,
+            proceso: this.proceso,
+            fecha_seguimiento: this.fechaSeguimiento,
+            fecha_cierre: this.fechaCierre,
+          });
+
+          alert("Acción registrada exitosamente.");
+          this.limpiarCampos();
+        } catch (error) {
+          console.error("Error al enviar los datos:", error);
+          alert("Ocurrió un error al registrar la acción.");
+        }
+
+      }else {
+
+
+        try {
+
+          await axios.post("http://127.0.0.1:8000/api/acciones", {
+            id_elemento: this.riesgoSeleccionado.id_elemento,
+            tipo: "Riesgo",
+            informacion: this.informacionGeneral,
+            accion: this.accionRecomendada,
+            responsable: this.responsable,
+            acciones: this.accion,
+            proceso: this.proceso,
+            fecha_seguimiento: this.fechaSeguimiento,
+            fecha_cierre: this.fechaCierre,
+          });
+
+          alert("Acción registrada exitosamente.");
+          this.limpiarCampos();
+          } catch (error) {
+          console.error("Error al enviar los datos:", error);
+          alert("Ocurrió un error al registrar la acción.");
+          }
+
+
+      }
+
+      }
+
+      
+
+
   },
   mounted() {
     const userData = localStorage.getItem("user");
