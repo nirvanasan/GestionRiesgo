@@ -17,34 +17,42 @@
         <div class="options-group">
           <div class="option">
             <label>¿Cambió el valor del riesgo u oportunidad residual?</label>
+            <div class="option2">
             <input type="radio" id="documentado-si" value="Sí" v-model="documentado" />
             <label for="documentado-si">Sí</label>
             <input type="radio" id="documentado-no" value="No" v-model="documentado" />
             <label for="documentado-no">No</label>
           </div>
+        </div>
           
           <div class="option">
             <label>¿Se eliminó la causa raíz de la NC? ¿Se aprovechó la oportunidad? ¿O se mitigó el riesgo?</label>
+            <div class="option2">
             <input type="radio" id="implementado-si" value="Sí" v-model="implementado" />
             <label for="implementado-si">Sí</label>
             <input type="radio" id="implementado-no" value="No" v-model="implementado" />
             <label for="implementado-no">No</label>
+            </div>
           </div>
           
           <div class="option">
             <label>¿Se hizo el cierre eficaz de las acciones del riesgo/oportunidad?</label>
+            <div class="option2">
             <input type="radio" id="cierre-si" value="Sí" v-model="cierre" />
             <label for="cierre-si">Sí</label>
             <input type="radio" id="cierre-no" value="No" v-model="cierre" />
             <label for="cierre-no">No</label>
+            </div>
           </div>
           
           <div class="option">
             <label>¿Se genera un nuevo riesgo u oportunidad?</label>
+            <div class="option2">
             <input type="radio" id="riesgoN-si" value="Sí" v-model="riesgoN" />
             <label for="riesgoN-si">Sí</label>
             <input type="radio" id="riesgoN-no" value="No" v-model="riesgoN" />
             <label for="riesgoN-no">No</label>
+          </div>
           </div>
         </div>
       </div>
@@ -219,7 +227,7 @@ export default {
 
 .left-section textarea {
   resize: none;
-  width: 90%;
+  width: 96%;
   height: 30%;
   min-height: 150px;
   padding: 10px;
@@ -346,10 +354,18 @@ button:hover{
 .option {
   display: flex;
   align-items: center;
+  gap: 138px; /* Espacio entre cada opción */
+  border: 2px solid #000000; /* Borde azul de 2 píxeles */
+  border-radius: 5px; /* Esquinas redondeadas (opcional) */
+  padding: 5px; /* Espacio interior del div */
+}
+.option2 {
+  display: flex;
+  align-items: left;
   gap: 5px; /* Espacio entre cada opción */
   border: 2px solid #000000; /* Borde azul de 2 píxeles */
   border-radius: 5px; /* Esquinas redondeadas (opcional) */
-  padding: 8px; /* Espacio interior del div */
+  padding: 5px; /* Espacio interior del div */
 }
 
 
