@@ -203,7 +203,7 @@ export default {
   background-color: #ffffffc0;
   padding: 20px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8);
-  height: 85%;
+  height: 90%;
   width: 105%;
   border-radius: 8px;
   display: flex;
