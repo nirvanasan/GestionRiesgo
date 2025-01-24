@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('descripcion');
             $table->string('probabilidad');
             $table->string('impacto');
+            $table->boolean('acciones')->default(false);
             $table->timestamps();
 
         });
