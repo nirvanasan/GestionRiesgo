@@ -52,17 +52,12 @@
       <div class="right-section">
         <!-- Parte superior: Oportunidad y Riesgo -->
         <div class="section">
-          <h3>OPORTUNIDAD</h3>
-          <select v-model="oportunidadSeleccionada" @change="actualizarSeleccion('oportunidad')">
-            <option v-for="op in oportunidades" :key="op.id" :value="op">{{ op.id_elemento + ": " + op.descripcion }}</option>
+          <h3>Acion</h3>
+          <select v-model="AcionSeleccionada" @change="actualizarSeleccion('Acion')">
+            <option v-for="op in Aciones" :key="op.id" :value="op">{{ op.id_elemento + ": " + op.descripcion }}</option>
           </select>
         </div>
-        <div class="section">
-          <h3>RIESGO</h3>
-          <select v-model="riesgoSeleccionado" @change="actualizarSeleccion('riesgo')">
-            <option v-for="riesgo in riesgos" :key="riesgo.id" :value="riesgo">{{ riesgo.id_elemento + ": " + riesgo.descripcion }}</option>
-          </select>
-        </div>
+       
 
         <!-- Parte inferior: campos principales en dos columnas -->
         <div class="main-fields-container">
@@ -344,15 +339,19 @@ button:hover{
 .options-group {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Espacio entre cada opción */
-  margin-top: 10px; /* Espacio entre el textarea y las opciones */
+  gap: 20px; /* Espacio entre cada opción */
+  margin-top: 8px; /* Espacio entre el textarea y las opciones */
 }
 
 .option {
   display: flex;
   align-items: center;
-  gap: 10px; /* Espacio entre los elementos de cada opción */
+  gap: 5px; /* Espacio entre cada opción */
+  border: 2px solid #000000; /* Borde azul de 2 píxeles */
+  border-radius: 5px; /* Esquinas redondeadas (opcional) */
+  padding: 8px; /* Espacio interior del div */
 }
+
 
 label {
   font-size: 14px;
