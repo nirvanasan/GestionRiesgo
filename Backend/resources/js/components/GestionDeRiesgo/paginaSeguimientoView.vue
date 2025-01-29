@@ -60,12 +60,12 @@
       <div class="right-section">
         <!-- Parte superior: Oportunidad y Riesgo -->
         <div class="section">
-          <h3>Accion</h3>
-          <select v-model="AccionSeleccionada">
-            <option v-for="accion in Accion" :key="accion.id" :value="accion">{{ accion.id_elemento + ": " + accion.informacion }}</option>
+          <h3>Acion</h3>
+          <select v-model="AcionSeleccionada" @change="actualizarSeleccion('Acion')">
+            <option v-for="op in Aciones" :key="op.id" :value="op">{{ op.id_elemento + ": " + op.descripcion }}</option>
           </select>
         </div>
-
+       
 
         <!-- Parte inferior: campos principales en dos columnas -->
         <div class="main-fields-container">
@@ -104,14 +104,14 @@
 
         <div class="tex"> 
           <label for="control-actual">Justificación</label>
-          <textarea id="control-actual" v-model="controlActual"></textarea>
+          <textarea id="control-actual" v-model="justificacion"></textarea>
         </div>
 
         <!-- Botones -->
         <div class="valor-botones">
           <button @click="limpiarFormulario">Limpiar</button>
           <button @click="enviarFormulario">Enviar</button>
-          <button @click="">Historia de seguimiento</button>
+          <button @click="hitorial">Historia de seguimiento</button>
         </div>
 
         
@@ -128,8 +128,6 @@
 <script>
 import EncabezadoView from "./../EncabezadoView.vue";
 import NavegacionView from "./../navegacionView.vue";
-import axios from "axios";
-
 
 export default {
   name: "MainPage",
@@ -139,8 +137,6 @@ export default {
   },
   data() {
     return {
-      Accion: [],
-      AccionSeleccionada: null,
       documentado: null,
       implementado: null,
       cierre: null,
@@ -149,11 +145,9 @@ export default {
       probabilidad: 0,
       impacto: 0,
       controlActual: "", 
+      justificacion: "",
       valoracionControl: 0,
     };
-  },
-  mounted(){
-    this.cargarAcciones();
   },
   computed: {
     valoracionRiesgo() {
@@ -164,23 +158,10 @@ export default {
     },
   },
   methods: {
-
-    async cargarAcciones() {
-
-      try {
-        const response = await axios.get("http://127.0.0.1:8000/api/buscar-acciones");
-        this.Accion = response.data.data;
-        console.log(this.Accion);
-      } catch (error) {
-        console.error("Error al cargar los procesos:", error);
-        this.error = "No se pudieron cargar los procesos.";
-      }
-    },
-
-
     enviarFormulario() {
       if (
         this.controlActual &&
+        this.justificacion&&
         this.documentado &&
         this.implementado &&
         this.cierre &&
@@ -189,6 +170,7 @@ export default {
       ) {
         console.log("Datos del formulario:", {
           controlActual: this.controlActual,
+          justificacion: this.justificacion,
           documentado: this.documentado,
           implementado: this.implementado,
           cierre: this.cierre,
@@ -206,6 +188,7 @@ export default {
     },
     limpiarFormulario() {
       this.controlActual = "";
+      this.justificacion = "";
       this.documentado = null;
       this.implementado = null;
       this.cierre = null;
@@ -240,7 +223,7 @@ export default {
   background-color: #ffffffc0;
   padding: 20px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8);
-  height: 91%;
+  height: 90%;
   width: 105%;
   border-radius: 8px;
   display: flex;
@@ -382,7 +365,7 @@ button:hover{
 .options-group {
   display: flex;
   flex-direction: column;
-  gap: 11px; /* Espacio entre cada opción */
+  gap: 20px; /* Espacio entre cada opción */
   margin-top: 8px; /* Espacio entre el textarea y las opciones */
 }
 
@@ -390,7 +373,7 @@ button:hover{
   display: flex;
   align-items: center;
   gap: 138px; /* Espacio entre cada opción */
-  border: 1px solid #000000; /* Borde azul de 2 píxeles */
+  border: 2px solid #000000; /* Borde azul de 2 píxeles */
   border-radius: 5px; /* Esquinas redondeadas (opcional) */
   padding: 5px; /* Espacio interior del div */
 }
@@ -398,7 +381,7 @@ button:hover{
   display: flex;
   align-items: left;
   gap: 5px; /* Espacio entre cada opción */
-  border: 2px ; /* Borde azul de 2 píxeles */
+  border: 2px solid #000000; /* Borde azul de 2 píxeles */
   border-radius: 5px; /* Esquinas redondeadas (opcional) */
   padding: 5px; /* Espacio interior del div */
 }
