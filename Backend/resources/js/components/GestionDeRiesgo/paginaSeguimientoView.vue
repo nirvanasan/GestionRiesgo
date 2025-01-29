@@ -60,9 +60,9 @@
       <div class="right-section">
         <!-- Parte superior: Oportunidad y Riesgo -->
         <div class="section">
-          <h3>Acion</h3>
-          <select v-model="AcionSeleccionada" @change="actualizarSeleccion('Acion')">
-            <option v-for="op in Aciones" :key="op.id" :value="op">{{ op.id_elemento + ": " + op.descripcion }}</option>
+          <h3>Accion</h3>
+          <select v-model="AccionSeleccionada">
+            <option v-for="accion in Accion" :key="accion.id" :value="accion">{{ accion.id_elemento + ": " + accion.informacion }}</option>
           </select>
         </div>
        
@@ -128,6 +128,7 @@
 <script>
 import EncabezadoView from "./../EncabezadoView.vue";
 import NavegacionView from "./../navegacionView.vue";
+import axios from "axios";
 
 export default {
   name: "MainPage",
@@ -137,6 +138,8 @@ export default {
   },
   data() {
     return {
+      Accion: [],
+      AccionSeleccionada: null,
       documentado: null,
       implementado: null,
       cierre: null,
@@ -149,6 +152,9 @@ export default {
       valoracionControl: 0,
     };
   },
+  mounted(){
+    this.cargarAcciones();
+  },
   computed: {
     valoracionRiesgo() {
       return this.probabilidad * this.impacto;
@@ -158,6 +164,19 @@ export default {
     },
   },
   methods: {
+
+    async cargarAcciones() {
+
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/api/buscar-acciones");
+        this.Accion = response.data.data;
+        console.log(this.Accion);
+      } catch (error) {
+        console.error("Error al cargar los procesos:", error);
+        this.error = "No se pudieron cargar los procesos.";
+      }
+      },
+
     enviarFormulario() {
       if (
         this.controlActual &&
