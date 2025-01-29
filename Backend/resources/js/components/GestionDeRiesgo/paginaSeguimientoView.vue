@@ -102,11 +102,19 @@
           </div>
         </div>
 
+        <div class="tex"> 
+          <label for="control-actual">Justificación</label>
+          <textarea id="control-actual" v-model="controlActual"></textarea>
+        </div>
+
         <!-- Botones -->
         <div class="valor-botones">
           <button @click="limpiarFormulario">Limpiar</button>
           <button @click="enviarFormulario">Enviar</button>
+          <button @click="">Historia de seguimiento</button>
         </div>
+
+        
 
 
         
@@ -231,9 +239,23 @@ export default {
   height: 30%;
   min-height: 150px;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #000000;
   border-radius: 4px;
+  background-color: #ffffff6a;
 }
+
+.tex textarea{
+  resize: none;
+  width: 98%;
+  height: 30%;
+  min-height: 20px;
+  padding: 10px;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  background-color: #ffffff6a;
+}
+
+
 
 /* Contenedor para oportunidad y riesgo */
 .top-container {
@@ -259,14 +281,6 @@ export default {
   gap: 15px;
 }
 
-/* Botones */
-.valor-botones {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 20px;
-}
-
 .top-container {
   display: flex;
   flex-direction: row;
@@ -282,7 +296,7 @@ export default {
   width: 100%;
   font-size: 14px;
   background-color: rgba(240, 248, 255, 0.226);
-  border: 1px solid #ccc;
+  border: 1px solid #000000d3;
   padding: 8px;
   box-sizing: border-box;
 }
@@ -309,7 +323,7 @@ export default {
 /* Contenedor para los botones */
 .valor-botones {
   display: flex;
-  justify-content: center; /* Centra los botones */
+  justify-content: right; /* Centra los botones */
   gap: 20px; /* Espaciado entre los botones */
   margin-top: 20px; /* Espacio respecto al contenido superior */
 }
