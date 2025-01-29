@@ -32,3 +32,4 @@ Route::post('/cargar-control', [ControlController::class, 'store']);
 Route::get('/cargar-controles', [ControlController::class, 'index']);
 Route::get('/cargar-usuarios', [UserController::class, 'index']);
 Route::post('/acciones', [AccionController::class, 'store']);
+Route::get('/buscar-acciones', [AccionController::class, 'buscar']);

@@ -29,4 +29,14 @@ class AccionController extends Controller
             'data' => $accion
         ], 201);
     }
+
+    public function buscar()
+    {
+        $acciones = Accion::all();
+
+        return response()->json([
+            'message' => 'Accion realizada con exito',
+            'data' => $acciones
+        ], 200);
+    }
 }
