@@ -15,16 +15,13 @@ return new class extends Migration {
             $table->enum('p3', ['Sí', 'No']);
             $table->enum('p4', ['Sí', 'No']);
             $table->unsignedBigInteger('accion_id');
-            
             $table->integer('probabilidad');
             $table->date('fecha');
             $table->integer('impacto');
             $table->integer('valoracion_riesgo');
             $table->integer('valoracion_control');
-            
             $table->integer('valoracion_total');
             $table->text('justificacion')->nullable();
-            
             $table->foreign('accion_id')->references('id')->on('acciones')->onDelete('cascade');
             $table->timestamps();
         });
