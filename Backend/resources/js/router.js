@@ -13,6 +13,7 @@ import Clasificacion from './components/GestionDeRiesgo/paginaClasificacionView.
 import Controles from './components/GestionDeRiesgo/paginaControlesView.vue';
 import Accion from './components/GestionDeRiesgo/paginaAccionView.vue';
 import Seguimiento from './components/GestionDeRiesgo/paginaSeguimientoView.vue';
+import Historial from './components/GestionDeRiesgo/historialView.vue';
 
 
 const routes = [
@@ -112,7 +113,16 @@ const routes = [
       component: Seguimiento,
       meta: {
           requiresAuth: true,
-          title: "Accion"
+          title: "Seguimiento"
+          }
+    },
+    {
+      path: '/historial',
+      name: 'historial',
+      component: Historial,
+      meta: {
+          requiresAuth: true,
+          title: "historial"
           }
     },
 ];

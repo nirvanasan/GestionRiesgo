@@ -111,7 +111,7 @@
         <div class="valor-botones">
           <button @click="limpiarFormulario">Limpiar</button>
           <button @click="enviarFormulario">Enviar</button>
-          <button @click="hitorial">Historia de seguimiento</button>
+          <button @click="historial">Historia de seguimiento</button>
         </div>
 
         
@@ -126,6 +126,7 @@
 
 
 <script>
+import { RouterLink } from "vue-router";
 import EncabezadoView from "./../EncabezadoView.vue";
 import NavegacionView from "./../navegacionView.vue";
 import axios from "axios";
@@ -164,6 +165,10 @@ export default {
     },
   },
   methods: {
+
+    historial(){
+      window.location.href= 'http://127.0.0.1:8000/historial';
+    },
 
     async cargarAcciones() {
 

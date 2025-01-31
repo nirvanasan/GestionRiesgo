@@ -57,3 +57,7 @@ Route::get('accion', function () {
 Route::get('seguimiento', function () {
     return view('seguimiento');
 });
+
+Route::get('historial', function () {
+    return view('historial');
+});
