@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->enum('p2', ['Sí', 'No']);
             $table->enum('p3', ['Sí', 'No']);
             $table->enum('p4', ['Sí', 'No']);
-            $table->unsignedBigInteger('accion_id');
+            $table->string('accion_id');
             $table->integer('probabilidad');
             $table->date('fecha');
             $table->integer('impacto');
@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->integer('valoracion_control');
             $table->integer('valoracion_total');
             $table->text('justificacion')->nullable();
-            $table->foreign('accion_id')->references('id')->on('acciones')->onDelete('cascade');
+            //$table->foreign('accion_id')->references('id_elemento')->on('acciones')->onDelete('cascade');
             $table->timestamps();
         });
     }

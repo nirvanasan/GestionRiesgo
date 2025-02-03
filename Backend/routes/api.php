@@ -12,6 +12,7 @@ use App\Http\Controllers\AnalisisDofaController;
 use App\Http\Controllers\ClasificacionController;
 use App\Http\Controllers\ControlController;
 use App\Http\Controllers\AccionController;
+use App\Http\Controllers\SeguimientoController;
 
 
 Route::get('/user', function (Request $request) {
@@ -33,3 +34,4 @@ Route::get('/cargar-controles', [ControlController::class, 'index']);
 Route::get('/cargar-usuarios', [UserController::class, 'index']);
 Route::post('/acciones', [AccionController::class, 'store']);
 Route::get('/buscar-acciones', [AccionController::class, 'buscar']);
+Route::post('/seguimiento', [SeguimientoController::class, 'store']);

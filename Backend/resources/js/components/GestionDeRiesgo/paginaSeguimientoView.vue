@@ -182,7 +182,7 @@ export default {
       }
       },
 
-    enviarFormulario() {
+    async enviarFormulario() {
       if (
         this.controlActual &&
         this.justificacion&&
@@ -192,7 +192,9 @@ export default {
         this.riesgoN &&
         this.fecha
       ) {
+
         console.log("Datos del formulario:", {
+          accion_id: this.AccionSeleccionada.id_elemento,
           controlActual: this.controlActual,
           justificacion: this.justificacion,
           documentado: this.documentado,
@@ -206,6 +208,32 @@ export default {
           valoracionRiesgo: this.valoracionRiesgo,
           valoracionTotal: this.valoracionTotal,
         });
+
+        try{
+          const response = await axios.post("http://127.0.0.1:8000/api/seguimiento", {
+            control_actual: this.controlActual,
+            p1: this.documentado,
+            p2: this.implementado,
+            p3: this.cierre,
+            p4: this.riesgoN,
+            accion_id: this.AccionSeleccionada.id_elemento,
+            probabilidad: this.probabilidad,
+            fecha: this.fecha,
+            impacto: this.impacto,
+            valoracion_riesgo: this.valoracionRiesgo,
+            valoracion_control: this.valoracionControl,
+            valoracion_total: this.valoracionTotal,
+            justificacion: this.justificacion,
+          });
+
+          alert("Seguimiento guardado con éxito");
+          console.log(response.data);
+
+        } catch (error){
+          console.error("Error al enviar los datos:", error);
+          alert("Hubo un problema al guardar el seguimiento");
+        }
+
       } else {
         alert("Todos los campos son obligatorios.");
       }
