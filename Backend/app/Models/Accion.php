@@ -22,4 +22,8 @@ class Accion extends Model
         'fecha_seguimiento',
         'fecha_cierre',
     ];
+
+    public $timestamps = true;
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = null;
 }

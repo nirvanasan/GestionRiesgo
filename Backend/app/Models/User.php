@@ -40,7 +40,7 @@ class User extends Authenticatable
      * @return array<string, string>
      */
 
-     public $timestamps = true;
+    public $timestamps = true;
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = null;

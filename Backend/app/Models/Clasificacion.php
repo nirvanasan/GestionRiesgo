@@ -29,6 +29,11 @@ class Clasificacion extends Model
         'updated_at',
     ];
 
+    public $timestamps = true;
+
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = null;
+
     public function controles()
     {
         return $this->hasMany(Control::class, 'id_elemento', 'id_elemento');

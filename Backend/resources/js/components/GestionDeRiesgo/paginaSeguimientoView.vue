@@ -249,6 +249,7 @@ export default {
       this.probabilidad = 0;
       this.impacto = 0;
       this.valoracionControl = 0;
+      this.AccionSeleccionada = null;
     },
   },
 };
@@ -417,22 +418,22 @@ button:hover{
 .options-group {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Espacio entre cada opción */
+  gap: 11.5px; /* Espacio entre cada opción */
   margin-top: 8px; /* Espacio entre el textarea y las opciones */
 }
 
 .option {
   display: flex;
   align-items: center;
-  gap: 138px; /* Espacio entre cada opción */
-  border: 2px solid #000000; /* Borde azul de 2 píxeles */
+  gap: 140px; /* Espacio entre cada opción */
+ 
   border-radius: 5px; /* Esquinas redondeadas (opcional) */
   padding: 5px; /* Espacio interior del div */
 }
 .option2 {
   display: flex;
   align-items: left;
-  gap: 5px; /* Espacio entre cada opción */
+  gap: 7px; /* Espacio entre cada opción */
   border: 2px solid #000000; /* Borde azul de 2 píxeles */
   border-radius: 5px; /* Esquinas redondeadas (opcional) */
   padding: 5px; /* Espacio interior del div */
