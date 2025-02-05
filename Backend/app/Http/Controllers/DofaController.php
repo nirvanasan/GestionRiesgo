@@ -92,4 +92,10 @@ public function store(Request $request)
     }
 
     return response()->json(['message' => 'Datos insertados con éxito'], 201);
-}}
+}
+    /*
+    public function buscar(Request $request){
+        
+    }
+    */
+}

@@ -25,6 +25,11 @@ class Control extends Model
         'impacto',
     ];
 
+    public $timestamps = true;
+
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = null;
+
     public function clasificacion()
     {
         return $this->belongsTo(Clasificacion::class, 'id_elemento', 'id_elemento');

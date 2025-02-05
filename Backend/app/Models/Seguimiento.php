@@ -28,6 +28,11 @@ class Seguimiento extends Model
         'justificacion',
     ];
 
+    public $timestamps = true;
+
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = null;
+
     public function accion()
     {
         return $this->belongsTo(Accion::class, 'accion_id');
