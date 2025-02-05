@@ -24,6 +24,7 @@
           "Evento 3: Se eliminó un registro",
           "Evento 4: Se modificó un permiso",
           "Evento 4: Se modificó un permiso",
+          
         ], // Aquí puedes cargar los datos del backend
       };
     },
