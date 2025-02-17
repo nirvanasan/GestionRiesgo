@@ -108,7 +108,12 @@
         </div>
 
         <!-- Botones -->
+        <div class="form-group1">
+              <label for="fecha">Proximo seguimiento:</label>
+              <input type="date" id="fecha"  />
+            </div>
         <div class="valor-botones">
+           
           <button @click="limpiarFormulario">Limpiar</button>
           <button @click="enviarFormulario">Enviar</button>
           <button @click="historial">Historia de seguimiento</button>
@@ -337,6 +342,10 @@ export default {
   flex-direction: column;
   gap: 15px;
 }
+.form-group1{
+  gap: 150px;
+  width: 30%;
+}
 
 .top-container {
   display: flex;
@@ -379,10 +388,11 @@ export default {
 
 /* Contenedor para los botones */
 .valor-botones {
+  position: absolute;
+  right: 150px; /* Mueve el div hacia la derecha */
+  top: 81%; /* Mueve el div hacia abajo */
   display: flex;
-  justify-content: right; /* Centra los botones */
-  gap: 20px; /* Espaciado entre los botones */
-  margin-top: 20px; /* Espacio respecto al contenido superior */
+  gap: 20px;
 }
 
 .input-group {

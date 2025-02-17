@@ -10,6 +10,7 @@
     <main class="main-content">
       <div class="left-panel">
         <div class="section">
+          <a href="/VerDofa" target="_blank" class="create-account nav-link">VER DOFA</a>
           <h3>OPORTUNIDAD</h3>
           <select v-model="oportunidadSeleccionada" @change="actualizarSeleccion('oportunidad')">
             <option v-for="op in oportunidades" :key="op.id" :value="op">{{ op.id_elemento + ": " + op.descripcion }}</option>
@@ -72,7 +73,7 @@
             <input type="date" v-model="fechaCierre" />
           </div>
           <div>
-            <label>Fecha de próxiomo  </label>
+            <label>Fecha de próxiomo seguimiento </label>
             <input type="date" v-model="fechaSeguimiento" />
           </div>
           <!-- <div>
@@ -398,18 +399,20 @@ h3 {
 
 .valor-botones  {
   display: flex;
-  width: 550px; /* Cambia este valor según el tamaño deseado */
+  width: 50px; /* Cambia este valor según el tamaño deseado */
   gap: 20px;
 }
 
 
 button {
-  padding: 8px;
+  padding: 10px;
   border: none;
   border-radius: 4px;
   color: #ffe0e0;
   cursor: pointer;
   background-color: rgb(235, 41, 41); /* Verde para ingresar */
+  position: relative;
+  top: 19px; /* Mueve el botón hacia abajo */
 }
  button:hover{
   background-color: #ffe100;
@@ -454,6 +457,26 @@ button {
   right: 15px; /* Mueve la flecha más a la derecha */
   transform: translateY(-50%);
   pointer-events: none; /* Evita que interfiera con clics */
+}
+/* diseño de los botones de eleccion */
+.nav-link {
+padding: 5px 10px;
+color: white;
+border-radius: 10px;
+text-decoration: none;
+background-color: #c91717;
+
+}
+
+.main-nav {
+    display: flex;
+    gap: 20px; /* Espaciado entre los botones */
+    text-align: center;
+}
+
+.nav-link:hover {
+background-color: white;
+color: red;
 }
 
   </style>

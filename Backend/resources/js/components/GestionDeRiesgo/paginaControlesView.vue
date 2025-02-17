@@ -10,6 +10,7 @@
       <section class="input-container">
         <div class="left-panel">
           <div class="section">
+            <a href="/VerDofa" target="_blank" class="create-account nav-link">VER DOFA</a>
             <h3>OPORTUNIDAD</h3>
             <select v-model="oportunidadSeleccionada" @change="actualizarSeleccion('oportunidad')">
               <option v-for="op in oportunidades" :key="op.id" :value="op">{{ op.id_elemento + ": " + op.causa }}</option>
@@ -412,7 +413,26 @@ input[type="number"] {
   background-color: #ffe100;
   color: black;
 }
+/* diseño de los botones de eleccion */
+.nav-link {
+padding: 5px 10px;
+color: white;
+border-radius: 10px;
+text-decoration: none;
+background-color: #c91717;
 
+}
+
+.main-nav {
+    display: flex;
+    gap: 20px; /* Espaciado entre los botones */
+    text-align: center;
+}
+
+.nav-link:hover {
+background-color: white;
+color: red;
+}
 
 
 .error-message {

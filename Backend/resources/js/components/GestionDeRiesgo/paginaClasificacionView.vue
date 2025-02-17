@@ -11,6 +11,8 @@
       <div class="container">
         <!-- Parte izquierda -->
         <div class="left-panel">
+          <a href="/VerDofa" target="_blank" class="create-account nav-link">VER DOFA</a>
+          
           <div class="section">
             <h3>Oportunidad Inherente</h3>
             <select v-model="oportunidadSeleccionada" @change="actualizarSeleccion('oportunidad')">
@@ -355,5 +357,26 @@ input[type="text"] {
 .btn:hover{
   background-color: #ffe100;
   color: rgb(0, 0, 0);
+}
+
+/* diseño de los botones de eleccion */
+.nav-link {
+padding: 5px 10px;
+color: white;
+border-radius: 10px;
+text-decoration: none;
+background-color: #c91717;
+
+}
+
+.main-nav {
+    display: flex;
+    gap: 20px; /* Espaciado entre los botones */
+    text-align: center;
+}
+
+.nav-link:hover {
+background-color: white;
+color: red;
 }
 </style>
