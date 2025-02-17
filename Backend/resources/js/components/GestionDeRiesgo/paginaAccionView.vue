@@ -13,13 +13,13 @@
           <a href="/VerDofa" target="_blank" class="create-account nav-link">VER DOFA</a>
           <h3>OPORTUNIDAD</h3>
           <select v-model="oportunidadSeleccionada" @change="actualizarSeleccion('oportunidad')">
-            <option v-for="op in oportunidades" :key="op.id" :value="op">{{ op.id_elemento + ": " + op.descripcion }}</option>
+            <option v-for="op in oportunidades" :key="op.id" :value="op">{{ op.id_elemento /*+ ": " + op.descripcion*/ }}</option>
           </select>
         </div>
         <div class="section">
           <h3>RIESGO</h3>
           <select v-model="riesgoSeleccionado" @change="actualizarSeleccion('riesgo')">
-            <option v-for="riesgo in riesgos" :key="riesgo.id" :value="riesgo">{{ riesgo.id_elemento + ": " + riesgo.descripcion }}</option>
+            <option v-for="riesgo in riesgos" :key="riesgo.id" :value="riesgo">{{ riesgo.id_elemento /*+ ": " + riesgo.descripcion*/ }}</option>
           </select>
         </div>
         <div class="section">
