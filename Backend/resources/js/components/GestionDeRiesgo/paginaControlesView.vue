@@ -35,7 +35,8 @@
             </div>
             <div>
               <label>Valoracion del riesgo/oportunidad residual</label>
-              <input type="number" v-model="impacto" min="1" max="5" disabled/>
+              <input type="text" v-model="valoracion" :style="valoracionStyle" style="text-align: center;" readonly />
+              <span>{{ valoracionLabel }}</span>
             </div>
           </div>
 
@@ -98,6 +99,36 @@ export default {
       if (newRiesgo) {
         this.impacto = newRiesgo.valoracion * this.probabilidad;
       }
+    },
+  },
+
+  computed: {
+    valoracion() {
+      return this.impacto;
+    },
+
+    valoracionStyle() {
+      const valor = this.valoracion;
+      if (this.riesgoSeleccionado) {
+        if (valor >= 1 && valor <= 49) return { backgroundColor: "green" };
+        if (valor >= 50 && valor <= 125) return { backgroundColor: "red" };
+      } else if (this.oportunidadSeleccionada) {
+        if (valor >= 1 && valor <= 49) return { backgroundColor: "gray" };
+        if (valor >= 50 && valor <= 125) return { backgroundColor: "lightblue" };
+      }
+      return {};
+    },
+
+    valoracionLabel() {
+      const valor = this.valoracion;
+      if (this.riesgoSeleccionado) {
+        if (valor >= 1 && valor <= 49) return "Riesgo no significativo";
+        if (valor >= 50 && valor <= 125) return "Riesgo significativo";
+      } else if (this.oportunidadSeleccionada) {
+        if (valor >= 1 && valor <= 49) return "Oportunidad no significativa";
+        if (valor >= 50 && valor <= 125) return "Oportunidad significativa";
+      }
+      return "";
     },
   },
   methods: {

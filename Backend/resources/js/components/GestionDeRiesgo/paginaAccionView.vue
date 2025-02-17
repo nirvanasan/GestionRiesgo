@@ -68,13 +68,18 @@
           
         <div class="fechas">
           <div>
-            <label>FECHA DE SEGUIMIENTO </label>
-            <input type="date" v-model="fechaSeguimiento" />
-          </div>
-          <div>
-            <label>FECHA DE CIERRE</label>
+            <label>Fecha de cierre de las acciones </label>
             <input type="date" v-model="fechaCierre" />
           </div>
+          <div>
+            <label>Fecha de próxiomo  </label>
+            <input type="date" v-model="fechaSeguimiento" />
+          </div>
+          <!-- <div>
+            <label>Fecha de de proximo seguimiento al riesgo </label>
+            <input type="date" v-model="fechaCierre" />
+          </div> -->
+         
           <!-- <div class="probabilidad-impacto">
             <input type="text" v-model="probabilidad" placeholder="Probabilidad" />
             <input type="text" v-model="impacto" placeholder="Impacto" />
