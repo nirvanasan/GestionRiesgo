@@ -22,15 +22,11 @@
       <!-- Sidebar Menu -->
       <div class="sub-container left">
         <b><p>GESTIÓN DE RIESGOS</p></b>
-        <router-link to="/eleccion" class="menu-titulo">DOFA</router-link>
+        <router-link to="/eleccion" class="menu-titulo">AQUÍ</router-link>
 
 
         <b><p>GESTIÓN DOCUMENTAL</p></b>
-        <div class="menu-titulo" @click="toggleMenu('menu2')">Documentos</div>
-        <ul v-if="activeMenu === 'menu2'" class="menu-opciones">
-          <li @click="selectOption('Ver Carpetas')">Ver Carpetas</li>
-          <li @click="selectOption('Subir/Eliminar')">Subir/Eliminar</li>
-        </ul>
+        <div class="menu-titulo" @click="toggleMenu('menu2')">AQUÍ</div>
       </div>
 
     
@@ -54,12 +50,7 @@ export default {
       date: new Date().toLocaleDateString(),
       time: new Date().toLocaleTimeString(),
       activeMenu: null,
-      notifications: [
-        "notificacion 1", "notificacion 2", "notificacion 3", 
-        "notificacion 4", "notificacion 5", "notificacion 6",
-        "notificacion 7", "notificacion 8", "notificacion 9",
-        "notificacion 10", "notificacion 11"
-      ],
+      notifications: [],
       user: {}
     };
   },

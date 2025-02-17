@@ -62,7 +62,7 @@
         <div class="section">
           <h3>Accion</h3>
           <select v-model="AccionSeleccionada">
-            <option v-for="accion in Accion" :key="accion.id" :value="accion">{{ accion.id_elemento + ": " + accion.informacion }}</option>
+            <option v-for="accion in Accion" :key="accion.id" :value="accion">{{ accion.id_elemento /*+ ": " + accion.informacion*/ }}</option>
           </select>
         </div>
        

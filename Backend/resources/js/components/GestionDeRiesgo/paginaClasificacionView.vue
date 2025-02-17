@@ -14,13 +14,13 @@
           <div class="section">
             <h3>Oportunidad Inherente</h3>
             <select v-model="oportunidadSeleccionada" @change="actualizarSeleccion('oportunidad')">
-              <option v-for="op in oportunidades" :key="op.id" :value="op">{{ op.codigo + ": " + op.descripcion }}</option>
+              <option v-for="op in oportunidades" :key="op.id" :value="op">{{ op.codigo /*+ ": " + op.descripcion */}}</option>
             </select>
           </div>
           <div class="section">
             <h3>Riesgo Inherente</h3>
             <select v-model="riesgoSeleccionado" @change="actualizarSeleccion('riesgo')">
-              <option v-for="riesgo in riesgos" :key="riesgo.id" :value="riesgo">{{ riesgo.codigo + ": " + riesgo.descripcion}}</option>
+              <option v-for="riesgo in riesgos" :key="riesgo.id" :value="riesgo">{{ riesgo.codigo /*+ ": " + riesgo.descripcion*/}}</option>
             </select>
           </div>
         </div>
