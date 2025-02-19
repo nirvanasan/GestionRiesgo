@@ -25,16 +25,31 @@
           </div>
         </div>
           
-          <div class="option">
-            <label>¿Se eliminó la causa raíz de la NC? ¿Se aprovechó la oportunidad? ¿O se mitigó el riesgo?</label>
-            <div class="option2">
-            <input type="radio" id="implementado-si" value="Sí" v-model="implementado" />
+        <div class="options-group">
+        <div class="option">
+          <label>¿Se eliminó la causa raíz de la NC? ¿Se aprovechó la oportunidad? ¿O se mitigó el riesgo?</label>
+          <div class="option2">
+            <input
+              type="radio"
+              id="implementado-si"
+              value="Sí"
+              v-model="implementado"
+              @change="verificarImplementado"
+            />
             <label for="implementado-si">Sí</label>
-            <input type="radio" id="implementado-no" value="No" v-model="implementado" />
+            <input
+              type="radio"
+              id="implementado-no"
+              value="No"
+              v-model="implementado"
+              @change="verificarImplementado"
+            />
             <label for="implementado-no">No</label>
-            </div>
           </div>
-          
+        </div>
+      </div>
+         
+                  
           <div class="option">
             <label>¿Se hizo el cierre eficaz de las acciones del riesgo/oportunidad?</label>
             <div class="option2">
@@ -108,10 +123,11 @@
         </div>
 
         <!-- Botones -->
-        <div class="form-group1">
-              <label for="fecha">Proximo seguimiento:</label>
-              <input type="date" id="fecha"  />
-            </div>
+        <div v-if="mostrarFechaAdicional" class="form-group1">
+          <label for="fecha2">Próximo seguimiento:</label>
+          <input type="date" id="fecha2" v-model="fecha2"  />
+
+        </div>
         <div class="valor-botones">
            
           <button @click="limpiarFormulario">Limpiar</button>
@@ -156,6 +172,9 @@ export default {
       controlActual: "", 
       justificacion: "",
       valoracionControl: 0,
+      implementado: null,
+      mostrarFechaAdicional: false,
+      fecha2: "",
     };
   },
   mounted(){
@@ -170,6 +189,13 @@ export default {
     },
   },
   methods: {
+
+    verificarImplementado() {
+      this.mostrarFechaAdicional = this.implementado === "No";
+      if (!this.mostrarFechaAdicional) {
+        this.fecha2 = ""; // Limpiar la fecha si no se requiere
+      }
+    },
 
     historial(){
       window.location.href= 'http://127.0.0.1:8000/historial';
@@ -195,8 +221,9 @@ export default {
         this.implementado &&
         this.cierre &&
         this.riesgoN &&
-        this.fecha
-      ) {
+        this.fecha &&
+        (!this.mostrarFechaAdicional || this.fecha2) // Solo requiere fecha2 si se muestra
+        )  {
 
         console.log("Datos del formulario:", {
           accion_id: this.AccionSeleccionada.id_elemento,
@@ -207,6 +234,7 @@ export default {
           cierre: this.cierre,
           riesgoN: this.riesgoN,
           fecha: this.fecha,
+          fecha2: this.fecha2,
           probabilidad: this.probabilidad,
           impacto: this.impacto,
           valoracionControl: this.valoracionControl,
