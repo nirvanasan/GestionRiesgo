@@ -3,10 +3,7 @@
   <div class="container">
 
     <div class="box1"><RouterLink to="/main" class="logo-link"></RouterLink></div>
-
-    <div class="box1">
       
-    </div>
 
 
     <div class="box">
