@@ -26,7 +26,7 @@
 
 
         <b><p>GESTIÓN DOCUMENTAL</p></b>
-        <div class="menu-titulo" @click="toggleMenu('menu2')">AQUÍ</div>
+        <router-link to="/GestionDocumental" class="menu-titulo">AQUÍ</router-link>
       </div>
 
     
