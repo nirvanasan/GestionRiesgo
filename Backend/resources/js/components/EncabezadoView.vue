@@ -1,14 +1,18 @@
 <!-- src/components/Encabezado.vue -->
 <template>
   <div class="container">
-    <div class="box1"></div>
+    <div class="box1"><RouterLink to="/main" class="logo-link"></RouterLink></div>
     <div class="box">
       <p> <strong>USUARIO:</strong>  {{ user.name }} </p>
       <p> <strong>FECHA:</strong>  {{ date }}</p>
       <p> <strong>HORA:</strong>  {{ time }}</p>
     </div>
+    
     <div class="box">
-      <button class="button" @click="logout">Cerrar Sesión</button>
+      <button class="button" @click="logout">
+        Cerrar Sesión
+      </button>
+        <RouterLink to="/main" class="button1">Mis tareas</RouterLink>
     </div>
   </div>
 </template>
@@ -163,6 +167,7 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  gap:10px;
   
 }
 .box1 {
@@ -172,10 +177,23 @@ export default {
   align-items: center;
   flex-direction: column;
   background-image: url('img/Logo-Tomy.png');
-  background-size: 200px; /* Ajusta el tamaño de la imagen */
-  background-repeat: no-repeat; /* Evita que la imagen se repita */
-  background-position: center; /* Mueve el logo hacia abajo */
+  background-size: 200px;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative; /* Necesario para posicionar el enlace */
+
 }
+
+.logo-link {
+  position: absolute;
+  width: 140px; /* Mismo tamaño que el logo */
+  height: 80px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 40%;
+}
+
 
 .box p {
   color: black;
@@ -191,9 +209,39 @@ export default {
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s;
+  text-decoration: none;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.button {
+  background-color: #c51919;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.button1 {
+  background-color: #f8e345;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .button:hover {
   background-color: #fbeb0f;
+}
+.button1:hover {
+  background-color: #ac9d9d;
 }
 </style>
