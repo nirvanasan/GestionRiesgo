@@ -61,3 +61,7 @@ Route::get('seguimiento', function () {
 Route::get('historial', function () {
     return view('historial');
 });
+
+Route::get('GestionDocumental', function () {
+    return view('GestionDocumental');
+});

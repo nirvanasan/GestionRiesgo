@@ -14,6 +14,7 @@ import Controles from './components/GestionDeRiesgo/paginaControlesView.vue';
 import Accion from './components/GestionDeRiesgo/paginaAccionView.vue';
 import Seguimiento from './components/GestionDeRiesgo/paginaSeguimientoView.vue';
 import Historial from './components/GestionDeRiesgo/historialView.vue';
+import GD from './components/GstionDocumental/paginaPrincipalView.vue';
 
 
 const routes = [
@@ -123,6 +124,15 @@ const routes = [
       meta: {
           requiresAuth: true,
           title: "historial"
+          }
+    },
+    {
+      path: '/GestionDocumental',
+      name: 'Gestion Documental',
+      component: GD,
+      meta: {
+          requiresAuth: true,
+          title: "Gestion Documental"
           }
     },
 ];
