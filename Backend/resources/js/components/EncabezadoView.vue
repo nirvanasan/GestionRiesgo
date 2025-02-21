@@ -1,7 +1,11 @@
 <!-- src/components/Encabezado.vue -->
 <template>
   <div class="container">
-    <div class="box1"></div>
+
+    <div class="box1">
+      
+    </div>
+
     <div class="box">
       <p> <strong>USUARIO:</strong>  {{ user.name }} </p>
       <p> <strong>FECHA:</strong>  {{ date }}</p>

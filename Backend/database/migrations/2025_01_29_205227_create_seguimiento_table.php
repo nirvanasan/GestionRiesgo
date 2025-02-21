@@ -22,6 +22,7 @@ return new class extends Migration {
             $table->integer('valoracion_control');
             $table->integer('valoracion_total');
             $table->text('justificacion')->nullable();
+            $table->date('proximo_seguimiento')->default(null);
             //$table->foreign('accion_id')->references('id_elemento')->on('acciones')->onDelete('cascade');
             $table->timestamps();
         });
