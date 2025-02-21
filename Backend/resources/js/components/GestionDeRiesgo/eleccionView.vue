@@ -7,7 +7,7 @@
       <section class="input-container">
         <div class="main-nav">
           <!-- Este botón solo se muestra si el rol NO es 2 -->
-          <div class="main-nav__item" v-if="rol == 2">
+          <div class="main-nav__item" v-if="rol !== 1">
             <router-link to="/proceso" class="create-account nav-link">Crear proceso</router-link>
           </div>
           <div class="main-nav__item">
@@ -39,16 +39,13 @@ export default {
     };
   },
   mounted() {
-    //this.rol = localStorage.getItem('rol'); // Obtener el rol del localStorage
-    
-    
 
     const userData = localStorage.getItem("user");
     if (userData) {
       this.user = JSON.parse(userData);
       this.rol = this.user.rol;
     }
-    console.log(this.rol);
+  
   }
 }
 

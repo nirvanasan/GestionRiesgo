@@ -14,7 +14,11 @@
             <th colspan="13" class="header-gestion">Gestión y Seguimiento</th>
             <th colspan="5" class="header-valoraciones">Valoraciones</th>
           </tr>
+
+
           <tr>
+
+
             <th>Id</th>
             <th>Dofa</th>
             <th>Usuario</th>
@@ -115,6 +119,7 @@ export default {
     async cargarInfo() {
       try {
         const response = await fetch("http://127.0.0.1:8000/api/buscar");
+        console.log(response);
         if (!response.ok) throw new Error("Error al cargar datos");
         this.historial = await response.json();
       } catch (error) {
