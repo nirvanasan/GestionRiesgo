@@ -9,6 +9,7 @@ use App\Models\Oportunidad;
 use App\Models\Fortaleza;
 use App\Models\Debilidad;
 use App\Models\Clasificacion;
+use App\Models\Control;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -96,16 +97,21 @@ class DofaController extends Controller
         return response()->json(['message' => 'Datos insertados con éxito'], 201);
     }
 
-    public function buscar(Request $request){
-        
-        //$prueba = Dofa::all();
+    public function buscar(Request $request) {
         $prueba = DB::table('Dofa')
-            ->join('clasificacion', 'Dofa.Codigo', '=', 'clasificacion.id_elemento')
-            ->join('controles', 'clasificacion.id_elemento', '=', 'controles.id_elemento')
-            ->join('acciones', 'controles.id_elemento', '=', 'acciones.id_elemento')
-            ->join('seguimiento', 'acciones.id_elemento', '=', 'seguimiento.accion_id')
+            ->leftJoin('clasificacion', 'Dofa.Codigo', '=', 'clasificacion.id_elemento')
+            ->leftJoin('controles', 'clasificacion.id_elemento', '=', 'controles.id_elemento')
+            ->leftJoin('acciones', 'controles.id_elemento', '=', 'acciones.id_elemento')
+            ->leftJoin('seguimiento', 'acciones.id_elemento', '=', 'seguimiento.accion_id')
+            ->select(
+                'Dofa.*',
+                'clasificacion.*',
+                'controles.*',
+                'acciones.*',
+                'seguimiento.*'
+            )
             ->get();
-
+    
         return response()->json($prueba, 201);
     }
 }
