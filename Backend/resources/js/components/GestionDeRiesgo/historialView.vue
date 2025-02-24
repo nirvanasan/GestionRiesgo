@@ -16,9 +16,7 @@
             <th colspan="12" class="header-seguimiento">Seguimiento</th>
           </tr>
 
-
           <tr>
-
             <!-- DOFA -->
             <th>Id</th>
             <th>Codigo Dofa</th>
@@ -69,10 +67,7 @@
         </thead>
         <tbody>
             <tr v-for="evento in historial" :key="evento.id">
-
-
               <!-- DOFA -->
-
               <td>{{ evento.dofa_id }}</td>
               <td>{{ evento.dofa_codigo }}</td>
               <td>{{ evento.dofa_usuario }}</td>
@@ -80,7 +75,6 @@
               <td>{{ evento.dofa_created_at }}</td>
 
               <!-- Clasificacion -->
-
               <td>{{ evento.clasificacion_tipo }}</td>
               <td>{{ evento.clasificacion_causa }}</td>
               <td>{{ evento.clasificacion_efecto }}</td>
@@ -89,13 +83,11 @@
               <td>{{ evento.clasificacion_valoracion }}</td>
 
               <!-- Controles -->
-
               <td>{{ evento.control_descripcion }}</td>
               <td>{{ evento.control_probabilidad }}</td>
               <td>{{ evento.control_impacto }}</td>
 
               <!-- Acciones -->
-
               <td>{{ evento.accion_informacion }}</td>
               <td>{{ evento.accion_detalle }}</td>
               <td>{{ evento.accion_responsable }}</td>
@@ -105,7 +97,6 @@
               <td>{{ evento.accion_fecha_cierre }}</td>
 
               <!-- Seguimiento -->
-
               <td>{{ evento.seguimiento_control_actual }}</td>
               <td>{{ evento.seguimiento_p1 }}</td>
               <td>{{ evento.seguimiento_p2 }}</td>
@@ -142,7 +133,6 @@ export default {
     async cargarInfo() {
       try {
         const response = await fetch("http://127.0.0.1:8000/api/buscar");
-        console.log(response);
         if (!response.ok) throw new Error("Error al cargar datos");
         this.historial = await response.json();
       } catch (error) {
@@ -154,45 +144,69 @@ export default {
     },
     descargarExcel() {
       const wb = XLSX.utils.book_new();
-      const ws = XLSX.utils.aoa_to_sheet([
-        ["DOFA", "", "", "", "", "", "", "Análisis de Riesgo", "", "", "", "", "", "", "Gestión y Seguimiento", "", "", "", "", "", "", "", "", "", "", "", "", "Valoraciones", "", "", "", ""],
-        ["Id", "Codigo_Dofa", "Usuario", "Proceso", "Fecha_Creacion", "Fecha_Actualizacion",
-        "Tipo", "Causa", "Efecto", "Probabilidad", "Impacto", "Valoracion", "Control",
-        "Descripcion", "Acciones", "Informacion", "Accion", "Responsable", "Proceso", "Fecha_Seguimiento", "Fecha_Cierre", "Control_Actual",
-        "Pregunta_1", "Pregunta_2", "Pregunta_3", "Pregunta_4", "Fecha",
-        "Valoracion_Riesgo", "Valoracion_Control", "Valoracion_Total", "Justificacion"]
-      ]);
 
-      // Ajustar el merge de columnas
-      ws["!merges"] = [
-        { s: { r: 0, c: 0 }, e: { r: 0, c: 6 } },  // DOFA (7 columnas)
-        { s: { r: 0, c: 7 }, e: { r: 0, c: 13 } }, // Análisis de Riesgo (7 columnas)
-        { s: { r: 0, c: 14 }, e: { r: 0, c: 26 } }, // Gestión y Seguimiento (13 columnas)
-        { s: { r: 0, c: 27 }, e: { r: 0, c: 31 } }  // Valoraciones (5 columnas)
+      // Definir los encabezados con colores
+      const encabezados = [
+        ["DOFA", "", "", "", "", "Clasificación", "", "", "", "", "", "Controles", "", "", "Acciones", "", "", "", "", "", "", "Seguimiento", "", "", "", "", "", "", "", "", "", "", ""],
+        [
+          "Id", "Código DOFA", "Usuario", "Proceso", "Fecha Creación",
+          "Tipo", "Causa", "Efecto", "Probabilidad", "Impacto", "Valoración",
+          "Descripción", "Probabilidad Control", "Impacto Control",
+          "Información", "Acción", "Responsable", "Acciones", "Proceso", "Fecha Seguimiento", "Fecha Cierre",
+          "Control Actual", "Pregunta 1", "Pregunta 2", "Pregunta 3", "Pregunta 4", "Probabilidad Final",
+          "Fecha", "Impacto Final", "Valoración Riesgo", "Valoración Control", "Valoración Total", "Justificación"
+        ]
       ];
 
-      // Agregar los datos con los nombres correctos
-      this.historial.forEach(evento => {
-        XLSX.utils.sheet_add_aoa(ws, [[
-          evento.id, evento.codigo_dofa, evento.usuario, evento.proceso, evento.fecha_creacion, evento.fecha_actualizacion,
-          evento.tipo, evento.causa, evento.efecto, evento.probabilidad, evento.impacto, evento.valoracion, evento.control,
-          evento.descripcion, evento.acciones, evento.informacion, evento.accion, evento.responsable, evento.proceso, evento.fecha_seguimiento, evento.fecha_cierre, evento.control_actual,
-          evento.pregunta_1, evento.pregunta_2, evento.pregunta_3, evento.pregunta_4, evento.fecha,
-          evento.valoracion_riesgo, evento.valoracion_control, evento.valoracion_total, evento.justificacion
-        ]], { origin: -1 });
-      });
+      // Convertir encabezados a hoja de cálculo
+      const ws = XLSX.utils.aoa_to_sheet(encabezados);
 
+      // Agregar los datos asegurando que los nombres coincidan con la API
+      const datos = this.historial.map(evento => ([
+        evento.dofa_id, evento.dofa_codigo, evento.dofa_usuario, evento.dofa_proceso, evento.dofa_created_at,
+        evento.clasificacion_tipo, evento.clasificacion_causa, evento.clasificacion_efecto, evento.clasificacion_probabilidad, evento.clasificacion_impacto, evento.clasificacion_valoracion,
+        evento.control_descripcion, evento.control_probabilidad, evento.control_impacto,
+        evento.accion_informacion, evento.accion_detalle, evento.accion_responsable, evento.accion_acciones, evento.accion_proceso, evento.accion_fecha_seguimiento, evento.accion_fecha_cierre,
+        evento.seguimiento_control_actual, evento.seguimiento_p1, evento.seguimiento_p2, evento.seguimiento_p3, evento.seguimiento_p4, evento.seguimiento_probabilidad,
+        evento.seguimiento_fecha, evento.seguimiento_impacto, evento.seguimiento_valoracion_riesgo, evento.seguimiento_valoracion_control, evento.seguimiento_valoracion_total, evento.seguimiento_justificacion
+      ]));
+
+      // Agregar los datos debajo de los encabezados
+      XLSX.utils.sheet_add_aoa(ws, datos, { origin: -1 });
+
+      // Aplicar estilos de color a los encabezados (solo funciona en Excel con formato XLSX)
+      const range = XLSX.utils.decode_range(ws["!ref"]);
+      for (let C = range.s.c; C <= range.e.c; C++) {
+        const cell = ws[XLSX.utils.encode_cell({ r: 1, c: C })]; // Fila 1 (Encabezados)
+        if (cell) {
+          cell.s = {
+            fill: { fgColor: { rgb: "FFFF00" } }, // Amarillo
+            font: { bold: true }
+          };
+        }
+      }
+
+      // Agregar la hoja al libro
       XLSX.utils.book_append_sheet(wb, ws, "Historial");
+
+      // Convertir a Blob y descargar
       const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
       const data = new Blob([excelBuffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8" });
 
+      // Generar nombre con la fecha actual
       const fechaActual = new Date().toISOString().split('T')[0];
-
       saveAs(data, `Historial_Eventos_${fechaActual}.xlsx`);
     }
   }
 };
 </script>
+
+
+
+
+
+
+
 
 
 <style scoped>
