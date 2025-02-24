@@ -22,6 +22,7 @@ app.mount('#controles');
 app.mount('#accion');
 app.mount('#seguimiento');
 app.mount('#historial');
+app.mount('#historialUsuario');
 app.mount('#GD');
 
 app.config.globalProperties.$axios = axios;
