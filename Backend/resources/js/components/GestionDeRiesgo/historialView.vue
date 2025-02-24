@@ -70,54 +70,54 @@
         <tbody>
             <tr v-for="evento in historial" :key="evento.id">
 
+
               <!-- DOFA -->
 
-              <td>{{ evento.id }}</td>
-              <td>{{ evento.Codigo }}</td>
-              <td>{{ evento.id_usuario }}</td>
-              <td>{{ evento.id_proceso }}</td>
-              <td>{{ evento.created_at }}</td>
-
+              <td>{{ evento.dofa_id }}</td>
+              <td>{{ evento.dofa_codigo }}</td>
+              <td>{{ evento.dofa_usuario }}</td>
+              <td>{{ evento.dofa_proceso }}</td>
+              <td>{{ evento.dofa_created_at }}</td>
 
               <!-- Clasificacion -->
 
-              <td>{{ evento.tipo }}</td>
-              <td>{{ evento.causa }}</td>
-              <td>{{ evento.efecto }}</td>
-              <td>{{ evento.probabilidad }}</td>
-              <td>{{ evento.impacto }}</td>
-              <td>{{ evento.valoracion }}</td>
-          
+              <td>{{ evento.clasificacion_tipo }}</td>
+              <td>{{ evento.clasificacion_causa }}</td>
+              <td>{{ evento.clasificacion_efecto }}</td>
+              <td>{{ evento.clasificacion_probabilidad }}</td>
+              <td>{{ evento.clasificacion_impacto }}</td>
+              <td>{{ evento.clasificacion_valoracion }}</td>
+
               <!-- Controles -->
-              
-              <td>{{ evento.descripcion }}</td>
-              <td>{{ evento.probabilidad }}</td>
-              <td>{{ evento.impacto }}</td>
+
+              <td>{{ evento.control_descripcion }}</td>
+              <td>{{ evento.control_probabilidad }}</td>
+              <td>{{ evento.control_impacto }}</td>
 
               <!-- Acciones -->
 
-              <td>{{ evento.informacion }}</td>
-              <td>{{ evento.accion }}</td>
-              <td>{{ evento.responsable }}</td>
-              <td>{{ evento.acciones }}</td>
-              <td>{{ evento.proceso }}</td>
-              <td>{{ evento.fecha_seguimiento }}</td>
-              <td>{{ evento.fecha_cierre }}</td>
+              <td>{{ evento.accion_informacion }}</td>
+              <td>{{ evento.accion_detalle }}</td>
+              <td>{{ evento.accion_responsable }}</td>
+              <td>{{ evento.accion_acciones }}</td>
+              <td>{{ evento.accion_proceso }}</td>
+              <td>{{ evento.accion_fecha_seguimiento }}</td>
+              <td>{{ evento.accion_fecha_cierre }}</td>
 
               <!-- Seguimiento -->
 
-              <td>{{ evento.control_actual }}</td>
-              <td>{{ evento.p1 }}</td>
-              <td>{{ evento.p2 }}</td>
-              <td>{{ evento.p3 }}</td>
-              <td>{{ evento.p4 }}</td>
-              <td>{{ evento.probabilidad }}</td>
-              <td>{{ evento.fecha }}</td>
-              <td>{{ evento.impacto }}</td>
-              <td>{{ evento.valoracion_riesgo }}</td>
-              <td>{{ evento.valoracion_control }}</td>
-              <td>{{ evento.valoracion_total }}</td>
-              <td>{{ evento.justificacion }}</td>
+              <td>{{ evento.seguimiento_control_actual }}</td>
+              <td>{{ evento.seguimiento_p1 }}</td>
+              <td>{{ evento.seguimiento_p2 }}</td>
+              <td>{{ evento.seguimiento_p3 }}</td>
+              <td>{{ evento.seguimiento_p4 }}</td>
+              <td>{{ evento.seguimiento_probabilidad }}</td>
+              <td>{{ evento.seguimiento_fecha }}</td>
+              <td>{{ evento.seguimiento_impacto }}</td>
+              <td>{{ evento.seguimiento_valoracion_riesgo }}</td>
+              <td>{{ evento.seguimiento_valoracion_control }}</td>
+              <td>{{ evento.seguimiento_valoracion_total }}</td>
+              <td>{{ evento.seguimiento_justificacion }}</td>
             </tr>
         </tbody>
       </table>
