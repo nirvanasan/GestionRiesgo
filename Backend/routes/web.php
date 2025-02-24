@@ -62,6 +62,10 @@ Route::get('historial', function () {
     return view('historial');
 });
 
+Route::get('historialUsuario', function () {
+    return view('historialUsuario');
+});
+
 Route::get('GestionDocumental', function () {
     return view('GestionDocumental');
 });

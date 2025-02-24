@@ -131,11 +131,16 @@
            
           <button @click="limpiarFormulario">Limpiar</button>
           <button @click="enviarFormulario">Enviar</button>
-          <button @click="historial">Historia de seguimiento general</button>
+          
+          <button @click="historialUsuario">Historia de seguimiento de área</button>
         </div>
-        <div class="boton-historial">
-          <button>Historia de seguimiento de área</button>
+        
+        <div class="main-nav__item" v-if="rol !== 1">
+          <div class="boton-historial">
+            <button @click="historial">Historia de seguimiento general</button>
+          </div>
         </div>
+        
 
       </div>
     </main>
@@ -173,10 +178,17 @@ export default {
       implementado: null,
       mostrarFechaAdicional: false,
       fecha2: "",
+      rol: null,
     };
   },
   mounted(){
     this.cargarAcciones();
+
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      this.user = JSON.parse(userData);
+      this.rol = this.user.rol;
+    }
   },
   computed: {
     valoracionRiesgo() {
@@ -197,6 +209,9 @@ export default {
 
     historial(){
       window.location.href= 'http://127.0.0.1:8000/historial';
+    },
+    historialUsuario(){
+      window.location.href= 'http://127.0.0.1:8000/historialUsuario';
     },
 
     async cargarAcciones() {
@@ -503,7 +518,11 @@ input[type="radio"] {
   margin-left: 5px;
 }
 
-/* botones  */
+.main-nav {
+    display: flex;
+    gap: 30px; /* Espaciado entre los botones */
+    text-align: center;
+}
 
 
 
