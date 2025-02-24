@@ -139,7 +139,7 @@ const routes = [
     {
       path: '/historialUsuario',
       name: 'Historial Usuarios',
-      component: GD,
+      component: HistorialUsuario,
       meta: {
           requiresAuth: true,
           title: "Historial Usuarios"

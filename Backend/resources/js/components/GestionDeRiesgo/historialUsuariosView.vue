@@ -1,498 +1,314 @@
 <template>
-  <div class="pagina">
-    <!-- Encabezado de la página -->
-    <EncabezadoView />
+  <div class="historial-container">
+    <button @click="volver" class="btn-volver">⬅ Volver</button>
+    <h2>Historial de Eventos</h2>
 
-    <!-- Barra de navegación -->
-    <NavegacionView />
+    <div class="historial-box">
+      <button @click="descargarExcel" class="btn-descargar">📊 Descargar Excel</button>
 
-    <!-- Contenido principal -->
-    <main class="main-content">
-      <!-- Sección izquierda: Cuadro de texto del control actual -->
-      <div class="left-section">
-        <label for="control-actual">Control Actual del Proceso:</label>
-        <textarea id="control-actual" v-model="controlActual"></textarea>
-        
-        <!-- Opciones de Sí o No -->
-        <div class="options-group">
-          <div class="option">
-            <label>¿Cambió el valor del riesgo u oportunidad residual?</label>
-            <div class="option2">
-            <input type="radio" id="documentado-si" value="Sí" v-model="documentado" />
-            <label for="documentado-si">Sí</label>
-            <input type="radio" id="documentado-no" value="No" v-model="documentado" />
-            <label for="documentado-no">No</label>
-          </div>
-        </div>
+      <table ref="tabla">
+        <thead>
+          <tr>
+            <th colspan="5" class="header-dofa">DOFA</th>
+            <th colspan="6" class="header-riesgo">Clasificacion</th>
+            <th colspan="3" class="header-gestion">Controles</th>
+            <th colspan="7" class="header-valoraciones">Acciones</th>
+            <th colspan="12" class="header-seguimiento">Seguimiento</th>
+          </tr>
+
+
+          <tr>
+
+            <!-- DOFA -->
+            <th>Id</th>
+            <th>Codigo Dofa</th>
+            <th>Usuario</th>
+            <th>Proceso</th>
+            <th>Fecha Creación</th>
           
-        <div class="options-group">
-        <div class="option">
-          <label>¿Se eliminó la causa raíz de la NC? ¿Se aprovechó la oportunidad? ¿O se mitigó el riesgo?</label>
-          <div class="option2">
-            <input
-              type="radio"
-              id="implementado-si"
-              value="Sí"
-              v-model="implementado"
-              @change="verificarImplementado"
-            />
-            <label for="implementado-si">Sí</label>
-            <input
-              type="radio"
-              id="implementado-no"
-              value="No"
-              v-model="implementado"
-              @change="verificarImplementado"
-            />
-            <label for="implementado-no">No</label>
-          </div>
-        </div>
-      </div>
-         
-                  
-          <div class="option">
-            <label>¿Se hizo el cierre eficaz de las acciones del riesgo/oportunidad?</label>
-            <div class="option2">
-            <input type="radio" id="cierre-si" value="Sí" v-model="cierre" />
-            <label for="cierre-si">Sí</label>
-            <input type="radio" id="cierre-no" value="No" v-model="cierre" />
-            <label for="cierre-no">No</label>
-            </div>
-          </div>
-          
-          <div class="option">
-            <label>¿Se genera un nuevo riesgo u oportunidad?</label>
-            <div class="option2">
-            <input type="radio" id="riesgoN-si" value="Sí" v-model="riesgoN" />
-            <label for="riesgoN-si">Sí</label>
-            <input type="radio" id="riesgoN-no" value="No" v-model="riesgoN" />
-            <label for="riesgoN-no">No</label>
-          </div>
-          </div>
-        </div>
-      </div>
+            <!-- Clasificacion -->
 
-      <div class="right-section">
-        <!-- Parte superior: Oportunidad y Riesgo -->
-        <div class="section">
-          <h3>Accion</h3>
-          <select v-model="AccionSeleccionada">
-            <option v-for="accion in Accion" :key="accion.id" :value="accion">{{ accion.id_elemento /*+ ": " + accion.informacion*/ }}</option>
-          </select>
-        </div>
+            <th>Tipo</th>
+            <th>Causa</th>
+            <th>Efecto</th>
+            <th>Probabilidad</th>
+            <th>Impacto</th>
+            <th>Valoración</th>
        
+            <!-- Controles -->
+            
+            <th>Descripcion</th>
+            <th>Probabilidad</th>
+            <th>Impacto</th>
 
-        <!-- Parte inferior: campos principales en dos columnas -->
-        <div class="main-fields-container">
-          <!-- Primera columna -->
-          <div class="group">
-            <div class="form-group">
-              <label for="probabilidad">Probabilidad:</label>
-              <input type="number" id="probabilidad" v-model="probabilidad" min="0" max="5" />
-            </div>
-            <div class="form-group">
-              <label for="impacto">Impacto:</label>
-              <input type="number" id="impacto" v-model="impacto" min="0" max="5" />
-            </div>
-            <div class="form-group">
-              <label for="valoracion-control">Valoración del Control:</label>
-              <input type="number" id="valoracion-control" v-model="valoracionControl" min="0" max="5" />
-            </div>
-          </div>
+            <!-- Acciones -->
 
-          <!-- Segunda columna -->
-          <div class="group">
-            <div class="form-group">
-              <label for="fecha">Fecha:</label>
-              <input type="date" id="fecha" v-model="fecha" />
-            </div>
-            <div class="form-group">
-              <label for="valoracion-riesgo">Valoración del Riesgo:</label>
-              <input type="number" id="valoracion-riesgo" :value="valoracionRiesgo" readonly />
-            </div>
-            <div class="form-group">
-              <label for="valoracion-total">Valoración Total:</label>
-              <input type="number" id="valoracion-total" :value="valoracionTotal" readonly />
-            </div>
-          </div>
-        </div>
+            <th>Información</th>
+            <th>Acción</th>
+            <th>Responsable</th>
+            <th>Acciones</th>
+            <th>Proceso</th>
+            <th>Fecha Seguimiento</th>
+            <th>Fecha Cierre</th>
+         
+            <!-- Seguimiento -->
 
-        <div class="tex"> 
-          <label for="control-actual">Justificación</label>
-          <textarea id="control-actual" v-model="justificacion"></textarea>
-        </div>
-
-        <!-- Botones -->
-        <div v-if="mostrarFechaAdicional" class="form-group1">
-          <label for="fecha2">Próximo seguimiento:</label>
-          <input type="date" id="fecha2" v-model="fecha2"  />
-
-        </div>
-        <div class="valor-botones">
-           
-          <button @click="limpiarFormulario">Limpiar</button>
-          <button @click="enviarFormulario">Enviar</button>
-          <button @click="historial">Historia de seguimiento</button>
-        </div>
-
-        
+            <th>Control actual</th>
+            <th>Pregunta 1</th>
+            <th>Pregunta 2</th>
+            <th>Pregunta 3</th>
+            <th>Pregunta 4</th>
+            <th>Probabilidad</th>
+            <th>Fecha</th>
+            <th>Impacto</th>
+            <th>Valoración Riesgo</th>
+            <th>Valoración Control</th>
+            <th>Valoración Total</th>
+            <th>Justificación</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr v-for="evento in historial" :key="evento.id">
 
 
-        
-      </div>
-    </main>
+              <!-- DOFA -->
+
+              <td>{{ evento.dofa_id }}</td>
+              <td>{{ evento.dofa_codigo }}</td>
+              <td>{{ evento.dofa_usuario }}</td>
+              <td>{{ evento.dofa_proceso }}</td>
+              <td>{{ evento.dofa_created_at }}</td>
+
+              <!-- Clasificacion -->
+
+              <td>{{ evento.clasificacion_tipo }}</td>
+              <td>{{ evento.clasificacion_causa }}</td>
+              <td>{{ evento.clasificacion_efecto }}</td>
+              <td>{{ evento.clasificacion_probabilidad }}</td>
+              <td>{{ evento.clasificacion_impacto }}</td>
+              <td>{{ evento.clasificacion_valoracion }}</td>
+
+              <!-- Controles -->
+
+              <td>{{ evento.control_descripcion }}</td>
+              <td>{{ evento.control_probabilidad }}</td>
+              <td>{{ evento.control_impacto }}</td>
+
+              <!-- Acciones -->
+
+              <td>{{ evento.accion_informacion }}</td>
+              <td>{{ evento.accion_detalle }}</td>
+              <td>{{ evento.accion_responsable }}</td>
+              <td>{{ evento.accion_acciones }}</td>
+              <td>{{ evento.accion_proceso }}</td>
+              <td>{{ evento.accion_fecha_seguimiento }}</td>
+              <td>{{ evento.accion_fecha_cierre }}</td>
+
+              <!-- Seguimiento -->
+
+              <td>{{ evento.seguimiento_control_actual }}</td>
+              <td>{{ evento.seguimiento_p1 }}</td>
+              <td>{{ evento.seguimiento_p2 }}</td>
+              <td>{{ evento.seguimiento_p3 }}</td>
+              <td>{{ evento.seguimiento_p4 }}</td>
+              <td>{{ evento.seguimiento_probabilidad }}</td>
+              <td>{{ evento.seguimiento_fecha }}</td>
+              <td>{{ evento.seguimiento_impacto }}</td>
+              <td>{{ evento.seguimiento_valoracion_riesgo }}</td>
+              <td>{{ evento.seguimiento_valoracion_control }}</td>
+              <td>{{ evento.seguimiento_valoracion_total }}</td>
+              <td>{{ evento.seguimiento_justificacion }}</td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
-
-
 <script>
-import { RouterLink } from "vue-router";
-import EncabezadoView from "./../EncabezadoView.vue";
-import NavegacionView from "./../navegacionView.vue";
-import axios from "axios";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 
 export default {
-  name: "MainPage",
-  components: {
-    EncabezadoView,
-    NavegacionView,
-  },
   data() {
     return {
-      Accion: [],
-      AccionSeleccionada: null,
-      documentado: null,
-      implementado: null,
-      cierre: null,
-      riesgoN: null,
-      fecha: "", 
-      probabilidad: 0,
-      impacto: 0,
-      controlActual: "", 
-      justificacion: "",
-      valoracionControl: 0,
-      implementado: null,
-      mostrarFechaAdicional: false,
-      fecha2: "",
+      historial: [],
     };
   },
-  mounted(){
-    this.cargarAcciones();
-  },
-  computed: {
-    valoracionRiesgo() {
-      return this.probabilidad * this.impacto;
-    },
-    valoracionTotal() {
-      return this.valoracionRiesgo * this.valoracionControl;
-    },
+  async mounted() {
+    await this.cargarInfo();
   },
   methods: {
-
-    verificarImplementado() {
-      this.mostrarFechaAdicional = this.implementado === "No";
-      if (!this.mostrarFechaAdicional) {
-        this.fecha2 = ""; // Limpiar la fecha si no se requiere
-      }
-    },
-
-    historial(){
-      window.location.href= 'http://127.0.0.1:8000/historial';
-    },
-
-    async cargarAcciones() {
-
+    async cargarInfo() {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/buscar-acciones");
-        this.Accion = response.data.data;
-        console.log(this.Accion);
+        const response = await fetch("http://127.0.0.1:8000/api/buscarr");
+        console.log(response);
+        if (!response.ok) throw new Error("Error al cargar datos");
+        this.historial = await response.json();
       } catch (error) {
-        console.error("Error al cargar los procesos:", error);
-        this.error = "No se pudieron cargar los procesos.";
-      }
-      },
-
-    async enviarFormulario() {
-      if (
-        this.controlActual &&
-        this.justificacion&&
-        this.documentado &&
-        this.implementado &&
-        this.cierre &&
-        this.riesgoN &&
-        this.fecha &&
-        (!this.mostrarFechaAdicional || this.fecha2) // Solo requiere fecha2 si se muestra
-        )  {
-
-        console.log("Datos del formulario:", {
-          accion_id: this.AccionSeleccionada.id_elemento,
-          controlActual: this.controlActual,
-          justificacion: this.justificacion,
-          documentado: this.documentado,
-          implementado: this.implementado,
-          cierre: this.cierre,
-          riesgoN: this.riesgoN,
-          fecha: this.fecha,
-          fecha2: this.fecha2,
-          probabilidad: this.probabilidad,
-          impacto: this.impacto,
-          valoracionControl: this.valoracionControl,
-          valoracionRiesgo: this.valoracionRiesgo,
-          valoracionTotal: this.valoracionTotal,
-        });
-
-        try{
-          const response = await axios.post("http://127.0.0.1:8000/api/seguimiento", {
-            control_actual: this.controlActual,
-            p1: this.documentado,
-            p2: this.implementado,
-            p3: this.cierre,
-            p4: this.riesgoN,
-            accion_id: this.AccionSeleccionada.id_elemento,
-            probabilidad: this.probabilidad,
-            fecha: this.fecha,
-            impacto: this.impacto,
-            valoracion_riesgo: this.valoracionRiesgo,
-            valoracion_control: this.valoracionControl,
-            valoracion_total: this.valoracionTotal,
-            justificacion: this.justificacion,
-          });
-
-          alert("Seguimiento guardado con éxito");
-          console.log(response.data);
-
-        } catch (error){
-          console.error("Error al enviar los datos:", error);
-          alert("Hubo un problema al guardar el seguimiento");
-        }
-
-      } else {
-        alert("Todos los campos son obligatorios.");
+        console.error("Error:", error);
       }
     },
-    limpiarFormulario() {
-      this.controlActual = "";
-      this.justificacion = "";
-      this.documentado = null;
-      this.implementado = null;
-      this.cierre = null;
-      this.riesgoN = null;
-      this.fecha = "";
-      this.probabilidad = 0;
-      this.impacto = 0;
-      this.valoracionControl = 0;
-      this.AccionSeleccionada = null;
+    volver() {
+      this.$router.push('/seguimiento');
     },
-  },
+    descargarExcel() {
+      const wb = XLSX.utils.book_new();
+      const ws = XLSX.utils.aoa_to_sheet([
+        ["DOFA", "", "", "", "", "", "", "Análisis de Riesgo", "", "", "", "", "", "", "Gestión y Seguimiento", "", "", "", "", "", "", "", "", "", "", "", "", "Valoraciones", "", "", "", ""],
+        ["Id", "Dofa", "Usuario", "Proceso", "Clasificado", "Fecha Creación", "Fecha Actualización",
+        "Tipo", "Causa", "Efecto", "Probabilidad", "Impacto", "Valoración", "Control",
+        "Descripción", "Acciones", "Información", "Acción", "Responsable", "Proceso", "Fecha Seguimiento", "Fecha Cierre", "Control Actual",
+        "P1", "P2", "P3", "P4", "Fecha",
+        "Valoración Riesgo", "Valoración Control", "Valoración Total", "Justificación"]
+      ]);
+
+      // Ajustar el merge de columnas para las secciones
+      ws["!merges"] = [
+        { s: { r: 0, c: 0 }, e: { r: 0, c: 6 } },  // DOFA (7 columnas)
+        { s: { r: 0, c: 7 }, e: { r: 0, c: 13 } }, // Análisis de Riesgo (7 columnas)
+        { s: { r: 0, c: 14 }, e: { r: 0, c: 26 } }, // Gestión y Seguimiento (13 columnas)
+        { s: { r: 0, c: 27 }, e: { r: 0, c: 31 } }  // Valoraciones (5 columnas)
+      ];
+
+      // Agregar los datos
+      this.historial.forEach(evento => {
+        XLSX.utils.sheet_add_aoa(ws, [[
+          evento.id, evento.Codigo, evento.id_usuario, evento.id_proceso, evento.clasificacion, evento.created_at, evento.updated_at,
+          evento.tipo, evento.causa, evento.efecto, evento.probabilidad, evento.impacto, evento.valoracion, evento.control,
+          evento.descripcion, evento.acciones, evento.informacion, evento.accion, evento.responsable, evento.proceso, evento.fecha_seguimiento, evento.fecha_cierre, evento.control_actual,
+          evento.p1, evento.p2, evento.p3, evento.p4, evento.fecha,
+          evento.valoracion_riesgo, evento.valoracion_control, evento.valoracion_total, evento.justificacion
+        ]], { origin: -1 });
+      });
+
+      XLSX.utils.book_append_sheet(wb, ws, "Historial");
+      const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+      const data = new Blob([excelBuffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8" });
+
+      const fechaActual = new Date().toISOString().split('T')[0];
+
+      saveAs(data, `Historial_Eventos_${fechaActual}.xlsx`);
+    }
+  }
 };
 </script>
 
 
-
-
 <style scoped>
-.pagina {
-  display: grid;
-  grid-template-columns: repeat(20, 1fr);
-  grid-template-rows: 100px 100px auto;
-  background-image: url('../img/Fondo2.png');
-  background-position: center center;
-  background-size: cover;
-  font-family: Arial, sans-serif;
+/* Diseño General */
+.historial-container {
+  width: 100vw;
   height: 100vh;
-}
-
-.main-content {
-  grid-column: 4 / 18;
-  grid-row: 3;
-  background-color: #ffffffc0;
-  padding: 20px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8);
-  height: 90%;
-  width: 105%;
-  border-radius: 8px;
-  display: flex;
-  gap: 20px; /* Espacio entre las dos secciones */
-}
-
-.left-section {
-  flex: 1;
+  background-color: #f6e2dd;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-}
-
-.left-section textarea {
-  resize: none;
-  width: 96%;
-  height: 30%;
-  min-height: 150px;
-  padding: 10px;
-  border: 1px solid #000000;
-  border-radius: 4px;
-  background-color: #ffffff6a;
-}
-
-.tex textarea{
-  resize: none;
-  width: 98%;
-  height: 30%;
-  min-height: 20px;
-  padding: 10px;
-  border: 1px solid #000000;
-  border-radius: 4px;
-  background-color: #ffffff6a;
-}
-
-
-
-/* Contenedor para oportunidad y riesgo */
-.top-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between; /* Espaciado uniforme */
-  gap: 20px;
-}
-
-/* Contenedor para los campos principales */
-.main-fields-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-/* Estilo individual para las columnas */
-.group {
-  flex: 1; /* Ambas columnas ocupan el mismo espacio */
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-.form-group1{
-  gap: 150px;
-  width: 30%;
-}
-
-.top-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between; /* Espaciado uniforme */
-  gap: 20px;
-}
-.section {
-  margin-bottom: 15px;
-}
-
-.section select, 
-.section textarea {
-  width: 100%;
-  font-size: 14px;
-  background-color: rgba(240, 248, 255, 0.226);
-  border: 1px solid #000000d3;
-  padding: 8px;
-  box-sizing: border-box;
-}
-
-
-
-/* Contenedor para los grupos */
-.groups-container {
-  display: flex;
-  flex-direction: row; /* Organiza en columnas */
-  justify-content: space-between; /* Espacio entre grupo1 y grupo2 */
-  gap: 20px; /* Espaciado entre las columnas */
-}
-
-/* Ajusta los estilos de los grupos */
-.group1,
-.group2 {
-  flex: 1; /* Ambos ocupan el mismo espacio */
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-/* Contenedor para los botones */
-.valor-botones {
-  position: absolute;
-  right: 150px; /* Mueve el div hacia la derecha */
-  top: 81%; /* Mueve el div hacia abajo */
-  display: flex;
-  gap: 20px;
-}
-
-.input-group {
-  display: flex;
   align-items: center;
-  gap: 10px;
-}
-
-input[type="number"],
-textarea,
-input[type="date"] {
   padding: 5px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  width: 100%;
 }
 
-button {
-  padding: 5px 10px;
-  background-color: #C51922;
-  color: rgb(255, 255, 255);
+/* Botón de volver */
+.btn-volver {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 8px 12px;
+  background-color: #fa5235fa;
+  color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-button:hover{
-  background-color: #ffe100;
-  color: black;
+.btn-volver:hover {
+  background-color: #c9302c;
 }
 
-/* si o no  */
-.options-group {
-  display: flex;
-  flex-direction: column;
-  gap: 11.5px; /* Espacio entre cada opción */
-  margin-top: 8px; /* Espacio entre el textarea y las opciones */
+/* Botón de Descargar */
+.btn-descargar {
+  margin: 10px 0;
+  padding: 8px 12px;
+  background-color: #eb6a50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.option {
-  display: flex;
-  align-items: center;
-  gap: 140px; /* Espacio entre cada opción */
- 
-  border-radius: 5px; /* Esquinas redondeadas (opcional) */
-  padding: 5px; /* Espacio interior del div */
-}
-.option2 {
-  display: flex;
-  align-items: left;
-  gap: 7px; /* Espacio entre cada opción */
-  border: 2px solid #000000; /* Borde azul de 2 píxeles */
-  border-radius: 5px; /* Esquinas redondeadas (opcional) */
-  padding: 5px; /* Espacio interior del div */
+.btn-descargar:hover {
+  background-color: #fac3c1;
 }
 
+/* Tabla */
+.historial-box {
+  width: 95%;
+  max-height: 600px;
+  overflow-x: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgb(0, 0, 0);
+}
 
-label {
+/* Tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
   font-size: 14px;
-  font-weight: bold;
+  text-align: left;
 }
 
-input[type="radio"] {
-  margin-left: 5px;
+/* Cabecera con Colspan */
+th {
+  padding: 10px;
+  border: 1px solid #000000;
+  text-align: center;
+}
+td {
+  padding: 10px;
+  border: 1px solid #000000;
+  text-align: center;
 }
 
-/* botones  */
 
+/* Colores por sección */
+.header-dofa {
+  background-color: #ffcc80;
+}
 
+.header-riesgo {
+  background-color: #ffab91;
+}
 
+.header-gestion {
+  background-color: #81c784;
+}
 
+.header-valoraciones {
+  background-color: #64b5f6;
+}
 
+.header-seguimiento {
+  background-color: #f66b64;
+}
 
+/* Alternar colores de filas */
+tbody tr:nth-child(odd) {
+  background-color: #ddd7d7;
+}
 
+tbody tr:hover {
+  background-color: #e1e1e1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .historial-box {
+    width: 100%;
+    padding: 10px;
+  }
+  table {
+    font-size: 12px;
+  }
+}
 </style>
