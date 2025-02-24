@@ -123,22 +123,20 @@
         </div>
 
         <!-- Botones -->
-        <div v-if="mostrarFechaAdicional" class="form-group1">
+        <div v-show="mostrarFechaAdicional" class="form-group1">
           <label for="fecha2">Próximo seguimiento:</label>
-          <input type="date" id="fecha2" v-model="fecha2"  />
-
+          <input type="date" id="fecha2" v-model="fecha2" />
         </div>
         <div class="valor-botones">
            
           <button @click="limpiarFormulario">Limpiar</button>
           <button @click="enviarFormulario">Enviar</button>
-          <button @click="historial">Historia de seguimiento</button>
+          <button @click="historial">Historia de seguimiento general</button>
+        </div>
+        <div class="boton-historial">
+          <button>Historia de seguimiento de área</button>
         </div>
 
-        
-
-
-        
       </div>
     </main>
   </div>
@@ -417,12 +415,30 @@ export default {
 /* Contenedor para los botones */
 .valor-botones {
   position: absolute;
-  right: 150px; /* Mueve el div hacia la derecha */
+  right: 159px; /* Mueve el div hacia la derecha */
   top: 81%; /* Mueve el div hacia abajo */
   display: flex;
   gap: 20px;
 }
 
+.boton-historial {
+  display: flex;
+  flex-direction: column; /* Coloca los botones en columna */
+  gap: 10px; /* Espacio entre los botones */
+  align-items: flex-end; /* Alinea los botones a la derecha */
+  width: max-content; /* Evita que el div ocupe todo el ancho */
+  min-height: 50px; /* Mantiene espacio para evitar movimientos */
+  position: absolute; /* Permite moverlo libremente */
+  right:10.2%; /* Mueve el div hacia la derecha */
+  top: 86%; /* Mueve el div más abajo */
+}
+
+
+.boton-historial button {
+  width: 210px; /* Ajusta el ancho de los botones */
+  padding: 4px; /* Reduce el tamaño del botón */
+  font-size: 14px; /* Ajusta el tamaño del texto */
+}
 .input-group {
   display: flex;
   align-items: center;
