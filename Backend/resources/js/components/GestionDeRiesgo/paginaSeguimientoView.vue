@@ -131,10 +131,11 @@
            
           <button @click="limpiarFormulario">Limpiar</button>
           <button @click="enviarFormulario">Enviar</button>
-          <button @click="historial">Historia de seguimiento general</button>
+          
+          <button>Historia de seguimiento de área</button>
         </div>
         <div class="boton-historial">
-          <button>Historia de seguimiento de área</button>
+          <button @click="historial">Historia de seguimiento general</button>
         </div>
 
       </div>
