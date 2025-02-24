@@ -156,14 +156,14 @@ export default {
       const wb = XLSX.utils.book_new();
       const ws = XLSX.utils.aoa_to_sheet([
         ["DOFA", "", "", "", "", "", "", "Análisis de Riesgo", "", "", "", "", "", "", "Gestión y Seguimiento", "", "", "", "", "", "", "", "", "", "", "", "", "Valoraciones", "", "", "", ""],
-        ["Id", "Dofa", "Usuario", "Proceso", "Clasificado", "Fecha Creación", "Fecha Actualización",
-        "Tipo", "Causa", "Efecto", "Probabilidad", "Impacto", "Valoración", "Control",
-        "Descripción", "Acciones", "Información", "Acción", "Responsable", "Proceso", "Fecha Seguimiento", "Fecha Cierre", "Control Actual",
-        "P1", "P2", "P3", "P4", "Fecha",
-        "Valoración Riesgo", "Valoración Control", "Valoración Total", "Justificación"]
+        ["Id", "Codigo_Dofa", "Usuario", "Proceso", "Fecha_Creacion", "Fecha_Actualizacion",
+        "Tipo", "Causa", "Efecto", "Probabilidad", "Impacto", "Valoracion", "Control",
+        "Descripcion", "Acciones", "Informacion", "Accion", "Responsable", "Proceso", "Fecha_Seguimiento", "Fecha_Cierre", "Control_Actual",
+        "Pregunta_1", "Pregunta_2", "Pregunta_3", "Pregunta_4", "Fecha",
+        "Valoracion_Riesgo", "Valoracion_Control", "Valoracion_Total", "Justificacion"]
       ]);
 
-      // Ajustar el merge de columnas para las secciones
+      // Ajustar el merge de columnas
       ws["!merges"] = [
         { s: { r: 0, c: 0 }, e: { r: 0, c: 6 } },  // DOFA (7 columnas)
         { s: { r: 0, c: 7 }, e: { r: 0, c: 13 } }, // Análisis de Riesgo (7 columnas)
@@ -171,13 +171,13 @@ export default {
         { s: { r: 0, c: 27 }, e: { r: 0, c: 31 } }  // Valoraciones (5 columnas)
       ];
 
-      // Agregar los datos
+      // Agregar los datos con los nombres correctos
       this.historial.forEach(evento => {
         XLSX.utils.sheet_add_aoa(ws, [[
-          evento.id, evento.Codigo, evento.id_usuario, evento.id_proceso, evento.clasificacion, evento.created_at, evento.updated_at,
+          evento.id, evento.codigo_dofa, evento.usuario, evento.proceso, evento.fecha_creacion, evento.fecha_actualizacion,
           evento.tipo, evento.causa, evento.efecto, evento.probabilidad, evento.impacto, evento.valoracion, evento.control,
           evento.descripcion, evento.acciones, evento.informacion, evento.accion, evento.responsable, evento.proceso, evento.fecha_seguimiento, evento.fecha_cierre, evento.control_actual,
-          evento.p1, evento.p2, evento.p3, evento.p4, evento.fecha,
+          evento.pregunta_1, evento.pregunta_2, evento.pregunta_3, evento.pregunta_4, evento.fecha,
           evento.valoracion_riesgo, evento.valoracion_control, evento.valoracion_total, evento.justificacion
         ]], { origin: -1 });
       });
