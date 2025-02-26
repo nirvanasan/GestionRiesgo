@@ -37,3 +37,4 @@ Route::get('/buscar-acciones', [AccionController::class, 'buscar']);
 Route::post('/seguimiento', [SeguimientoController::class, 'store']);
 
 Route::get('/buscar', [DofaController::class, 'buscar']);
+Route::get('/buscar-usuario', [DofaController::class, 'buscarUsuario']);

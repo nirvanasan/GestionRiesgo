@@ -133,17 +133,30 @@ export default {
   data() {
     return {
       historial: [],
+      user:{},
     };
   },
   async mounted() {
+
+    const userData = localStorage.getItem("user");
+    if (userData) {
+      this.user = JSON.parse(userData);
+  
+    }
+
     await this.cargarInfo();
+
+    
+
   },
   methods: {
     async cargarInfo() {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/buscarr");
-        console.log(response);
+
+        const response = await fetch(`http://127.0.0.1:8000/api/buscar-usuario?id_usuario=${this.user.id}`);
+
         if (!response.ok) throw new Error("Error al cargar datos");
+
         this.historial = await response.json();
       } catch (error) {
         console.error("Error:", error);
