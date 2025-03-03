@@ -202,7 +202,7 @@ class DofaController extends Controller
             })
             ->orderBy('Dofa.id', 'asc')
             ->get();
-    
+
         return response()->json($prueba, 200);
     }
     

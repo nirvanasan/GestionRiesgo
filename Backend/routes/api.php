@@ -13,7 +13,7 @@ use App\Http\Controllers\ClasificacionController;
 use App\Http\Controllers\ControlController;
 use App\Http\Controllers\AccionController;
 use App\Http\Controllers\SeguimientoController;
-
+use App\Http\Controllers\NotificacionController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -38,3 +38,8 @@ Route::post('/seguimiento', [SeguimientoController::class, 'store']);
 
 Route::get('/buscar', [DofaController::class, 'buscar']);
 Route::get('/buscar-usuario', [DofaController::class, 'buscarUsuario']);
+
+
+Route::post('/notificaciones', [NotificacionController::class, 'store']); // Crear notificación
+Route::get('/notificaciones', [NotificacionController::class, 'index']); // Listar notificaciones del usuario
+Route::put('/notificaciones/{id}/leida', [NotificacionController::class, 'marcarComoLeida']); // Marcar como leíd
