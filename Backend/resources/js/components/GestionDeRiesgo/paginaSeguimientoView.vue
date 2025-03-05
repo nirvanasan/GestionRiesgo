@@ -458,7 +458,7 @@ export default {
 .valor-botones {
   position: absolute;
   right: 159px; /* Mueve el div hacia la derecha */
-  top: 81%; /* Mueve el div hacia abajo */
+  top: 83%; /* Mueve el div hacia abajo */
   display: flex;
   gap: 20px;
 }
@@ -472,7 +472,7 @@ export default {
   min-height: 50px; /* Mantiene espacio para evitar movimientos */
   position: absolute; /* Permite moverlo libremente */
   right:10.2%; /* Mueve el div hacia la derecha */
-  top: 86%; /* Mueve el div más abajo */
+  top: 88%; /* Mueve el div más abajo */
 }
 
 
