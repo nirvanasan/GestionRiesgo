@@ -187,7 +187,7 @@ export default {
           return response.json();
         })
         .then((data) => {
-          
+          registrarNotificacion();
           this.limpiar();
         })
         .catch((error) => {
@@ -195,6 +195,19 @@ export default {
         });
 
       alert("Datos enviados exitosamente.");
+
+      const registrarNotificacion = async () => {
+        try {
+            await axios.post('http://127.0.0.1:8000/api/notificaciones', {
+                id_usuario: this.user.id,
+                mensaje: 'Nueva calsificacion registrada'
+            });
+
+            console.log('Notificación guardada correctamente');
+        } catch (error) {
+            console.error('Error al registrar la notificación:', error);
+        }
+      };
       this.reloadPage();
     },
 

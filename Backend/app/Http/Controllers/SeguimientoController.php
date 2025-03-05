@@ -16,7 +16,7 @@ class SeguimientoController extends Controller
             'p2' => 'required|in:Sí,No',
             'p3' => 'required|in:Sí,No',
             'p4' => 'required|in:Sí,No',
-            'accion_id' => 'required|exists:acciones,id',
+            'accion_id' => 'required|exists:acciones,id_elemento',
             'probabilidad' => 'required|integer|min:0|max:5',
             'fecha' => 'required|date',
             'impacto' => 'required|integer|min:0|max:5',
@@ -24,6 +24,7 @@ class SeguimientoController extends Controller
             'valoracion_control' => 'required|integer',
             'valoracion_total' => 'required|integer',
             'justificacion' => 'nullable|string',
+            'proximo_seguimiento' => 'nullable|date'
         ]);
 
         // Creación del registro en la base de datos

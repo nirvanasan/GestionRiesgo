@@ -26,6 +26,7 @@ class Seguimiento extends Model
         'valoracion_control',
         'valoracion_total',
         'justificacion',
+        'proximo_seguimiento',
     ];
 
     public $timestamps = true;

@@ -130,6 +130,20 @@ export default {
   },
   methods: {
 
+  
+    async registrarNotificacion(){
+        try {
+            await axios.post('http://127.0.0.1:8000/api/notificaciones', {
+                id_usuario: this.user.id,
+                mensaje: 'Nueva accion registrada'
+            });
+
+            console.log('Notificación guardada correctamente');
+        } catch (error) {
+            console.error('Error al registrar la notificación:', error);
+        }
+      },
+
     actualizarSeleccion(tipo) {
       if (tipo === 'oportunidad') {
         this.riesgoSeleccionado = null;
@@ -232,6 +246,8 @@ export default {
           });
 
           alert("Acción registrada exitosamente.");
+          
+          this.registrarNotificacion();
           this.limpiarCampos();
         } catch (error) {
           console.error("Error al enviar los datos:", error);
