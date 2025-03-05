@@ -80,7 +80,7 @@
             <option v-for="accion in Accion" :key="accion.id" :value="accion">{{ accion.id_elemento /*+ ": " + accion.informacion*/ }}</option>
           </select>
         </div>
-       
+
 
         <!-- Parte inferior: campos principales en dos columnas -->
         <div class="main-fields-container">
@@ -127,6 +127,7 @@
           <label for="fecha2">Próximo seguimiento:</label>
           <input type="date" id="fecha2" v-model="fecha2" />
         </div>
+
         <div class="valor-botones">
            
           <button @click="limpiarFormulario">Limpiar</button>
@@ -169,7 +170,7 @@ export default {
       implementado: null,
       cierre: null,
       riesgoN: null,
-      fecha: "", 
+      fecha: null, 
       probabilidad: 0,
       impacto: 0,
       controlActual: "", 
@@ -177,7 +178,7 @@ export default {
       valoracionControl: 0,
       implementado: null,
       mostrarFechaAdicional: false,
-      fecha2: "",
+      fecha2: null,
       rol: null,
     };
   },
@@ -200,6 +201,19 @@ export default {
   },
   methods: {
 
+    async registrarNotificacion(){
+        try {
+            await axios.post('http://127.0.0.1:8000/api/notificaciones', {
+                id_usuario: this.user.id,
+                mensaje: 'Nuevo seguimiento registrado'
+            });
+
+            console.log('Notificación guardada correctamente');
+        } catch (error) {
+            console.error('Error al registrar la notificación:', error);
+        }
+      },
+
     verificarImplementado() {
       this.mostrarFechaAdicional = this.implementado === "No";
       if (!this.mostrarFechaAdicional) {
@@ -219,7 +233,7 @@ export default {
       try {
         const response = await axios.get("http://127.0.0.1:8000/api/buscar-acciones");
         this.Accion = response.data.data;
-        console.log(this.Accion);
+        //console.log(this.Accion);
       } catch (error) {
         console.error("Error al cargar los procesos:", error);
         this.error = "No se pudieron cargar los procesos.";
@@ -227,32 +241,42 @@ export default {
       },
 
     async enviarFormulario() {
-      if (
-        this.controlActual &&
-        this.justificacion&&
-        this.documentado &&
-        this.implementado &&
-        this.cierre &&
-        this.riesgoN &&
-        this.fecha &&
-        (!this.mostrarFechaAdicional || this.fecha2) // Solo requiere fecha2 si se muestra
-        )  {
+      
+      /*
+      console.log("Datos del formulario:", {
+        accion_id: this.AccionSeleccionada.id_elemento,
+        controlActual: this.controlActual,
+        justificacion: this.justificacion,
+        documentado: this.documentado,
+        implementado: this.implementado,
+        cierre: this.cierre,
+        riesgoN: this.riesgoN,
+        fecha: this.fecha,
+        probabilidad: this.probabilidad,
+        impacto: this.impacto,
+        valoracionControl: this.valoracionControl,
+        valoracionRiesgo: this.valoracionRiesgo,
+        valoracionTotal: this.valoracionTotal,
+        proximo_seguimiento: this.fecha2,
+        });
+        */
 
-        console.log("Datos del formulario:", {
+
+        console.log("Datos 2:",{
+          control_actual: this.controlActual,
+          p1: this.documentado,
+          p2: this.implementado,
+          p3: this.cierre,
+          p4: this.riesgoN,
           accion_id: this.AccionSeleccionada.id_elemento,
-          controlActual: this.controlActual,
-          justificacion: this.justificacion,
-          documentado: this.documentado,
-          implementado: this.implementado,
-          cierre: this.cierre,
-          riesgoN: this.riesgoN,
-          fecha: this.fecha,
-          fecha2: this.fecha2,
           probabilidad: this.probabilidad,
+          fecha: this.fecha,
           impacto: this.impacto,
-          valoracionControl: this.valoracionControl,
-          valoracionRiesgo: this.valoracionRiesgo,
-          valoracionTotal: this.valoracionTotal,
+          valoracion_riesgo: this.valoracionRiesgo,
+          valoracion_control: this.valoracionControl,
+          valoracion_total: this.valoracionTotal,
+          justificacion: this.justificacion,
+          proximo_seguimiento: this.fecha2
         });
 
         try{
@@ -270,21 +294,23 @@ export default {
             valoracion_control: this.valoracionControl,
             valoracion_total: this.valoracionTotal,
             justificacion: this.justificacion,
+            proximo_seguimiento: this.fecha2
+
           });
 
           alert("Seguimiento guardado con éxito");
-          console.log(response.data);
+          this.registrarNotificacion();
+          //console.log(response.data);
 
         } catch (error){
           console.error("Error al enviar los datos:", error);
           alert("Hubo un problema al guardar el seguimiento");
         }
 
-      } else {
-        alert("Todos los campos son obligatorios.");
-      }
+  
     },
     limpiarFormulario() {
+
       this.controlActual = "";
       this.justificacion = "";
       this.documentado = null;
@@ -296,6 +322,7 @@ export default {
       this.impacto = 0;
       this.valoracionControl = 0;
       this.AccionSeleccionada = null;
+
     },
   },
 };

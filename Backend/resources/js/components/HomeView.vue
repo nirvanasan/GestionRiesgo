@@ -31,11 +31,19 @@
 
     
       <div class="sub-container right">
-        <b><p>TAREAS</p></b>
+        <b><p>Notificaciones</p></b>
         <div class="container3">
-          <li v-for="(notification, index) in notifications" :key="index">{{ notification }}</li>
+          <ul>
+            <li v-for="(notification, index) in notifications" :key="index">
+              <span v-if="!notification.leida"><strong>[Nueva]</strong></span>
+              {{ notification.mensaje }} - {{ new Date(notification.created_at).toLocaleString() }}
+              <button @click="marcarComoLeida(notification.id)" v-if="!notification.leida">Marcar como leída</button>
+            </li>
+          </ul>
         </div>
       </div>
+
+
     </div>
   </div>
 </template>
@@ -59,6 +67,7 @@ export default {
     const userData = localStorage.getItem('user');
     if (userData) {
       this.user = JSON.parse(userData); // Asignar el objeto usuario desde localStorage
+      this.obtenerNotificaciones();
     } else {
       this.$router.push('/login'); // Redirigir si no está autenticado
     }
@@ -66,6 +75,28 @@ export default {
     setInterval(this.updateTime, 1000);
   },
   methods: {
+
+    obtenerNotificaciones() {
+      axios.get(`http://127.0.0.1:8000/api/notificaciones?usuario=${this.user.id}`)
+        .then(response => {
+          this.notifications = response.data;
+        })
+        .catch(error => {
+          console.error("Error al obtener las notificaciones:", error);
+        });
+    },
+    marcarComoLeida(id) {
+      axios.put(`http://127.0.0.1:8000/api/notificaciones/${id}/leida`)
+        .then(() => {
+          this.notifications = this.notifications.map(n => 
+            n.id === id ? { ...n, leida: true } : n
+          );
+        })
+        .catch(error => {
+          console.error("Error al marcar la notificación como leída:", error);
+        });
+    },
+    
     logout() {
       localStorage.removeItem('user'); // Elimina los datos del usuario
       //alert("Sesión cerrada.");

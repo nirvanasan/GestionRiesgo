@@ -148,5 +148,62 @@ class DofaController extends Controller
     
         return response()->json($prueba, 201);
     }
+
+    public function buscarUsuario(Request $request) {
+        // Validar que 'id_usuario' esté presente en la solicitud
+        $id_usuario = $request->input('id_usuario');
+    
+        $prueba = DB::table('Dofa')
+            ->leftJoin('clasificacion', 'Dofa.Codigo', '=', 'clasificacion.id_elemento')
+            ->leftJoin('controles', 'clasificacion.id_elemento', '=', 'controles.id_elemento')
+            ->leftJoin('acciones', 'controles.id_elemento', '=', 'acciones.id_elemento')
+            ->leftJoin('seguimiento', 'acciones.id_elemento', '=', 'seguimiento.accion_id')
+            ->select(
+                'Dofa.id as dofa_id',
+                'Dofa.Codigo as dofa_codigo',
+                'Dofa.id_usuario as dofa_usuario',
+                'Dofa.id_proceso as dofa_proceso',
+                'Dofa.created_at as dofa_created_at',
+    
+                'clasificacion.tipo as clasificacion_tipo',
+                'clasificacion.causa as clasificacion_causa',
+                'clasificacion.efecto as clasificacion_efecto',
+                'clasificacion.probabilidad as clasificacion_probabilidad',
+                'clasificacion.impacto as clasificacion_impacto',
+                'clasificacion.valoracion as clasificacion_valoracion',
+    
+                'controles.descripcion as control_descripcion',
+                'controles.probabilidad as control_probabilidad',
+                'controles.impacto as control_impacto',
+    
+                'acciones.informacion as accion_informacion',
+                'acciones.accion as accion_detalle',
+                'acciones.responsable as accion_responsable',
+                'acciones.acciones as accion_acciones',
+                'acciones.proceso as accion_proceso',
+                'acciones.fecha_seguimiento as accion_fecha_seguimiento',
+                'acciones.fecha_cierre as accion_fecha_cierre',
+    
+                'seguimiento.control_actual as seguimiento_control_actual',
+                'seguimiento.p1 as seguimiento_p1',
+                'seguimiento.p2 as seguimiento_p2',
+                'seguimiento.p3 as seguimiento_p3',
+                'seguimiento.p4 as seguimiento_p4',
+                'seguimiento.probabilidad as seguimiento_probabilidad',
+                'seguimiento.fecha as seguimiento_fecha',
+                'seguimiento.impacto as seguimiento_impacto',
+                'seguimiento.valoracion_riesgo as seguimiento_valoracion_riesgo',
+                'seguimiento.valoracion_control as seguimiento_valoracion_control',
+                'seguimiento.valoracion_total as seguimiento_valoracion_total',
+                'seguimiento.justificacion as seguimiento_justificacion'
+            )
+            ->when($id_usuario, function ($query) use ($id_usuario) {
+                return $query->where('Dofa.id_usuario', $id_usuario);
+            })
+            ->orderBy('Dofa.id', 'asc')
+            ->get();
+
+        return response()->json($prueba, 200);
+    }
     
 }

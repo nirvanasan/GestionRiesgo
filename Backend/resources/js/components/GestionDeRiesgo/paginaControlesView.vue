@@ -136,6 +136,19 @@ export default {
     reloadPage() {
       window.location.reload();
     },
+
+    async registrarNotificacion(){
+        try {
+            await axios.post('http://127.0.0.1:8000/api/notificaciones', {
+                id_usuario: this.user.id,
+                mensaje: 'Nuevo control registrado'
+            });
+
+            console.log('Notificación guardada correctamente');
+        } catch (error) {
+            console.error('Error al registrar la notificación:', error);
+        }
+      },
     async cargarDatos() {
       try {
         const response = await axios.get("http://127.0.0.1:8000/api/cargar-clasificacion");
@@ -220,6 +233,7 @@ export default {
           console.log("Datos enviados correctamente:", response.data);
           alert("Datos ingresados con éxito.");
           this.limpiar(); // Limpiar el formulario después de enviar
+          this.registrarNotificacion();
           this.reloadPage();
         })
         .catch((error) => {
@@ -227,6 +241,9 @@ export default {
           this.error = "Hubo un error al enviar los datos. Por favor, inténtelo de nuevo.";
         });
     },
+
+    
+
   },
   mounted() {
     const userData = localStorage.getItem("user");

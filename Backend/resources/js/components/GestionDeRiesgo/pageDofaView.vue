@@ -137,6 +137,7 @@
 <script>
 import EncabezadoView from '../EncabezadoView.vue';
 import NavegacionView from '../navegacionView.vue';
+import axios from 'axios';
 
 export default {
   name: 'MainPage',
@@ -155,6 +156,7 @@ export default {
       selectedTipo: "",
       user: {},
       procesos: [],
+      proceso: null
     };
   },
   mounted() {
@@ -258,13 +260,28 @@ export default {
       })
         .then(response => response.json())
         .then(response => {
+          registrarNotificacion();
           alert(response.message);
           this.limpiar();
+          
         })
         .catch(error => {
           console.error('Error al enviar los datos:', error);
           alert('Error al enviar los datos.');
         });
+      
+      const registrarNotificacion = async () => {
+      try {
+          await axios.post('http://127.0.0.1:8000/api/notificaciones', {
+              id_usuario: this.user.id,
+              mensaje: 'Nueva matriz DOFA registrada'
+          });
+
+          console.log('Notificación guardada correctamente');
+      } catch (error) {
+          console.error('Error al registrar la notificación:', error);
+      }
+    };
     },
   },
 };
