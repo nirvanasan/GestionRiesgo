@@ -299,6 +299,7 @@ export default {
 
         alert("Seguimiento guardado con éxito");
         this.registrarNotificacion();
+        this.limpiarFormulario();
       } catch (error) {
         console.error("Error al enviar los datos:", error);
         alert("Hubo un problema al guardar el seguimiento");
