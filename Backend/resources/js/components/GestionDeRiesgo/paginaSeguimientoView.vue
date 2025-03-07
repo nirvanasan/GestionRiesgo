@@ -176,7 +176,6 @@ export default {
       controlActual: "", 
       justificacion: "",
       valoracionControl: 0,
-      implementado: null,
       mostrarFechaAdicional: false,
       fecha2: null,
       rol: null,
@@ -200,7 +199,6 @@ export default {
     },
   },
   methods: {
-
     async registrarNotificacion(){
         try {
             await axios.post('http://127.0.0.1:8000/api/notificaciones', {
@@ -229,40 +227,60 @@ export default {
     },
 
     async cargarAcciones() {
-
       try {
         const response = await axios.get("http://127.0.0.1:8000/api/buscar-acciones");
         this.Accion = response.data.data;
-        //console.log(this.Accion);
       } catch (error) {
         console.error("Error al cargar los procesos:", error);
         this.error = "No se pudieron cargar los procesos.";
       }
-      },
+    },
+
+        validarFormulario() {
+      if (
+        !this.AccionSeleccionada ||
+        !this.controlActual ||
+        !this.justificacion ||
+        this.documentado === null ||
+        this.implementado === null ||
+        this.cierre === null ||
+        this.riesgoN === null ||
+        !this.fecha ||
+        this.probabilidad === 0 ||
+        this.impacto === 0 ||
+        this.valoracionControl === 0 ||
+        (this.mostrarFechaAdicional && !this.fecha2) // Solo obligatorio si mostrarFechaAdicional es true
+      ) {
+        alert("Por favor, complete todos los campos obligatorios.");
+        return false;
+      }
+      return true;
+    },
 
     async enviarFormulario() {
-      
-      /*
-      console.log("Datos del formulario:", {
+      if (!this.validarFormulario()) {
+        return;
+      }
+
+      console.log("Datos enviados:", {
+        control_actual: this.controlActual,
+        p1: this.documentado,
+        p2: this.implementado,
+        p3: this.cierre,
+        p4: this.riesgoN,
         accion_id: this.AccionSeleccionada.id_elemento,
-        controlActual: this.controlActual,
-        justificacion: this.justificacion,
-        documentado: this.documentado,
-        implementado: this.implementado,
-        cierre: this.cierre,
-        riesgoN: this.riesgoN,
-        fecha: this.fecha,
         probabilidad: this.probabilidad,
+        fecha: this.fecha,
         impacto: this.impacto,
-        valoracionControl: this.valoracionControl,
-        valoracionRiesgo: this.valoracionRiesgo,
-        valoracionTotal: this.valoracionTotal,
-        proximo_seguimiento: this.fecha2,
-        });
-        */
+        valoracion_riesgo: this.valoracionRiesgo,
+        valoracion_control: this.valoracionControl,
+        valoracion_total: this.valoracionTotal,
+        justificacion: this.justificacion,
+        proximo_seguimiento: this.fecha2
+      });
 
-
-        console.log("Datos 2:",{
+      try {
+        const response = await axios.post("http://127.0.0.1:8000/api/seguimiento", {
           control_actual: this.controlActual,
           p1: this.documentado,
           p2: this.implementado,
@@ -279,38 +297,15 @@ export default {
           proximo_seguimiento: this.fecha2
         });
 
-        try{
-          const response = await axios.post("http://127.0.0.1:8000/api/seguimiento", {
-            control_actual: this.controlActual,
-            p1: this.documentado,
-            p2: this.implementado,
-            p3: this.cierre,
-            p4: this.riesgoN,
-            accion_id: this.AccionSeleccionada.id_elemento,
-            probabilidad: this.probabilidad,
-            fecha: this.fecha,
-            impacto: this.impacto,
-            valoracion_riesgo: this.valoracionRiesgo,
-            valoracion_control: this.valoracionControl,
-            valoracion_total: this.valoracionTotal,
-            justificacion: this.justificacion,
-            proximo_seguimiento: this.fecha2
-
-          });
-
-          alert("Seguimiento guardado con éxito");
-          this.registrarNotificacion();
-          //console.log(response.data);
-
-        } catch (error){
-          console.error("Error al enviar los datos:", error);
-          alert("Hubo un problema al guardar el seguimiento");
-        }
-
-  
+        alert("Seguimiento guardado con éxito");
+        this.registrarNotificacion();
+      } catch (error) {
+        console.error("Error al enviar los datos:", error);
+        alert("Hubo un problema al guardar el seguimiento");
+      }
     },
-    limpiarFormulario() {
 
+    limpiarFormulario() {
       this.controlActual = "";
       this.justificacion = "";
       this.documentado = null;
@@ -322,11 +317,11 @@ export default {
       this.impacto = 0;
       this.valoracionControl = 0;
       this.AccionSeleccionada = null;
-
     },
   },
 };
 </script>
+
 
 
 

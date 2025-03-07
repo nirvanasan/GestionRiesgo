@@ -283,6 +283,9 @@ button:hover {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   min-width: 250px; /* Tamaño mínimo */
   min-height: 180px; /* Altura mínima */
+  max-height: 200px; /* Ajusta la altura máxima según lo necesites */
+  overflow-y: auto;  /* Activa el scroll vertical si el contenido es mayor */
+  border: 1px solid #ccc; /* Opcional: solo para visualizar mejor */
 }
 
 .tabla-dofa {

@@ -79,7 +79,7 @@
                   {{ item.type }}:
                 </span>
                 {{ item.text }}
-                <button @click="editItem(item, item.text)" class="btn edit-btn">Editar</button>
+              
               </div>
             </div>
           </div>
